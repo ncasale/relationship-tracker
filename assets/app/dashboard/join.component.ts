@@ -29,7 +29,8 @@ export class JoinComponent implements OnInit{
         this.relationshipService.removeInviteId.subscribe(
             (inviteId: string) => {
                 var indexToRemove = -1;
-                for(var i=0; i < this.relationships.length; i++) {
+                var relationshipLength = this.relationships.length;
+                for(var i=0; i < relationshipLength; i++) {
                     if(this.relationships[i].relationshipId == inviteId) {
                         indexToRemove = i;
                         break;                        

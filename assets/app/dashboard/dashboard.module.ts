@@ -8,13 +8,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MyDashComponent } from './mydash.component';
 import { RelationshipModule } from '../relationships/relationship.module';
 import { JoinCardComponent } from './join-card.component';
+import { LogoutComponent } from './logout.component';
 
 @NgModule({
     declarations: [
         JoinComponent,
         CreateComponent,
         MyDashComponent,
-        JoinCardComponent
+        JoinCardComponent,
+        LogoutComponent
     ],
     imports: [
         CommonModule,

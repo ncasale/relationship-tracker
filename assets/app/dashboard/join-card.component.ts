@@ -15,7 +15,10 @@ export class JoinCardComponent {
     constructor(private relationshipService: RelationshipService, private router: Router) {}
 
     acceptInvite() {
-
+        this.relationshipService.removeInviteId.emit(this.relationship.relationshipId);
+        this.relationshipService.acceptRelationshipInvite(this.relationship.relationshipId)
+            .subscribe();
+        this.router.navigateByUrl('dashboard/join');
     }
 
     declineInvite() {

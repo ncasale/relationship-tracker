@@ -45,8 +45,6 @@ router.post('/add', function(req, res, next) {
             users: [user]
         });
 
-        console.log('Save route hit');
-
         //Save realtionship to database
         relationship.save(function(err, savedRelationship) {
             if(err) {
@@ -112,66 +110,6 @@ router.post('/getrelationships', function(req, res, next) {
                 }
             })
         }) 
-    })
-})
-
-router.patch('/join:id', function(req, res, next) {
-    var decoded = jwt.decode(req.query.token);
-    //Find relationship with passed id
-    Relationship.findById(req.params.id, function(err, relationship) {
-        if(err) {
-            return res.status(500).json({
-                title: 'An error occurred',
-                error: err
-            })
-        }
-        if(!relationship) {
-            return res.status(404).json({
-                title: 'Could not find relationship',
-                error: err
-            })
-        }
-        //Check to see if user listed as invitee on relationship
-        var isInvitee = false;
-        var counter = 0;
-        relationship.invitees.forEach(function(inviteeId) {
-            if(inviteeId === decoded.user._id) {
-                isInvitee = true;
-            }
-
-            //Continue only once loop is done iterating
-            if(counter === relationship.invitees.length) {
-                if(isInvitee) {
-                    //Update the user's relationship array
-                    User.findById(decoded.user._id, function(err, user) {
-                        if(err) {
-                            return res.status(500).json({
-                                title: 'An error occurred',
-                                error: err
-                            });
-                        }
-                        user.relationships.push(relationship);
-                        user.save()
-
-                        //Update the relationship's user array
-                        relationship.userIds.push(decoded.user._id);
-                        relationship.save(function(err, result) {
-                            if(err) {
-                                return res.status(500).json({
-                                    title: 'An error occurred',
-                                    error: err
-                                });
-                            }
-                            return res.status(200).json({
-                                title: 'Joined relationship',
-                                obj: result
-                            });
-                        })
-                    })
-                    
-                }
-            }
-        })
     })
 })
 
@@ -266,6 +204,9 @@ router.patch('/invite/:email/:id', function(req, res, next) {
     })
 })
 
+/**
+ * Route to get all relationships a user is invited to
+ */
 router.post('/getinvitedrelationships', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
     //Get user using token
@@ -313,11 +254,13 @@ router.post('/getinvitedrelationships', function(req, res, next) {
     }) 
 })
 
+/**
+ * Route to decline an invite to a relationship
+ */
 router.patch('/declineinvite/:id', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
     //Get user
     User.findById(decoded.user._id, function(err, user){
-        console.log(decoded);
         if(err) {
             return res.status(500).json({
                 title: 'An error occurred', 
@@ -330,17 +273,14 @@ router.patch('/declineinvite/:id', function(req, res, next) {
                 error: {message: 'user not found'}
             })
         }
-        console.log('Got user');
         //Remove id from list if it exists
-        if(!user.invites) {
+        if(user.invites.length >= 1) {
             for(var counter=0; counter < user.invites.length; counter++) {
                 if(req.params.id == user.invites[counter]) {
-                    console.log('Removed id');
                     user.invites.splice(counter, 1);
                     user.save();
                 }
                 if(counter == user.invites.length) {
-                    console.log('Returning...');
                     return res.status(201).json({
                         title: 'Invite declined',
                         obj: {}
@@ -355,8 +295,95 @@ router.patch('/declineinvite/:id', function(req, res, next) {
             error: {message: 'No invites found!'}
         })
             
-        })
-    
+    })
+})
+
+/**
+ * Route to accept an invite to a relationship
+ */
+router.patch('/acceptinvite/:id', function(req, res, next) {
+    var decoded = jwt.decode(req.query.token);
+    //Find relationship with passed id
+    Relationship.findById(req.params.id, function(err, relationship) {
+       
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            })
+        }
+        if(!relationship) {
+            return res.status(404).json({
+                title: 'Could not find relationship',
+                error: err
+            })
+        }
+
+        //Check to see if user listed as invitee on relationship
+        var isInvitee = false;
+        for(var inviteCounter=0; inviteCounter < relationship.invitees.length; inviteCounter++) {
+            if(relationship.invitees[inviteCounter] == decoded.user._id) {
+                //Remove invitee from relationship
+                relationship.invitees.splice(inviteCounter, 1);
+                isInvitee = true;
+            }
+            //Continue only once loop is done iterating
+            console.log(relationship);
+            if(inviteCounter == relationship.invitees.length) {
+                if(isInvitee) {
+                    console.log('Is Invitee...');
+                    //Get user                    
+                    User.findById(decoded.user._id, function(err, user) {
+                        if(err) {
+                            return res.status(500).json({
+                                title: 'An error occurred',
+                                error: err
+                            });
+                        }
+                        if(!user) {
+                            return res.status(404).json({
+                                title: 'No user found',
+                                error: {message: 'No user found'}
+                            })
+                        }
+
+                        //Update the user's relationship array
+                        user.relationships.push(relationship);
+
+                        //Remove invite from user's invite array
+                        for(var counter=0; counter < user.invites.length; counter++) {
+                            if(req.params.id == user.invites[counter]) {
+                                user.invites.splice(counter, 1);                                
+                            }
+
+                            if(counter == user.invites.length) {
+                                //Save user
+                                user.save();
+
+                                //Push user into the relationship's user array
+                                relationship.users.push(decoded.user._id);
+
+                                //Save relationship
+                                relationship.save(function(err, result) {
+                                    if(err) {
+                                        return res.status(500).json({
+                                            title: 'An error occurred',
+                                            error: err
+                                        });
+                                    }
+                                    return res.status(200).json({
+                                        title: 'Joined relationship',
+                                        obj: result
+                                    });
+                                })                              
+                            }
+                        }
+                        
+                    })                    
+                }
+            }
+        }
+    })
 })
 
 module.exports = router;

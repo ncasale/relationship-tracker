@@ -94,30 +94,6 @@ export class RelationshipService {
             });
     }
 
-    /**
-     * Add user to an exisiting relationship
-     * 
-     * @param {Relationship} relationship the relationship to add the user to
-     * @memberof RelationshipService
-     */
-    joinRelationship(relationship: Relationship) {
-        //Construct the body of the post request
-        const body = JSON.stringify(relationship);
-        //Create the headers
-        const headers = new Headers({'Content-Type': 'application/json'});
-        //Create token
-        const token = localStorage.getItem('token') ?
-            '?=token' + localStorage.getItem('token') :
-            '';
-        //Construct the patch request
-        return this.http.patch('http://localhost:3000/relationship/join' + relationship.relationshipId + token, body, {headers:headers})
-            .map((response: Response) => response.json())
-            .catch((error: Response) => {
-                this.errorService.handleError(error.json());
-                return Observable.throw(error.json());
-            })
-    } 
-
     inviteToRelationship(relationship: Relationship, email: string) {
         //Construct the body
         const body = JSON.stringify(relationship);
@@ -174,8 +150,12 @@ export class RelationshipService {
             })
     }
 
+    /**
+     * Deny an invite to the passed relationship
+     * 
+     * @param inviteId the ID of the relationship to deny an invite to
+     */
     declineRelationshipInvite(inviteId: string) {
-        console.log('Got to decline funciton in service');
         //Create body
         const body = {};
         //Create headers
@@ -192,6 +172,26 @@ export class RelationshipService {
                 return Observable.throw(error.json());
             })
     }
+
+    acceptRelationshipInvite(inviteId: string) {
+        //Create body
+        const body = {}
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get token
+        const token = localStorage.getItem('token') ?
+            '?token=' + localStorage.getItem('token') :
+            '';
+        //Construct request
+        return this.http.patch('http://localhost:3000/relationship/acceptinvite/' + inviteId + token, body, {headers: headers})
+            .map((response: Response) => response.json())
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
+
+    }
+
     
     /**
      * Toggle invite component 
