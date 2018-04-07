@@ -1,0 +1,11 @@
+<h1>Create a new relationship!</h1>
+<hr>
+<div class="col-md-8 col-md-offset-2">
+    <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="name">Relationship Name</label>
+            <input type="text" id="name" class="form-control" formControlName="name">
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="!createForm.valid">Create</button>
+    </form>
+</div>

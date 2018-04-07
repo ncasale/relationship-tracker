@@ -1,0 +1,13 @@
+<header class="row">
+    <nav class="col-md-8 col-md-offset-2">
+        <ul class="nav nav-pills">
+            <li routerLinkActive="active"><a [routerLink]="['/dashboard/join']">Join Relationship</a></li>
+            <li routerLinkActive="active"><a [routerLink]="['/dashboard/create']">Create Relationship</a></li>
+            <li routerLinkActive="active"><a [routerLink]="['/dashboard/mydash']">My Dash</a></li>
+            <li><a (click)="logout()">Logout</a></li>            
+        </ul>
+    </nav>
+</header>
+<hr>
+<app-relationship-invite></app-relationship-invite>
+<router-outlet></router-outlet>
