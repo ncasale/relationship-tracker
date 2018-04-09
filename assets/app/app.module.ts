@@ -10,7 +10,6 @@ import { AuthService } from './auth/auth.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RelationshipService } from './relationships/relationship.service';
 import { RelationshipModule } from './relationships/relationship.module';
-import { RelationshipListComponent } from './relationships/relationship-list.component';
 import { ErrorService } from './error/error.service';
 import { ErrorComponent } from './error/error.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
