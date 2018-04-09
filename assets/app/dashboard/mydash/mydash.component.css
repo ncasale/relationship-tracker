@@ -1,0 +1,18 @@
+.example-container {
+    position: absolute;
+    top: 90px;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+  }
+  
+  .example-sidenav {
+    display: flex;
+    align-items: top;
+    justify-content: center;
+    width: 200px;
+    background: rgba(102,51,153)
+  }
+  
+
+  @import "~@angular/material/prebuilt-themes/indigo-pink.css";

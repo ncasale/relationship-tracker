@@ -13,6 +13,9 @@ import { RelationshipModule } from './relationships/relationship.module';
 import { RelationshipListComponent } from './relationships/relationship-list.component';
 import { ErrorService } from './error/error.service';
 import { ErrorComponent } from './error/error.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import 'style-loader!../../node_modules/@angular/material/prebuilt-themes/indigo-pink.css'
 
 @NgModule({
     declarations: [
@@ -23,6 +26,7 @@ import { ErrorComponent } from './error/error.component';
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
         HttpModule,

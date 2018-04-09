@@ -6,6 +6,8 @@ import { mydashRouting } from "./mydash.routing";
 import { DatesComponent } from "./dates.component";
 import { ChoresComponent } from "./chores.component";
 import { FightsComponent } from "./fights.component";
+import { MatSidenavModule, MatToolbar, MatToolbarModule, MatListModule } from "@angular/material"
+import { CommonModule } from "@angular/common";
 
 @NgModule({
     declarations: [
@@ -14,10 +16,15 @@ import { FightsComponent } from "./fights.component";
         DatesComponent,
         ChoresComponent,
         FightsComponent
+        
     ],
     imports: [
         RelationshipModule,
-        mydashRouting
+        mydashRouting,
+        CommonModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatListModule
     ],
     exports: [
         MyDashComponent

@@ -6,3 +6,5 @@ body {
 a {
   color: #00B7FF;
 }
+
+@import "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
