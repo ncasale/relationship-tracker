@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { Relationship } from "../../relationships/relationship.model";
 import { RelationshipService } from "../../relationships/relationship.service";
+import { MessagesService } from "./messages/messages.service";
 
 @Component({
     selector: 'app-mydash',
@@ -11,7 +12,7 @@ export class MyDashComponent {
     selectedRelationship: Relationship;
     relationships: Relationship[] = [];
 
-    constructor(private relationshipService: RelationshipService) {}
+    constructor(private relationshipService: RelationshipService, private messageService: MessagesService) {}
 
     /**
      * On init, contact RelationshipService to get a list of relationships
@@ -35,7 +36,8 @@ export class MyDashComponent {
      * @memberof MyDashComponent
      */
     setCurrentRelationship(relationship: Relationship) {
-        //will set the current relationship of component from relationship list
         this.selectedRelationship = relationship;
+        //Emit signal to update relationship in message service
+        this.messageService.currentMyDashRelationshipEmitter.emit(this.selectedRelationship);
     }
 }

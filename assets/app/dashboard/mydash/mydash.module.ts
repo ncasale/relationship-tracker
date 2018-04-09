@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { MyDashComponent } from "./mydash.component";
 import { RelationshipModule } from "../../relationships/relationship.module";
-import { MessagesComponent } from "./messages.component";
 import { mydashRouting } from "./mydash.routing";
 import { DatesComponent } from "./dates.component";
 import { ChoresComponent } from "./chores.component";
@@ -9,6 +8,7 @@ import { FightsComponent } from "./fights.component";
 import { MatSidenavModule, MatToolbar, MatToolbarModule, MatListModule } from "@angular/material"
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
+import { MessagesComponent } from "./messages/messages.component";
 
 @NgModule({
     declarations: [
@@ -16,8 +16,7 @@ import { ReactiveFormsModule } from "@angular/forms";
         MessagesComponent,
         DatesComponent,
         ChoresComponent,
-        FightsComponent
-        
+        FightsComponent        
     ],
     imports: [
         RelationshipModule,

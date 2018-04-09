@@ -15,6 +15,7 @@ import { ErrorComponent } from './error/error.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import 'style-loader!../../node_modules/@angular/material/prebuilt-themes/indigo-pink.css'
+import { MessagesService } from './dashboard/mydash/messages/messages.service';
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import 'style-loader!../../node_modules/@angular/material/prebuilt-themes/indigo
     providers: [
         AuthService,
         RelationshipService,
-        ErrorService
+        ErrorService,
+        MessagesService
     ],
     bootstrap: [AppComponent]
 })

@@ -10,7 +10,7 @@ var appRoutes = require('./routes/app');
 var authRoutes = require('./routes/auth');
 var dashboardRoutes = require('./routes/dashboard');
 var relationshipRoutes = require('./routes/relationship');
-var mydashRoutes = require('./routes/mydash');
+var messageRoutes = require('./routes/message');
 
 var app = express();
 
@@ -44,6 +44,7 @@ app.use(function(req, res, next) {
 
 app.use('/auth', authRoutes);
 app.use('/relationship', relationshipRoutes);
+app.use('/message', messageRoutes);
 app.use('/dashboard', dashboardRoutes);
 app.use('/', appRoutes);
 
