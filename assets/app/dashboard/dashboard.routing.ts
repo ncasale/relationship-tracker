@@ -9,7 +9,7 @@ const DASHBOARD_ROUTES: Routes = [
     { path: '', redirectTo: 'mydash', pathMatch: 'full'},
     { path: 'join', component: JoinComponent },
     { path: 'create', component: CreateComponent },
-    { path: 'mydash', component: MyDashComponent},
+    { path: 'mydash', component: MyDashComponent, loadChildren: './mydash/mydash.module#MyDashModule' },
     { path: 'logout', component: LogoutComponent}
 ]
 

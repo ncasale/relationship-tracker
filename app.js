@@ -10,6 +10,7 @@ var appRoutes = require('./routes/app');
 var authRoutes = require('./routes/auth');
 var dashboardRoutes = require('./routes/dashboard');
 var relationshipRoutes = require('./routes/relationship');
+var mydashRoutes = require('./routes/mydash');
 
 var app = express();
 
