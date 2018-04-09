@@ -5,16 +5,15 @@ import { dashboardRouting } from './dashboard.routing';
 import { JoinComponent } from './join.component';
 import { CreateComponent } from './create.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MyDashComponent } from './mydash.component';
 import { RelationshipModule } from '../relationships/relationship.module';
 import { JoinCardComponent } from './join-card.component';
 import { LogoutComponent } from './logout.component';
+import { MyDashModule } from './mydash/mydash.module';
 
 @NgModule({
     declarations: [
         JoinComponent,
         CreateComponent,
-        MyDashComponent,
         JoinCardComponent,
         LogoutComponent
     ],
@@ -22,7 +21,8 @@ import { LogoutComponent } from './logout.component';
         CommonModule,
         dashboardRouting,
         ReactiveFormsModule,
-        RelationshipModule        
+        RelationshipModule,
+        MyDashModule       
     ]
 
 })
