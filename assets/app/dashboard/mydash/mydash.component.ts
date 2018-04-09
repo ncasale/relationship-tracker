@@ -31,10 +31,10 @@ export class MyDashComponent {
     /**
      * Set the currently selected relationship in MyDash
      * 
-     * @param {any} relationship 
+     * @param {Relationship} relationship 
      * @memberof MyDashComponent
      */
-    setCurrentRelationship(relationship) {
+    setCurrentRelationship(relationship: Relationship) {
         //will set the current relationship of component from relationship list
         this.selectedRelationship = relationship;
     }

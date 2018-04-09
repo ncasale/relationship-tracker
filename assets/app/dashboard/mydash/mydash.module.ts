@@ -8,6 +8,7 @@ import { ChoresComponent } from "./chores.component";
 import { FightsComponent } from "./fights.component";
 import { MatSidenavModule, MatToolbar, MatToolbarModule, MatListModule } from "@angular/material"
 import { CommonModule } from "@angular/common";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -22,6 +23,7 @@ import { CommonModule } from "@angular/common";
         RelationshipModule,
         mydashRouting,
         CommonModule,
+        ReactiveFormsModule,
         MatSidenavModule,
         MatToolbarModule,
         MatListModule
