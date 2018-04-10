@@ -5,13 +5,14 @@ import { mydashRouting } from "./mydash.routing";
 import { DatesComponent } from "./dates/dates.component";
 import { ChoresComponent } from "./chores.component";
 import { FightsComponent } from "./fights.component";
-import { MatSidenavModule, MatToolbar, MatToolbarModule, MatListModule, MatCalendar, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule } from "@angular/material"
+import { MatSidenavModule, MatToolbar, MatToolbarModule, MatListModule, MatCalendar, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule } from "@angular/material"
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MessagesComponent } from "./messages/messages.component";
 import { MessageCardComponent } from "./messages/message-card.component";
 import { ngMaterialDatePicker } from 'ng-material-datetimepicker'
 import { DateInputComponent } from "./dates/date-input.component";
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime'
 
 @NgModule({
     declarations: [
@@ -34,7 +35,9 @@ import { DateInputComponent } from "./dates/date-input.component";
         MatDatepickerModule,
         MatNativeDateModule,
         MatFormFieldModule,
-        MatInputModule
+        MatInputModule,
+        MatSelectModule,
+        MatOptionModule
     ],
     exports: [
         MyDashComponent

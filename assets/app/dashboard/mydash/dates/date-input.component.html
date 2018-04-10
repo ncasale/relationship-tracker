@@ -1,21 +1,24 @@
-<div class="col-md-8 col-md-offset-2">
-    <form [formGroup]="dateForm" (ngSubmit)="onSubmit()">  
-        <div class="form-group">
-            <label for="title">Date Title</label>
-            <input type="text" id="title" class="form-control" formControlName="title">
-        </div>
-        <div class="form-group">
-            <label for="location">Location</label>
-            <input type="text" id="location" class="form-control" formControlName="location">
-        </div>
-    </form>
+<div class="col-md-8 col-md-offset-2 date-form-container">
     <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <input matInput placeholder="Title" [formControl]="title" required>
+        <mat-error *ngIf="title.invalid">{{getTitleErrorMessage()}}</mat-error>
     </mat-form-field>
-    <div>
-        <button class="btn btn-primary" type="submit" [disabled]="!dateForm.valid">Create Date!</button>
-    </div>
     <br>
+    <mat-form-field>
+        <input matInput placeholder="Location" [formControl]="location" required>
+        <mat-error *ngIf="location.invalid">{{getLocationErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput placeholder="Hour" [formControl]="hour" required>
+        <mat-error *ngIf="hour.invalid">{{getHourErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput placeholder="Minute" [formControl]="minute" required>
+        <mat-error *ngIf="minute.invalid">{{getMinuteErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <br>
+    <button class="btn btn-primary" type="submit" [disabled]="!isDateValid()">Create Date</button>
+    <hr>
 </div>
