@@ -1,0 +1,21 @@
+<div class="col-md-8 col-md-offset-2">
+    <form [formGroup]="dateForm" (ngSubmit)="onSubmit()">  
+        <div class="form-group">
+            <label for="title">Date Title</label>
+            <input type="text" id="title" class="form-control" formControlName="title">
+        </div>
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" class="form-control" formControlName="location">
+        </div>
+    </form>
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <div>
+        <button class="btn btn-primary" type="submit" [disabled]="!dateForm.valid">Create Date!</button>
+    </div>
+    <br>
+</div>

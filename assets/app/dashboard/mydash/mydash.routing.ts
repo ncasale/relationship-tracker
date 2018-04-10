@@ -1,5 +1,5 @@
 import { Routes, RouterModule } from "@angular/router";
-import { DatesComponent } from "./dates.component";
+import { DatesComponent } from "./dates/dates.component";
 import { ChoresComponent } from "./chores.component";
 import { FightsComponent } from "./fights.component";
 import { MessagesComponent } from "./messages/messages.component";
