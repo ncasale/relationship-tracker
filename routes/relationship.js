@@ -80,11 +80,18 @@ router.post('/getrelationships', function(req, res, next) {
                 error: err
             })
         }
+        if(!user) {
+            return res.status(404).json({
+                title: 'User not found',
+                error: {message: 'User not found'}
+            })
+        }
 
         //Get array of relationship ids from user
         //user.relationships
         relationshipsLength = user.relationships.length;
-        user.relationships.forEach(function(relationshipId) {
+        for(var counter = 0; counter < relationshipsLength; counter++){
+            relationshipId = user.relationships[counter];
             Relationship.findById(relationshipId, function(err, relationship) {
                 if(err) {
                     return res.status(500).json({
@@ -99,17 +106,20 @@ router.post('/getrelationships', function(req, res, next) {
                     })
                 }
                 //If no error, append to relationships list
+                console.log('Pushing relationship to array...');
                 relationships.push(relationship);
-                counter++;
+
                 //Wait to return until all relationships processed
-                if(counter === relationshipsLength) {
+                console.log(counter, relationshipsLength)
+                if(counter == relationshipsLength) {
+                    console.log('Returning: ', relationships);
                     return res.status(201).json({
                         title: 'Got Relationships',
                         obj: relationships
                     })
                 }
             })
-        }) 
+        }
     })
 })
 
@@ -383,6 +393,32 @@ router.patch('/acceptinvite/:id', function(req, res, next) {
                 }
             }
         }
+    })
+})
+
+router.post('/getrelationshipmessages/:id', function(req, res, next) {
+    //Decode token
+    var decoded = jwt.decode(req.query.token);
+    //Get the relationship
+    Relationship.findById(req.params.id, function(err, relationship) {
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            })
+        }
+        if(!relationship) {
+            return res.status(404).json({
+                title: 'Relationship not found',
+                error: {message: 'Relationship not found'}
+            })
+        }
+        //Get and return messages
+        return res.status(201).json({
+            title: 'Messages found...',
+            obj: relationship.messages
+        })
+
     })
 })
 

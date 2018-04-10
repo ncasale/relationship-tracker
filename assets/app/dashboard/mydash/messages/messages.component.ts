@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { MessagesService } from "./messages.service";
 import { Message } from "./message.model";
 import { Relationship } from "../../../relationships/relationship.model";
+import { RelationshipService } from "../../../relationships/relationship.service";
 
 @Component({
     selector: 'app-messages',
@@ -11,8 +12,9 @@ import { Relationship } from "../../../relationships/relationship.model";
 export class MessagesComponent implements OnInit{
     messagesForm: FormGroup;
     relationship: Relationship;
+    messages: Message[] = [];
 
-    constructor(private messagesService: MessagesService) {}
+    constructor(private messagesService: MessagesService, private relationshipService: RelationshipService) {}
 
     /**
      * Initialize form group
@@ -29,9 +31,15 @@ export class MessagesComponent implements OnInit{
         this.messagesService.currentMyDashRelationshipEmitter.subscribe(
             (response: Relationship) => {
                 this.relationship = response;
+                this.relationshipService.getRelationshipMessages(this.relationship.relationshipId)
+                    .subscribe(
+                        (response: Message[]) => {
+                            console.log('Messages within messages component: ', response);
+                            this.messages = response;
+                        }
+                    )
             }
-        )
-        
+        )        
     }
 
     /**

@@ -7,6 +7,7 @@ import { Observable } from "rxjs";
 import { Relationship } from './relationship.model';
 import { Router } from '@angular/router';
 import { ErrorService } from '../error/error.service';
+import { Message } from '../dashboard/mydash/messages/message.model';
 
 
 
@@ -46,7 +47,9 @@ export class RelationshipService {
                 const relationship = new Relationship(
                     result.obj.title,
                     result.obj._id,
-                    result.obj.userIds                    
+                    result.obj.userIds,
+                    result.obj.invitees,
+                    result.obj.messages                    
                 );
                 this.relationships.push(relationship);
                 return relationship;
@@ -82,7 +85,9 @@ export class RelationshipService {
                         transformedRelationships.push(new Relationship(
                             relationship.title,
                             relationship._id,
-                            relationship.users
+                            relationship.users,
+                            relationship.invitees,
+                            relationship.messages
                         ))
                     }
                     this.relationships = transformedRelationships;
@@ -192,6 +197,27 @@ export class RelationshipService {
 
     }
 
+    getRelationshipMessages(relationshipId: string) {
+        //Create body
+        const body = {};
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Create token
+        const token = localStorage.getItem('token') ?
+            '?token=' + localStorage.getItem('token') :
+            '';
+        //Create request
+        return this.http.post('http://localhost:3000/relationship/getrelationshipmessages/' + relationshipId + token, body, {headers:headers})
+            .map((response: Response) => {
+                var messages = response.json().obj;
+                console.log('Messages from request: ', response.json().obj);
+                return messages;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
+    }
     
     /**
      * Toggle invite component 

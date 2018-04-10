@@ -30,7 +30,6 @@ router.use('/', function(req, res, next) {
 })
 
 router.post('/add', function(req, res, next) {
-    console.log('Hit add function...');
     //Get decoded token
     var decoded = jwt.decode(req.query.token);
     //Get user
@@ -47,29 +46,26 @@ router.post('/add', function(req, res, next) {
                 error: {message: 'User not found'}
             })
         }
-        console.log('Found user, creating message');
         //Create message
         var message = new Message({
             text: req.body.text,
             relationshipId: req.body.relationshipId,
-            user: decoded.user._id
+            userId: decoded.user._id
         })
+
+        console.log('The Message: ', message);
 
         //Iterate through user list of relationships and find the one to which we are adding
         //this message
         var relationshipId = "";
         
-        console.log("Relationship ID: ", message.relationshipId);
         for(var relationshipIndex=0; relationshipIndex < user.relationships.length; relationshipIndex++) {
             
-            console.log(user.relationships[relationshipIndex], message.relationshipId);
             if(user.relationships[relationshipIndex].equals(message.relationshipId)) {
-                console.log('Setting relationship ID...');
                 relationshipId = user.relationships[relationshipIndex];
             }
 
             if(relationshipIndex == user.relationships.length - 1) {
-                console.log('Finished iterating through user relationships and found relationship');
                 if(relationshipId == "") {
                     return res.status(403).json({
                         title: 'User not a member of relationship',
@@ -91,7 +87,6 @@ router.post('/add', function(req, res, next) {
                         })
                     }
                     //Add message to relationship and save
-                    console.log('Saving message to relationship');
                     relationship.messages.push(message);
                     relationship.save();
 
@@ -103,7 +98,6 @@ router.post('/add', function(req, res, next) {
                                 error: err
                             })
                         }
-                        console.log('Message saved');
                         //If successfully saved, return 201 and saved message
                         return res.status(201).json({
                             title: 'Message saved',

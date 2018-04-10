@@ -23,6 +23,7 @@ export class MyDashComponent {
         this.relationshipService.getRelationships()
             .subscribe(
                 (relationships: Relationship[]) => {
+                    console.log(relationships);
                     this.relationships = relationships;
                 }
             )
@@ -37,6 +38,7 @@ export class MyDashComponent {
      */
     setCurrentRelationship(relationship: Relationship) {
         this.selectedRelationship = relationship;
+        console.log('Selected relationship: ', this.selectedRelationship);
         //Emit signal to update relationship in message service
         this.messageService.currentMyDashRelationshipEmitter.emit(this.selectedRelationship);
     }

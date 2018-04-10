@@ -5,10 +5,11 @@ import { mydashRouting } from "./mydash.routing";
 import { DatesComponent } from "./dates.component";
 import { ChoresComponent } from "./chores.component";
 import { FightsComponent } from "./fights.component";
-import { MatSidenavModule, MatToolbar, MatToolbarModule, MatListModule } from "@angular/material"
+import { MatSidenavModule, MatToolbar, MatToolbarModule, MatListModule, MatCalendar } from "@angular/material"
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MessagesComponent } from "./messages/messages.component";
+import { MessageCardComponent } from "./messages/message-card.component";
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { MessagesComponent } from "./messages/messages.component";
         MessagesComponent,
         DatesComponent,
         ChoresComponent,
-        FightsComponent        
+        FightsComponent,
+        MessageCardComponent        
     ],
     imports: [
         RelationshipModule,
