@@ -4,15 +4,15 @@ import { RelationshipService } from "../../../relationships/relationship.service
 
 @Component({
     selector: 'app-settings',
-    templateUrl: './settings.component.html'
+    templateUrl: './settings.component.html',
+    styleUrls: ['./settings.component.css']
 })
-export class SettingsComponent implements OnInit{
+export class SettingsComponent {
     
     //Inject services
     constructor(private relationshipService: RelationshipService) {}
 
-    //Toggle invite modal when initialized. Relationship to invite to is set by mydash.
-    ngOnInit() {
+    toggleInvite() {
         this.relationshipService.toggleInvite();
     }
 }
