@@ -30,7 +30,6 @@ export class MyDashComponent {
                     }
                 }
             )
-
     }
 
     /**
@@ -47,6 +46,17 @@ export class MyDashComponent {
         //Emit signal to update relationship in message service
         this.messageService.currentMyDashRelationshipEmitter.emit(this.selectedRelationship);
     }
+
+    /**
+     * Called whenever a nav-pill tab is clicked
+     * 
+     * @memberof MyDashComponent
+     */
+    tabClicked() {
+        this.messageService.currentMyDashRelationshipEmitter.emit(this.selectedRelationship);
+    }
+
+    
 
     isCurrentRelationship(relationship: Relationship) {
         return relationship == this.selectedRelationship;

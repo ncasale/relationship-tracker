@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { MessagesService } from "./messages.service";
 import { Message } from "./message.model";
@@ -13,6 +13,7 @@ export class MessagesComponent implements OnInit{
     messagesForm: FormGroup;
     relationship: Relationship;
     messages: Message[] = [];
+    
 
     constructor(private messagesService: MessagesService, private relationshipService: RelationshipService) {}
 
@@ -30,12 +31,12 @@ export class MessagesComponent implements OnInit{
         //When current relationship in mydash updated, update the current relationship of messages
         this.messagesService.currentMyDashRelationshipEmitter.subscribe(
             (response: Relationship) => {
+                console.log('Messages being refreshed...');
                 this.relationship = response;
                 //Get messages for this relationship from Messages Service
                 this.messagesService.getMessages(this.relationship.relationshipId)
                     .subscribe(
                         (response: Message[]) => {
-                            console.log(response);
                             this.messages = response;
                         }
                     )
