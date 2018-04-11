@@ -31,17 +31,16 @@ export class MessagesComponent implements OnInit{
         this.messagesService.currentMyDashRelationshipEmitter.subscribe(
             (response: Relationship) => {
                 this.relationship = response;
-                this.relationshipService.getRelationshipMessages(this.relationship.relationshipId)
+                //Get messages for this relationship from Messages Service
+                this.messagesService.getMessages(this.relationship.relationshipId)
                     .subscribe(
                         (response: Message[]) => {
-                            console.log('Messages within messages component: ', response);
                             this.messages = response;
                         }
                     )
             }
         )        
     }
-
     /**
      * Contact MessageService to send off message
      * 

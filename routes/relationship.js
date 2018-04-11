@@ -68,7 +68,9 @@ router.post('/add', function(req, res, next) {
 /**
  * Route to get all relationships belonging to the currently logged in user
  */
+
 router.post('/getrelationships', function(req, res, next) {
+    console.log('HIT GET RELATIONSHIPS...');
     var decoded = jwt.decode(req.query.token);
     var relationships = [];
     var counter = 0;
@@ -393,6 +395,7 @@ router.patch('/acceptinvite/:id', function(req, res, next) {
     })
 })
 
+/*
 router.post('/getrelationshipmessages/:id', function(req, res, next) {
     //Decode token
     var decoded = jwt.decode(req.query.token);
@@ -417,6 +420,6 @@ router.post('/getrelationshipmessages/:id', function(req, res, next) {
         })
 
     })
-})
+})*/
 
 module.exports = router;

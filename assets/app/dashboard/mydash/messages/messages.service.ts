@@ -48,6 +48,11 @@ export class MessagesService {
             })
     }
 
+    /**
+     * Edit a passed message. The passed message contains the new content to update within the db.
+     * 
+     * @param message The message to edit
+     */
     editMessage(message: Message) {
         //Create body
         const body = JSON.stringify(message);
@@ -73,6 +78,39 @@ export class MessagesService {
             this.errorService.handleError(error.json());
             return Observable.throw(error.json());
         })
+    }
+
+    getMessages(relationshipId: string) {
+        //Create body
+        const body = {};
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get token
+        const token = localStorage.getItem('token') ?
+            '?token=' + localStorage.getItem('token') :
+            '';
+        //Create request
+        console.log(relationshipId);
+        return this.http.post('http://localhost:3000/message/getmessages/' + relationshipId + token, body, {headers:headers})
+            .map((response: Response) => {
+                var messages = response.json().obj;
+                var transformedMessages = [];
+                for (let message of messages) {
+                    transformedMessages.push(new Message(
+                        message.text,
+                        message.relationshipId,
+                        message.userId,
+                        message._id)
+                    );
+                }
+                //this.messages = transformedMessages;
+                return transformedMessages;
+
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
     }
 
 

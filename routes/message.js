@@ -116,9 +116,12 @@ router.post('/add', function(req, res, next) {
     })
 })
 
+/**
+ * Route to edit a message with the passed id
+ */
 router.patch('/edit/:id', function(req, res, next) {
     //Get token
-    decoded = jwt.decode(req.query.token);
+    var decoded = jwt.decode(req.query.token);
     //Get the message
     Message.findById(req.params.id, function(err, message) {
         if(err) {
@@ -142,8 +145,10 @@ router.patch('/edit/:id', function(req, res, next) {
             })
         }
         //Update message text with edit
+        console.log('Old Message: ', message);
         message.text = req.body.text;
-        Message.save(function(err, result) {
+        console.log('New Message: ', message);
+        message.save(function(err, result) {
             if(err) {
                 return res.status(500).json({
                     title: 'Error saving message',
@@ -154,6 +159,37 @@ router.patch('/edit/:id', function(req, res, next) {
                 title: 'Updated message',
                 obj: result
             })
+        })
+    })
+})
+
+router.post('/getmessages/:id', function(req, res, next) {
+    console.log('Hit Get messages');
+    //Get decoded user token
+    var decoded = jwt.decode(req.query.token);
+    //Get all messages with relationship id
+    console.log('Relationship ID: ', req.params.id);
+    Message.find({relationshipId: req.params.id}, function(err, messages) {
+        console.log('Called find function...');
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occurred', 
+                error: err
+            })
+        }
+        console.log('No server error...');
+        if(!messages) {
+            return res.status(404).json({
+                title: 'No messages found',
+                error: {message: 'No messages with that relationship id found'}
+            })
+        }
+        console.log('Found messages...');
+        console.log('Messages: ', messages);
+        //Return list of messages
+        return res.status(200).json({
+            title: 'Messages found...',
+            obj: messages
         })
     })
 })
