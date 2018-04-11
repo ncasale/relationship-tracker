@@ -16,8 +16,14 @@ export class MessageCardComponent {
 
     editMessage() {
         console.log('Editting Message...');
-        this.message.text = "Edited message...";
-        this.messagesService.editMessage(this.message);
+        this.message.text = "Edited Message...";
+        this.messagesService.editMessage(this.message)
+            .subscribe(
+                (response: Message) => {
+                    console.log(response);
+                    this.message = response;
+                }
+            );
     }
 
     deleteMessage() {
