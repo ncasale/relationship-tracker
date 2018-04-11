@@ -38,7 +38,9 @@ export class MessagesService {
                     result.obj.text,
                     result.obj.relationshipId,
                     result.obj.userId,
-                    result.obj._id
+                    result.obj._id,
+                    result.obj.firstname,
+                    result.obj.lastname
                 )
                 return message;
             })
@@ -70,7 +72,9 @@ export class MessagesService {
                     result.obj.text,
                     result.obj.relationshipId,
                     result.obj.userId,
-                    result.obj.messageId
+                    result.obj._id,
+                    result.obj.firstname,
+                    result.obj.lastname
                 )
                 return message;
         })
@@ -100,7 +104,9 @@ export class MessagesService {
                         message.text,
                         message.relationshipId,
                         message.userId,
-                        message._id)
+                        message._id,
+                        message.firstname
+                    )
                     );
                 }
                 //this.messages = transformedMessages;

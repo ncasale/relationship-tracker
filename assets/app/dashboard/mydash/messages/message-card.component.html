@@ -3,9 +3,12 @@
         <h1>{{ message.text }}</h1>
     </div>
     <footer class="panel-footer">
-        <div class="config">
-            <button class="btn btn-success" (click)="editMessage()">Edit</button>
-            <button class="btn btn-danger" (click)="deleteMessage()">Delete</button>
+        <div class="author">
+            {{ message.firstname }}
+        </div>
+        <div class="config" *ngIf="messageBelongsToUser()">
+            <a (click)="editMessage()">Edit</a>
+            <a (click)="deleteMessage()">Delete</a>
         </div>
     </footer>
 </article>

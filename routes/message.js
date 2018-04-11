@@ -55,7 +55,9 @@ router.post('/add', function(req, res, next) {
         var message = new Message({
             text: req.body.text,
             relationshipId: req.body.relationshipId,
-            userId: decoded.user._id
+            userId: decoded.user._id,
+            firstname: user.firstname,
+            lastname: user.lastname
         })
 
         console.log('The Message: ', message);
