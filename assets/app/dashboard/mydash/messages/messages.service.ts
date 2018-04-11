@@ -16,9 +16,11 @@ export class MessagesService {
     constructor(private http: Http, private errorService: ErrorService) {}
 
     /**
-     * Save a passed message to the database
+     * Save the passed message to the db.
      * 
-     * @param message The message to save to the database
+     * @param {Message} message the message to save
+     * @returns the saved message
+     * @memberof MessagesService
      */
     saveMessage(message: Message) {
         //Construct body
@@ -51,9 +53,11 @@ export class MessagesService {
     }
 
     /**
-     * Edit a passed message. The passed message contains the new content to update within the db.
+     * Edit a passed message
      * 
-     * @param message The message to edit
+     * @param {Message} message the message to edit
+     * @returns the edited message
+     * @memberof MessagesService
      */
     editMessage(message: Message) {
         //Create body
@@ -84,6 +88,13 @@ export class MessagesService {
         })
     }
 
+    /**
+     * Get all messages associated with passed relationship id
+     * 
+     * @param {string} relationshipId ID of relationship to get messasges for.
+     * @returns list of messages
+     * @memberof MessagesService
+     */
     getMessages(relationshipId: string) {
         //Create body
         const body = {};
@@ -118,6 +129,28 @@ export class MessagesService {
                 return Observable.throw(error.json());
             })
     }
+    
+    /**
+     * Delete message from db with passed id
+     * 
+     * @param {string} messageId id of message to delete from db
+     * @returns observable
+     * @memberof MessagesService
+     */
+    deleteMessage(messageId : string) {
+        //Get token
+        const token = localStorage.getItem('token') ?
+            '?token=' + localStorage.getItem('token') :
+            '';
+        //Create request
+        return this.http.delete('http://localhost:3000/message/deletemessage/' + messageId + token)
+            .map((response: Response) =>{
 
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })        
+    }
 
 }

@@ -39,6 +39,13 @@ export class MessageCardComponent {
      */
     deleteMessage() {
         console.log('Deleting Message...');
+        this.messagesService.deleteMessage(this.message.messageId)
+            .subscribe(
+                (response: any) => {
+                    console.log('Message deleted...');
+                }
+            )
+            
     }
 
     /**

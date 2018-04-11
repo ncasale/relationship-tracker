@@ -165,6 +165,9 @@ router.patch('/edit/:id', function(req, res, next) {
     })
 })
 
+/**
+ * Route to get all messages associated with a passed relationshipId
+ */
 router.post('/getmessages/:id', function(req, res, next) {
     console.log('Hit Get messages');
     //Get decoded user token
@@ -192,6 +195,49 @@ router.post('/getmessages/:id', function(req, res, next) {
         return res.status(200).json({
             title: 'Messages found...',
             obj: messages
+        })
+    })
+})
+
+router.delete('/deletemessage/:id', function(req, res, next) {
+    //Decode the token
+    var decoded = jwt.decode(req.query.token);
+    //Get the message
+    Message.findById(req.params.id, function(err, message){
+        //Check server error
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            })
+        }
+        //Check message exists
+        if(!message) {
+            return res.status(404).json({
+                title: 'Message not found',
+                error: {message: 'Message not found'}
+            })
+        }
+        //Check message user is same as request user
+        console.log('Message User Id: ', message.userId, 'Decoded ID: ', decoded.user._id);
+        if(message.userId != decoded.user._id) {
+            return res.status(401).json({
+                title: 'Authentication Error',
+                error: {message: 'Authentication Error'}
+            })
+        }
+        //Delete the message from the database
+        message.remove(function(err, result) {
+            if(err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: err
+                })
+            }
+            return res.status(200).json({
+                title: 'Message deleted',
+                obj: result
+            })
         })
     })
 })
