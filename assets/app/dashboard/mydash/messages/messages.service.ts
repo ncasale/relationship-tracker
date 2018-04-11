@@ -42,7 +42,8 @@ export class MessagesService {
                     result.obj.userId,
                     result.obj._id,
                     result.obj.firstname,
-                    result.obj.lastname
+                    result.obj.lastname,
+                    result.obj.createTimestamp
                 )
                 return message;
             })
@@ -78,7 +79,8 @@ export class MessagesService {
                     result.obj.userId,
                     result.obj._id,
                     result.obj.firstname,
-                    result.obj.lastname
+                    result.obj.lastname,
+                    result.obj.createTimestamp
                 )
                 return message;
         })
@@ -116,7 +118,9 @@ export class MessagesService {
                         message.relationshipId,
                         message.userId,
                         message._id,
-                        message.firstname
+                        message.firstname,
+                        message.lastname,
+                        message.createTimestamp
                     )
                     );
                 }

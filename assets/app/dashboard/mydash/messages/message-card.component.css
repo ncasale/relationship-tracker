@@ -4,6 +4,13 @@
     font-size: 12px;
     width: 80%;
 }
+
+.date {
+    display: inline-block;
+    font-style: italic;
+    font-size: 12px;
+    width: 19%
+}
 .config {
     display: inline-block;
     text-align: right;

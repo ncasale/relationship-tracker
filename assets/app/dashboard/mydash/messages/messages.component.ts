@@ -35,6 +35,7 @@ export class MessagesComponent implements OnInit{
                 this.messagesService.getMessages(this.relationship.relationshipId)
                     .subscribe(
                         (response: Message[]) => {
+                            console.log(response);
                             this.messages = response;
                         }
                     )

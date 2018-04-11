@@ -6,7 +6,7 @@ import { DatesComponent } from "./dates/dates.component";
 import { ChoresComponent } from "./chores.component";
 import { FightsComponent } from "./fights.component";
 import { MatSidenavModule, MatToolbar, MatToolbarModule, MatListModule, MatCalendar, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule } from "@angular/material"
-import { CommonModule } from "@angular/common";
+import { CommonModule, DatePipe } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MessagesComponent } from "./messages/messages.component";
 import { MessageCardComponent } from "./messages/message-card.component";
@@ -40,6 +40,9 @@ import { SettingsComponent } from "./settings/settings.component";
         MatInputModule,
         MatSelectModule,
         MatOptionModule
+    ],
+    providers: [
+        DatePipe
     ],
     exports: [
         MyDashComponent

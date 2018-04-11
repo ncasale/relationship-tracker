@@ -1,6 +1,7 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Message } from "./message.model";
 import { MessagesService } from "./messages.service";
+import { DatePipe } from "@angular/common";
 
 
 @Component({
@@ -8,12 +9,27 @@ import { MessagesService } from "./messages.service";
     templateUrl: './message-card.component.html',
     styleUrls: ['./message-card.component.css']
 })
-export class MessageCardComponent {
+export class MessageCardComponent implements OnInit{
     //The message to display
     @Input() message: Message;
 
+    //The timestamp of the message
+    timestamp: string;
+    timestampFormat: string = 'MM/dd/yyyy HH:mm a';
+
     //Inject services
-    constructor(private messagesService: MessagesService) {}
+    constructor(private messagesService: MessagesService, private datePipe: DatePipe) {}
+
+    /**
+     * Initialize timestamp when message component created
+     * 
+     * @memberof MessageCardComponent
+     */
+    ngOnInit() {
+        if(this.message) {
+            this.timestamp = this.datePipe.transform(this.message.createTimestamp, this.timestampFormat);
+        }
+    }
 
     /**
      * Edit a message
@@ -26,8 +42,10 @@ export class MessageCardComponent {
         this.messagesService.editMessage(this.message)
             .subscribe(
                 (response: Message) => {
-                    console.log(response);
+                    //Set message
                     this.message = response;
+                    //Set timestamp
+                    this.timestamp = this.datePipe.transform(this.message.createTimestamp, this.timestampFormat);
                 }
             );
     }

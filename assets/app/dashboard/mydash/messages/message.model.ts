@@ -10,5 +10,6 @@ export class Message {
         public userId?: string,
         public messageId?: string,
         public firstname?: string,
-        public lastname?: string) {}
+        public lastname?: string,
+        public createTimestamp?: Date) {}
 }

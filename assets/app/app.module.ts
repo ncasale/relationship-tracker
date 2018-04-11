@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import 'style-loader!../../node_modules/@angular/material/prebuilt-themes/indigo-pink.css'
 import { MessagesService } from './dashboard/mydash/messages/messages.service';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,8 @@ import { MessagesService } from './dashboard/mydash/messages/messages.service';
         AuthService,
         RelationshipService,
         ErrorService,
-        MessagesService
+        MessagesService,
+        DatePipe
     ],
     bootstrap: [AppComponent]
 })
