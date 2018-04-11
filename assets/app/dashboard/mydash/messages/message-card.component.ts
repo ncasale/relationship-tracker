@@ -60,7 +60,9 @@ export class MessageCardComponent implements OnInit{
         this.messagesService.deleteMessage(this.message.messageId)
             .subscribe(
                 (response: any) => {
+                    //Send signal to delete message from MessagesComponent
                     console.log('Message deleted...');
+                    this.messagesService.messageDeletedEmitter.emit(this.message);
                 }
             )
             

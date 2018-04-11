@@ -12,6 +12,9 @@ export class MessagesService {
     //Signal to set current relationship
     currentMyDashRelationshipEmitter = new EventEmitter<Relationship>();
 
+    //Signal that passed message has been deleted
+    messageDeletedEmitter = new EventEmitter<Message>();
+
     //Inject services
     constructor(private http: Http, private errorService: ErrorService) {}
 
@@ -138,7 +141,7 @@ export class MessagesService {
      * Delete message from db with passed id
      * 
      * @param {string} messageId id of message to delete from db
-     * @returns observable
+     * @returns the deleted message
      * @memberof MessagesService
      */
     deleteMessage(messageId : string) {
@@ -148,9 +151,7 @@ export class MessagesService {
             '';
         //Create request
         return this.http.delete('http://localhost:3000/message/deletemessage/' + messageId + token)
-            .map((response: Response) =>{
-
-            })
+            .map((response: Response) => {})
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
                 return Observable.throw(error.json());

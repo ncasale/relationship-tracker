@@ -40,7 +40,18 @@ export class MessagesComponent implements OnInit{
                         }
                     )
             }
-        )        
+        )
+        
+        //When a message is deleted, delete it from the messages list
+        this.messagesService.messageDeletedEmitter.subscribe(
+            (message: Message) => {
+                //Find array of message within messages
+                var index = this.messages.indexOf(message);
+                if(index != -1) {
+                    this.messages.splice(index, 1);
+                }
+            }
+        )
     }
     /**
      * Contact MessageService to send off message
@@ -48,12 +59,8 @@ export class MessagesComponent implements OnInit{
      * @memberof MessagesComponent
      */
     onSubmit() {
-        console.log(this.messagesForm.value.message);
         var message = new Message(this.messagesForm.value.message, this.relationship.relationshipId);
-        console.log('Saving message', message);
-        this.messagesService.saveMessage(message).subscribe(
-            (response: any) => console.log('Returned from post request')
-        );
+        this.messagesService.saveMessage(message).subscribe();
         this.messagesForm.reset();
     }
 
