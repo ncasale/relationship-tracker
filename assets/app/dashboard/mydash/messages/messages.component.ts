@@ -60,7 +60,12 @@ export class MessagesComponent implements OnInit{
      */
     onSubmit() {
         var message = new Message(this.messagesForm.value.message, this.relationship.relationshipId);
-        this.messagesService.saveMessage(message).subscribe();
+        this.messagesService.saveMessage(message).subscribe(
+            (message: Message) => {
+                //Update frontend messages array
+                this.messages.push(message);
+            }
+        );
         this.messagesForm.reset();
     }
 
