@@ -6,7 +6,9 @@ var Message = require('../models/message');
 var Relationship = require('../models/relationship');
 var User = require('../models/user');
 
-
+/**
+ * Ensure that token is valid
+ */
 router.use('/', function(req, res, next) {
     //Check if valid token
     jwt.verify(req.query.token, 'secret', function(err, result) {
@@ -29,6 +31,9 @@ router.use('/', function(req, res, next) {
     })
 })
 
+/**
+ * Route to add new message to database
+ */
 router.post('/add', function(req, res, next) {
     //Get decoded token
     var decoded = jwt.decode(req.query.token);
@@ -108,6 +113,48 @@ router.post('/add', function(req, res, next) {
                 })
             }
         }
+    })
+})
+
+router.patch('/edit/:id', function(req, res, next) {
+    //Get token
+    decoded = jwt.decode(req.query.token);
+    //Get the message
+    Message.findById(req.params.id, function(err, message) {
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occurred', 
+                error: err
+            })
+        }
+        //Check if message exists
+        if(!message) {
+            return res.status(404).json({
+                title: 'Message not found',
+                error: {message: 'Message not found'}
+            })
+        }
+        //Check if user on message matches user sending request
+        if(message.userId != decoded.user._id) {
+            return res.status(401).json({
+                title: 'Not Authenticated',
+                error: {message: 'Not Authenticated'}
+            })
+        }
+        //Update message text with edit
+        message.text = req.body.text;
+        Message.save(function(err, result) {
+            if(err) {
+                return res.status(500).json({
+                    title: 'Error saving message',
+                    error: err
+                })
+            }
+            res.status(201).json({
+                title: 'Updated message',
+                obj: result
+            })
+        })
     })
 })
 

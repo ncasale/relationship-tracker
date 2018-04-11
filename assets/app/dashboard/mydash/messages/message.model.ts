@@ -7,5 +7,6 @@
 export class Message {
     constructor(public text: string,
         public relationshipId?: string,
-        public userId?: string) {}
+        public userId?: string,
+        public messageId?: string) {}
 }

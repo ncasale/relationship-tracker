@@ -210,8 +210,16 @@ export class RelationshipService {
         return this.http.post('http://localhost:3000/relationship/getrelationshipmessages/' + relationshipId + token, body, {headers:headers})
             .map((response: Response) => {
                 var messages = response.json().obj;
-                console.log('Messages from request: ', response.json().obj);
-                return messages;
+                var transformedMessages = [];
+                for (let message of messages) {
+                    transformedMessages.push(new Message(
+                        message.text,
+                        message.relationshipId,
+                        message.userId,
+                        message._id)
+                    );
+                }
+                return transformedMessages;
             })
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
