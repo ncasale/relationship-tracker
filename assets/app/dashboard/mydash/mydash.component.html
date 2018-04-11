@@ -3,7 +3,7 @@
 <mat-sidenav-container class="example-container">
 <mat-sidenav #sidenav mode="side" opened="true" class="example-sidenav">
     <mat-nav-list>        
-            <a mat-list-item (click)="setCurrentRelationship(relationship)" *ngFor="let relationship of relationships">{{relationship.title}}</a>
+            <a mat-list-item [ngClass]="{'acitve-nav-list-item': isCurrentRelationship(relationship)}" (click)="setCurrentRelationship(relationship)" *ngFor="let relationship of relationships">{{relationship.title}}</a>
     </mat-nav-list>
 </mat-sidenav>
     
@@ -16,6 +16,7 @@
                 <li routerLinkActive="active"><a [routerLink]="['dates']">Dates</a></li>
                 <li routerLinkActive="active"><a [routerLink]="['chores']">Chores</a></li>
                 <li routerLinkActive="active"><a [routerLink]="['fights']">Fights</a></li>
+                <li routerLinkActive="active"><a [routerLink]="['settings']">Settings</a></li>
             </ul>
         </nav>
     </header>

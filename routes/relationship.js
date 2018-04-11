@@ -106,13 +106,10 @@ router.post('/getrelationships', function(req, res, next) {
                     })
                 }
                 //If no error, append to relationships list
-                console.log('Pushing relationship to array...');
                 relationships.push(relationship);
 
                 //Wait to return until all relationships processed
-                console.log(counter, relationshipsLength)
-                if(counter == relationshipsLength) {
-                    console.log('Returning: ', relationships);
+                if(relationships.length == relationshipsLength) {
                     return res.status(201).json({
                         title: 'Got Relationships',
                         obj: relationships

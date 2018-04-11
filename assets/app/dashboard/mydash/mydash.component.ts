@@ -23,8 +23,11 @@ export class MyDashComponent {
         this.relationshipService.getRelationships()
             .subscribe(
                 (relationships: Relationship[]) => {
-                    console.log(relationships);
                     this.relationships = relationships;
+                    //Set selected relationship to first in relationship list, if it exists
+                    if(this.relationships.length > 0) {
+                        this.setCurrentRelationship(this.relationships[0]);
+                    }
                 }
             )
 
@@ -37,9 +40,15 @@ export class MyDashComponent {
      * @memberof MyDashComponent
      */
     setCurrentRelationship(relationship: Relationship) {
+        //Set selected relationship in my dash
         this.selectedRelationship = relationship;
-        console.log('Selected relationship: ', this.selectedRelationship);
+        //Allow relationship service to invite to this relationship
+        this.relationshipService.setInviteRelationship(this.selectedRelationship);
         //Emit signal to update relationship in message service
         this.messageService.currentMyDashRelationshipEmitter.emit(this.selectedRelationship);
+    }
+
+    isCurrentRelationship(relationship: Relationship) {
+        return relationship == this.selectedRelationship;
     }
 }

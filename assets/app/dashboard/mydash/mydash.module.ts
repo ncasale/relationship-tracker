@@ -13,6 +13,7 @@ import { MessageCardComponent } from "./messages/message-card.component";
 import { ngMaterialDatePicker } from 'ng-material-datetimepicker'
 import { DateInputComponent } from "./dates/date-input.component";
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime'
+import { SettingsComponent } from "./settings/settings.component";
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime'
         DateInputComponent,
         ChoresComponent,
         FightsComponent,
-        MessageCardComponent        
+        MessageCardComponent,
+        SettingsComponent     
     ],
     imports: [
         RelationshipModule,

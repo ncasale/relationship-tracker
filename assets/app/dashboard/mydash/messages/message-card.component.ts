@@ -10,7 +10,11 @@ export class MessageCardComponent {
     //The message to display
     @Input() message: Message;
 
-    acceptInvite() {
-        console.log('Message: ', this.message);
+    editMessage() {
+        console.log('Editting Message...');
+    }
+
+    deleteMessage() {
+        console.log('Deleting Message...');
     }
 }
