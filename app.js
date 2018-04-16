@@ -11,6 +11,7 @@ var authRoutes = require('./routes/auth');
 var dashboardRoutes = require('./routes/dashboard');
 var relationshipRoutes = require('./routes/relationship');
 var messageRoutes = require('./routes/message');
+var dateRoutes = require('./routes/date');
 
 var app = express();
 
@@ -45,6 +46,7 @@ app.use(function(req, res, next) {
 app.use('/auth', authRoutes);
 app.use('/relationship', relationshipRoutes);
 app.use('/message', messageRoutes);
+app.use('/date', dateRoutes);
 app.use('/dashboard', dashboardRoutes);
 app.use('/', appRoutes);
 

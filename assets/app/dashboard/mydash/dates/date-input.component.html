@@ -1,4 +1,4 @@
-<div class="col-md-8 col-md-offset-2 date-form-container">
+<div class="col-md-8 col-md-offset-2 date-form-container" [formGroup]="dateForm">
     <mat-form-field>
         <input matInput placeholder="Title" [formControl]="title" required>
         <mat-error *ngIf="title.invalid">{{getTitleErrorMessage()}}</mat-error>
@@ -19,6 +19,16 @@
         <mat-error *ngIf="minute.invalid">{{getMinuteErrorMessage()}}</mat-error>
     </mat-form-field>
     <br>
-    <button class="btn btn-primary" type="submit" [disabled]="!isDateValid()">Create Date</button>
+    <!--
+    <mat-form-field>
+        <input matInput readonly [matDatepicker]="datepicker" placeholder="Choose a date" formControlName="datepicker" required>
+        <mat-error *ngIf="datepicker.invalid">{{getDatepickerErrorMessage()}}</mat-error>
+        <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+    </mat-form-field>
+        <mat-datepicker #datepicker></mat-datepicker>
+    
+    <br>
+-->
+    <button class="btn btn-primary" type="submit" [disabled]="!isDateValid()" (click)="onSubmit()">Create Date</button>
     <hr>
 </div>
