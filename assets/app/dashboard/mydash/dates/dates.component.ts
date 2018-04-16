@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Relationship } from "../../../relationships/relationship.model";
 import { MessagesService } from "../messages/messages.service";
+import { DateService } from "./date.service";
+import { DateObj } from "./dateObj.model";
 
 @Component({
   selector: 'app-dates',
@@ -8,9 +10,10 @@ import { MessagesService } from "../messages/messages.service";
 })
 export class DatesComponent implements OnInit{
   relationship: Relationship;
+  dates: DateObj[] = [];
 
   //Inject services
-  constructor(private messagesService: MessagesService) {}
+  constructor(private messagesService: MessagesService, private dateService: DateService) {}
 
 
   ngOnInit() {
@@ -18,6 +21,13 @@ export class DatesComponent implements OnInit{
       (response: Relationship) => {
           this.relationship = response;
           //Get dates for this relationship from Dates Service
+          this.dateService.getDates(this.relationship.relationshipId)
+            .subscribe(
+              (dates: DateObj[]) => {
+                console.log('Dates: ', dates);
+                this.dates = dates;
+              }
+            )
       }
   )
   }

@@ -39,4 +39,47 @@ export class DateService {
                 return Observable.throw(error.json());
             })
     }
+
+    /**
+     * Get all dates for a given relationship
+     * 
+     * @param {string} relationshipId id of relationship to get dates for
+     * @returns 
+     * @memberof DateService
+     */
+    getDates(relationshipId: string) {
+        //Create body
+        const body = {};
+        //Create headers
+        const headers = new Headers({'Content-Type': 'application/json'});
+        //Get token
+        const token = localStorage.getItem('token') ?
+            '?token=' + localStorage.getItem('token') :
+            '';
+        //Generate request
+        return this.http.post('http://localhost:3000/date/getdates/' + relationshipId + token, body, {headers:headers})
+            .map((response: any) => {
+                var dates = response.json().obj;
+                var transformedDates = [];
+                for(let date of dates) {
+                    transformedDates.push(new DateObj(
+                        date.title,
+                        date.location,
+                        date.hour,
+                        date.minute,
+                        date.date,
+                        date.relationshipId,
+                        date.createUserId,
+                        date.createTimestamp,
+                        date.editTimestamp
+                    ));
+                }
+                return transformedDates;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
+
+    }
 }
