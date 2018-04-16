@@ -3,6 +3,8 @@ import { Relationship } from "../../../relationships/relationship.model";
 import { MessagesService } from "../messages/messages.service";
 import { DateService } from "./date.service";
 import { DateObj } from "./dateObj.model";
+import { MatDialog } from "@angular/material";
+import { DateAddComponent } from "./date-add.component";
 
 @Component({
   selector: 'app-dates',
@@ -13,7 +15,7 @@ export class DatesComponent implements OnInit{
   dates: DateObj[] = [];
 
   //Inject services
-  constructor(private messagesService: MessagesService, private dateService: DateService) {}
+  constructor(private messagesService: MessagesService, private dateService: DateService, public addDialog: MatDialog) {}
 
 
   ngOnInit() {
@@ -31,5 +33,12 @@ export class DatesComponent implements OnInit{
       }
   )
   }
+
+  openAddDateDialog(): void {
+    let dialogRef = this.addDialog.open(DateAddComponent, {
+        width: '500px',
+        data: {relationship: this.relationship}
+    });        
+}
 
 }

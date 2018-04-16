@@ -1,5 +1,5 @@
 <div class="col-md-8 col-md-offset-2">
-    <app-date-input [relationship]="relationship"></app-date-input>
-    <br>
     <app-date-card [date]="date" *ngFor="let date of dates"></app-date-card>
+    <br>
+    <button (click)="openAddDateDialog()">Add Date</button>
 </div>

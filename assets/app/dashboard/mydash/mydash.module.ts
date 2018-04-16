@@ -16,6 +16,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime'
 import { SettingsComponent } from "./settings/settings.component";
 import { MessageEditComponent } from "./messages/message-edit.component";
 import { DateCardComponent } from "./dates/date-card.component";
+import { DateAddComponent } from "./dates/date-add.component";
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { DateCardComponent } from "./dates/date-card.component";
         MessageCardComponent,
         SettingsComponent,
         MessageEditComponent,
-        DateCardComponent     
+        DateCardComponent,
+        DateAddComponent     
     ],
     imports: [
         RelationshipModule,
@@ -48,7 +50,8 @@ import { DateCardComponent } from "./dates/date-card.component";
         MatDialogModule
     ],
     entryComponents: [
-        MessageEditComponent
+        MessageEditComponent,
+        DateAddComponent
     ],
     providers: [
         DatePipe

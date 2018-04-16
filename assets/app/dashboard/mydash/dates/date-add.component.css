@@ -1,0 +1,26 @@
+h2 {
+    width: 100%;
+    text-align: 'center';
+}
+
+.edit-btn {
+    width: 40%;
+}
+
+.close-btn {
+    width: 40%;
+    float: right;
+}
+
+.edit-input {
+    width: 100%;
+}
+
+.date-form-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+.date-form-container > * {
+    width: 100%;
+  }

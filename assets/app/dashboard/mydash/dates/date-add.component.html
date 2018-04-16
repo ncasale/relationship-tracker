@@ -1,0 +1,26 @@
+<div class="col-md-8 col-md-offset-2 date-form-container">
+    <h2>Create Date</h2>
+    <hr>
+    <mat-form-field>
+        <input matInput placeholder="Title" [formControl]="title" required>
+        <mat-error *ngIf="title.invalid">{{getTitleErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput placeholder="Location" [formControl]="location" required>
+        <mat-error *ngIf="location.invalid">{{getLocationErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput placeholder="Hour" [formControl]="hour" required>
+        <mat-error *ngIf="hour.invalid">{{getHourErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput placeholder="Minute" [formControl]="minute" required>
+        <mat-error *ngIf="minute.invalid">{{getMinuteErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <br>
+    <button class="btn btn-primary" type="submit" (click)="onSubmit()">Create Date</button>
+    <hr>
+</div>
