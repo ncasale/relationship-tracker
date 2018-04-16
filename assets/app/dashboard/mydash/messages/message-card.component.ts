@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from "@angular/core";
 import { Message } from "./message.model";
 import { MessagesService } from "./messages.service";
 import { DatePipe } from "@angular/common";
+import { MatDialog } from "@angular/material";
+import { MessageEditComponent } from "./message-edit.component";
 
 
 @Component({
@@ -13,12 +15,13 @@ export class MessageCardComponent implements OnInit{
     //The message to display
     @Input() message: Message;
 
+
     //The timestamp of the message
     timestamp: string;
     timestampFormat: string = 'MM/dd/yyyy HH:mm a';
 
     //Inject services
-    constructor(private messagesService: MessagesService, private datePipe: DatePipe) {}
+    constructor(private messagesService: MessagesService, private datePipe: DatePipe, public editDialog: MatDialog) {}
 
     /**
      * Initialize timestamp when message component created
@@ -27,8 +30,20 @@ export class MessageCardComponent implements OnInit{
      */
     ngOnInit() {
         if(this.message) {
-            this.timestamp = this.datePipe.transform(this.message.createTimestamp, this.timestampFormat);
+            this.setTimestamp();
         }
+    }
+
+    /**
+     * Send signal to open edit modal
+     * 
+     * @memberof MessageCardComponent
+     */
+    openEditDialog(): void {
+        let dialogRef = this.editDialog.open(MessageEditComponent, {
+            width: '500px',
+            data: {message: this.message}
+        });        
     }
 
     /**
@@ -45,7 +60,7 @@ export class MessageCardComponent implements OnInit{
                     //Set message
                     this.message = response;
                     //Set timestamp
-                    this.timestamp = this.datePipe.transform(this.message.createTimestamp, this.timestampFormat);
+                    this.setTimestamp();
                 }
             );
     }
@@ -76,5 +91,20 @@ export class MessageCardComponent implements OnInit{
      */
     messageBelongsToUser() {
         return localStorage.getItem('userId') == this.message.userId
+    }
+
+    /**
+     * Set timestamp of message. If message has been edited, use edit timestamp. Otherwise, use
+     * the create timestamp.
+     * 
+     * @memberof MessageCardComponent
+     */
+    setTimestamp() {
+        //Set timestamp
+        if(!this.message.editTimestamp) {
+            this.timestamp = this.datePipe.transform(this.message.createTimestamp, this.timestampFormat);
+        } else {
+            this.timestamp = this.datePipe.transform(this.message.editTimestamp, this.timestampFormat) + ' [edited]';            
+        }
     }
 }

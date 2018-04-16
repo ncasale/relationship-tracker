@@ -146,10 +146,11 @@ router.patch('/edit/:id', function(req, res, next) {
                 error: {message: 'Not Authenticated'}
             })
         }
-        //Update message text with edit
-        console.log('Old Message: ', message);
+        //Update message text with edit, and update edit timestamp
+        //console.log('Old Message: ', message);
         message.text = req.body.text;
-        console.log('New Message: ', message);
+        message.editTimestamp = new Date();
+        //console.log('New Message: ', message);
         message.save(function(err, result) {
             if(err) {
                 return res.status(500).json({
@@ -169,28 +170,22 @@ router.patch('/edit/:id', function(req, res, next) {
  * Route to get all messages associated with a passed relationshipId
  */
 router.post('/getmessages/:id', function(req, res, next) {
-    console.log('Hit Get messages');
     //Get decoded user token
     var decoded = jwt.decode(req.query.token);
     //Get all messages with relationship id
-    console.log('Relationship ID: ', req.params.id);
     Message.find({relationshipId: req.params.id}, function(err, messages) {
-        console.log('Called find function...');
         if(err) {
             return res.status(500).json({
                 title: 'An error occurred', 
                 error: err
             })
         }
-        console.log('No server error...');
         if(!messages) {
             return res.status(404).json({
                 title: 'No messages found',
                 error: {message: 'No messages with that relationship id found'}
             })
         }
-        console.log('Found messages...');
-        console.log('Messages: ', messages);
         //Return list of messages
         return res.status(200).json({
             title: 'Messages found...',
@@ -219,7 +214,6 @@ router.delete('/deletemessage/:id', function(req, res, next) {
             })
         }
         //Check message user is same as request user
-        console.log('Message User Id: ', message.userId, 'Decoded ID: ', decoded.user._id);
         if(message.userId != decoded.user._id) {
             return res.status(401).json({
                 title: 'Authentication Error',

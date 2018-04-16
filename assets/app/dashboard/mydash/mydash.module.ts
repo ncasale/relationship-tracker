@@ -5,15 +5,16 @@ import { mydashRouting } from "./mydash.routing";
 import { DatesComponent } from "./dates/dates.component";
 import { ChoresComponent } from "./chores.component";
 import { FightsComponent } from "./fights.component";
-import { MatSidenavModule, MatToolbar, MatToolbarModule, MatListModule, MatCalendar, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule } from "@angular/material"
+import { MatSidenavModule, MatToolbar, MatToolbarModule, MatListModule, MatCalendar, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, MatDialogModule } from "@angular/material"
 import { CommonModule, DatePipe } from "@angular/common";
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { MessagesComponent } from "./messages/messages.component";
 import { MessageCardComponent } from "./messages/message-card.component";
 import { ngMaterialDatePicker } from 'ng-material-datetimepicker'
 import { DateInputComponent } from "./dates/date-input.component";
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime'
 import { SettingsComponent } from "./settings/settings.component";
+import { MessageEditComponent } from "./messages/message-edit.component";
 
 @NgModule({
     declarations: [
@@ -24,13 +25,15 @@ import { SettingsComponent } from "./settings/settings.component";
         ChoresComponent,
         FightsComponent,
         MessageCardComponent,
-        SettingsComponent     
+        SettingsComponent,
+        MessageEditComponent     
     ],
     imports: [
         RelationshipModule,
         mydashRouting,
         CommonModule,
         ReactiveFormsModule,
+        FormsModule,
         MatSidenavModule,
         MatToolbarModule,
         MatListModule,
@@ -39,7 +42,11 @@ import { SettingsComponent } from "./settings/settings.component";
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule,
-        MatOptionModule
+        MatOptionModule,
+        MatDialogModule
+    ],
+    entryComponents: [
+        MessageEditComponent
     ],
     providers: [
         DatePipe

@@ -7,7 +7,7 @@ import { CreateComponent } from './create.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RelationshipModule } from '../relationships/relationship.module';
 import { JoinCardComponent } from './join-card.component';
-import { LogoutComponent } from './logout.component';
+import { LogoutComponent } from './logout/logout.component';
 import { MyDashModule } from './mydash/mydash.module';
 
 @NgModule({

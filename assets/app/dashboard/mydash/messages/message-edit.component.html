@@ -1,7 +1,19 @@
-<div class="backdrop" [ngStyle]="{'display': display}"></div>
-<div [ngStyle]="{'display': display}">
-    <mat-form-field>
-        <input matInput placeholder="New message...">
-    </mat-form-field>
-    <button mat-button (click)="toggleVisiblity()">Pick one</button>
-</div>    
+<!--<div class="backdrop" [ngStyle]="{'display': display}"></div>
+<div [ngStyle]="{'display': display}"> -->
+<!--<div class="backdrop"></div> -->
+<div>
+    <div>
+        <h2>Edit Message</h2>
+    </div>
+    <div>
+        <mat-form-field class="edit-input">
+            <input matInput placeholder="New Message:"  [(ngModel)]='data.message.text'>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <button mat-button class="edit-btn" (click)="submitEdit()">Edit</button>
+        <span></span>
+        <button mat-button class="close-btn" (click)="closeDialog()">Close</button>
+    </div>
+</div>

@@ -15,6 +15,9 @@ export class MessagesService {
     //Signal that passed message has been deleted
     messageDeletedEmitter = new EventEmitter<Message>();
 
+    //Signal that message was updated. Send message
+    messageEditEmitter = new EventEmitter<Message>();
+
     //Inject services
     constructor(private http: Http, private errorService: ErrorService) {}
 
@@ -46,7 +49,8 @@ export class MessagesService {
                     result.obj._id,
                     result.obj.firstname,
                     result.obj.lastname,
-                    result.obj.createTimestamp
+                    result.obj.createTimestamp,
+                    result.ob.editTimestamp 
                 )
                 return message;
             })
@@ -83,7 +87,8 @@ export class MessagesService {
                     result.obj._id,
                     result.obj.firstname,
                     result.obj.lastname,
-                    result.obj.createTimestamp
+                    result.obj.createTimestamp,
+                    result.obj.editTimestamp
                 )
                 return message;
         })
@@ -123,7 +128,8 @@ export class MessagesService {
                         message._id,
                         message.firstname,
                         message.lastname,
-                        message.createTimestamp
+                        message.createTimestamp,
+                        message.editTimestamp
                     )
                     );
                 }

@@ -1,34 +1,57 @@
-import { Component } from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
+import { MessagesService } from "./messages.service";
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { Message } from "./message.model";
 
 @Component({
     selector: 'app-message-edit',
     templateUrl: './message-edit.component.html',
-    styles: [`
-    .backdrop {
-                background-color: rgba(0,0,0,0.6);
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100vh;
-            }
-        `]
+    styleUrls: ['./message-edit.component.css']
 })
-export class MessageEditComponent{
-    display = 'none';
+export class MessageEditComponent {
+    //Local copy of message
+    originalText: string;
 
+    constructor(
+        public dialogRef: MatDialogRef<MessageEditComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: any,
+        private messagesService: MessagesService) {
+            this.originalText = this.data.message.text;
+            this.dialogRef.disableClose = true;
+        }
+    
     /**
-     * Change visibility of edit modal
+     * Wrapper for closeDialog
      * 
      * @memberof MessageEditComponent
      */
-    toggleVisibility() {
-        if(this.display == 'none') {
-            this.display = 'block';
-        }
-        else if(this.display === 'block') {
-            this.display = 'none';
-        }
+    onNoClick(): void {
+        this.closeDialog();
     }
     
+    /**
+     * Pass edited message to Messages Service and close dialog
+     * 
+     * @memberof MessageEditComponent
+     */
+    submitEdit() {
+        //Save the text in the edit input to the message
+        this.messagesService.editMessage(this.data.message)
+            .subscribe(
+                (response: Message) => {
+                    console.log(response);
+                }
+            )
+        this.dialogRef.close();
+    }
+
+    /**
+     * Reset message text before closing dialog
+     * 
+     * @memberof MessageEditComponent
+     */
+    closeDialog() {
+        this.data.message.text = this.originalText;
+        this.dialogRef.close()
+    }
 }
