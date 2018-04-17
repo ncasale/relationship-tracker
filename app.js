@@ -12,6 +12,7 @@ var dashboardRoutes = require('./routes/dashboard');
 var relationshipRoutes = require('./routes/relationship');
 var messageRoutes = require('./routes/message');
 var dateRoutes = require('./routes/date');
+var choreRoutes = require('./routes/chore');
 
 var app = express();
 
@@ -48,6 +49,7 @@ app.use('/relationship', relationshipRoutes);
 app.use('/message', messageRoutes);
 app.use('/date', dateRoutes);
 app.use('/dashboard', dashboardRoutes);
+app.use('/chore', choreRoutes);
 app.use('/', appRoutes);
 
 // catch 404 and forward to error handler

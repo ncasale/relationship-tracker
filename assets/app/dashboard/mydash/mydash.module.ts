@@ -3,7 +3,7 @@ import { MyDashComponent } from "./mydash.component";
 import { RelationshipModule } from "../../relationships/relationship.module";
 import { mydashRouting } from "./mydash.routing";
 import { DatesComponent } from "./dates/dates.component";
-import { ChoresComponent } from "./chores.component";
+import { ChoresComponent } from "./chores/chores.component";
 import { FightsComponent } from "./fights.component";
 import { MatSidenavModule, MatToolbar, MatToolbarModule, MatListModule, MatCalendar, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, MatDialogModule } from "@angular/material"
 import { CommonModule, DatePipe } from "@angular/common";

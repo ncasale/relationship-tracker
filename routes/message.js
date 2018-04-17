@@ -60,8 +60,6 @@ router.post('/add', function(req, res, next) {
             lastname: user.lastname
         })
 
-        console.log('The Message: ', message);
-
         //Iterate through user list of relationships and find the one to which we are adding
         //this message
         var relationshipId = "";

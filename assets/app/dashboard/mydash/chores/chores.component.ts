@@ -6,4 +6,8 @@ import { Component } from "@angular/core";
 })
 export class ChoresComponent {
 
+    onSubmit() {
+        console.log('Chore added...');
+    }
+
 }
