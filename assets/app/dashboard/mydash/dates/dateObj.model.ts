@@ -5,7 +5,8 @@ export class DateObj {
         public hour: string,
         public minute: string,
         public date: Date,
-        public relationshipId: string,
+        public dateId?: string,
+        public relationshipId?: string,
         public createUserId?: string,
         public createTimestamp?: Date,
         public editTimestamp?: Date

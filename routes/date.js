@@ -5,6 +5,7 @@ var jwt = require('jsonwebtoken');
 
 var DateModel = require('../models/date');
 var Relationship = require('../models/relationship');
+var User = require('../models/user');
 
 
 /**
@@ -39,7 +40,6 @@ router.post('/add', function(req, res, next) {
     //Decode token
     var decoded = jwt.decode(req.query.token);
     //Make a new date from the request body
-    console.log(req.body);
     var newDate = new DateModel({
         title: req.body.title,
         location: req.body.location,
@@ -72,6 +72,9 @@ router.post('/add', function(req, res, next) {
 
 })
 
+/**
+ * Route to get all dates associated with particular relationship
+ */
 router.post('/getdates/:relationshipId', function(req, res, next) {
     //Decode token
     var decoded = jwt.decode(req.query.token);
@@ -118,6 +121,54 @@ router.post('/getdates/:relationshipId', function(req, res, next) {
                 })
             }
         }
+    })
+})
+
+router.patch('/edit', function(req, res, next) {
+    //Decode our token
+    var decoded = jwt.decode(req.query.token);
+    //Get date to edit from database
+    DateModel.findById(req.body.dateId, function(err, date) {
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            })
+        }
+        if(!date) {
+            return res.status(404).json({
+                title: 'Date not found',
+                error: {message: 'Date not found'}
+            })
+        }
+        if(decoded.user._id != date.createUserId) {
+            return res.status(401).json({
+                title: 'Not Authenticated',
+                error: {message: 'Not Authenticated'}
+            })
+        }
+        //Edit date
+        date.title = req.body.title;
+        date.location = req.body.location;
+        date.hour = req.body.hour;
+        date.minute = req.body.minute;
+        date.date = req.body.date;
+        date.editTimestamp = Date.now();
+        date.editUserId = decoded.user._id;
+        //Save date
+        date.save(function(err, result) {
+            if(err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: err
+                })
+            }
+            //Return success
+            return res.status(201).json({
+                title: 'Date edited',
+                obj: result
+            })
+        })
     })
 })
 

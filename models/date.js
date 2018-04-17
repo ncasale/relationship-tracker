@@ -10,7 +10,8 @@ var schema = new Schema({
     relationshipId: {type: Schema.Types.ObjectId, ref: 'Relationships'},
     createUserId: {type: Schema.Types.ObjectId, ref: 'Users'},
     createTimestamp: {type: Date, default: Date.now},
-    editTimestamp: {type: Date}
+    editTimestamp: {type: Date},
+    editUserId: {type: Schema.Types.ObjectId, ref: 'Users'}
 });
 
 module.exports = mongoose.model('Dates', schema);

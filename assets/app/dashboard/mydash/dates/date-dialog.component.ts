@@ -7,11 +7,11 @@ import { DateService } from './date.service';
 import { Relationship } from '../../../relationships/relationship.model';
 
 @Component({
-    selector: 'app-date-add',
-    templateUrl: './date-add.component.html',
-    styleUrls: ['./date-add.component.css']
+    selector: 'app-date-dialog',
+    templateUrl: './date-dialog.component.html',
+    styleUrls: ['./date-dialog.component.css']
 })
-export class DateAddComponent {
+export class DateDialogComponent {
 
     //Initialize form controls
     title = new FormControl (null, Validators.required);
@@ -22,7 +22,7 @@ export class DateAddComponent {
         Validators.pattern('^([012345]?[0-9])$')]);
 
     constructor(
-        public dialogRef: MatDialogRef<DateAddComponent>,
+        public dialogRef: MatDialogRef<DateDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         private messagesService: MessagesService,
         private dateService: DateService) {}
@@ -35,6 +35,7 @@ export class DateAddComponent {
             this.hour.value,
             this.minute.value,
             new Date(),
+            undefined,
             this.data.relationship.relationshipId
         );
         this.dateService.saveDate(date)

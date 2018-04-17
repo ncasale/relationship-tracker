@@ -1,6 +1,13 @@
 <article class="panel panel-default">
     <div class="panel-body">
-        <h1>{{ date.title }}</h1>
+        <h1>Title: {{ date.title }}</h1>
+        <h1>Location: {{ date.location }}</h1>
+        <h1>Time: {{ date.hour }}:{{ date.minute }}</h1>
+        <h1>Date: {{ meetingDate }}</h1>
+    </div>
+    <div>
+        <button class="btn btn-success" (click)="editDate()">Edit</button>
+        <button class="btn btn-danger" (click)="deleteDate()">Delete</button>
     </div>
     <footer class="panel-footer">
         <div class="author">

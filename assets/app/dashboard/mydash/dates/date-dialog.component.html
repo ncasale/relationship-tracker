@@ -21,6 +21,6 @@
         <mat-error *ngIf="minute.invalid">{{getMinuteErrorMessage()}}</mat-error>
     </mat-form-field>
     <br>
-    <button class="btn btn-primary" type="submit" (click)="onSubmit()">Create Date</button>
+    <button class="btn btn-primary" type="submit" [disabled]="!isDateValid()" (click)="onSubmit()">Create Date</button>
     <hr>
 </div>

@@ -27,8 +27,6 @@ export class DateService {
         const token = localStorage.getItem('token') ?
             "?token=" + localStorage.getItem('token') :
             '';
-        //Get relationship Id
-
         //Generate our request
         return this.http.post('http://localhost:3000/date/add/' + token, body, {headers:headers})
             .map((response: Response) => {
@@ -68,6 +66,7 @@ export class DateService {
                         date.hour,
                         date.minute,
                         date.date,
+                        date._id,
                         date.relationshipId,
                         date.createUserId,
                         date.createTimestamp,
@@ -81,5 +80,32 @@ export class DateService {
                 return Observable.throw(error.json());
             })
 
+    }
+
+    /**
+     * Edit the passed date in the database
+     * 
+     * @param {DateObj} date the edited version of the date
+     * @returns 
+     * @memberof DateService
+     */
+    editDate(date: DateObj) {
+        //Create body
+        const body = JSON.stringify(date);
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get token
+        const token = localStorage.getItem('token') ?
+            '?token=' + localStorage.getItem('token') :
+            '';
+        //Create a request
+        return this.http.patch('http://localhost:3000/date/edit' + token, body, {headers:headers})
+            .map((response: Response) => {
+                return response.json().obj;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
     }
 }

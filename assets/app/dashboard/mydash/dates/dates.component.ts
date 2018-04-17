@@ -4,7 +4,7 @@ import { MessagesService } from "../messages/messages.service";
 import { DateService } from "./date.service";
 import { DateObj } from "./dateObj.model";
 import { MatDialog } from "@angular/material";
-import { DateAddComponent } from "./date-add.component";
+import { DateDialogComponent } from "./date-dialog.component";
 
 @Component({
   selector: 'app-dates',
@@ -35,7 +35,7 @@ export class DatesComponent implements OnInit{
   }
 
   openAddDateDialog(): void {
-    let dialogRef = this.addDialog.open(DateAddComponent, {
+    let dialogRef = this.addDialog.open(DateDialogComponent, {
         width: '500px',
         data: {relationship: this.relationship}
     });        
