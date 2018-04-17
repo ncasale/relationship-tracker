@@ -226,6 +226,33 @@ export class RelationshipService {
                 return Observable.throw(error.json());
             })
     }
+
+    /**
+     * Return a list of users that are members of the passed relationship
+     * 
+     * @param {string} relationshipId the relationship to get members of
+     * @memberof RelationshipService
+     */
+    getRelationshipUsers(relationshipId: string) {
+        //Create body
+        const body = {};
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get token
+        const token = localStorage.getItem('token') ?
+            '?token=' + localStorage.getItem('token') :
+            '';
+        //Create request
+        return this.http.post('http://localhost:3000/relationship/getusers/' + relationshipId + token, body, {headers:headers})
+            .map((response: Response) => {
+                return response.json().obj;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
+
+    }
     
     /**
      * Toggle invite component 

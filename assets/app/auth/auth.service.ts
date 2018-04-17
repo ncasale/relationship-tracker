@@ -56,6 +56,40 @@ export class AuthService {
     }
 
     /**
+     * Return a user from the database with the passed userId
+     * 
+     * @param {string} userId ID of user to return 
+     * @returns JSON representation of user
+     * @memberof AuthService
+     */
+    getUser(userId: string) {
+        //Create a body
+        const body = {};
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get token
+        const token = localStorage.getItem('token') ?
+            '?token=' + localStorage.getItem('token') :
+            '';
+        //Create request
+        return this.http.post('http://localhost:3000/auth/getuser/' + userId + token, body, {headers:headers})
+            .map((response: Response) => {
+                var returnedUser = response.json().obj;
+                var user = new User(
+                    undefined,
+                    undefined,
+                    returnedUser.firstname,
+                    returnedUser.lastname
+                )
+                return user;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
+    }
+
+    /**
      * Clears local storage and navigates to home -- effectively logging user out
      * 
      * @memberof AuthService

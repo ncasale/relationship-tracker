@@ -18,6 +18,7 @@ import 'style-loader!../../node_modules/@angular/material/prebuilt-themes/indigo
 import { MessagesService } from './dashboard/mydash/messages/messages.service';
 import { DatePipe } from '@angular/common';
 import { DateService } from './dashboard/mydash/dates/date.service';
+import { ChoreService } from './dashboard/mydash/chores/chore.service';
 
 @NgModule({
     declarations: [
@@ -41,7 +42,8 @@ import { DateService } from './dashboard/mydash/dates/date.service';
         ErrorService,
         MessagesService,
         DateService,
-        DatePipe
+        DatePipe,
+        ChoreService
     ],
     bootstrap: [AppComponent]
 })

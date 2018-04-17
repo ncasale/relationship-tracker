@@ -71,4 +71,37 @@ router.post('/login', function(req, res, next) {
     })
 })
 
+router.post('/getuser/:id', function(req, res, next) {
+    //Decode token
+    var decoded = jwt.decode(req.query.token);
+    //Get user from database
+    User.findById(req.params.id, function(err, user) {
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            })
+        }
+        if(!user) {
+            return res.status(404).json({
+                title: 'User not found',
+                error: {message: 'User not found'}
+            })
+        }
+        console.log('Found user...');
+        //Return the user stripped of sensitive information
+        var userJson = {
+            firstname: user.firstname,
+            lastname: user.lastname
+        }
+
+        console.log('Creating user json', userJson);
+
+        return res.status(210).json({
+            title: 'User found',
+            obj: userJson
+        })
+    })
+})
+
 module.exports = router;

@@ -395,15 +395,14 @@ router.patch('/acceptinvite/:id', function(req, res, next) {
     })
 })
 
-/*
-router.post('/getrelationshipmessages/:id', function(req, res, next) {
+router.post('/getusers/:id', function(req, res, next) {
     //Decode token
     var decoded = jwt.decode(req.query.token);
     //Get the relationship
     Relationship.findById(req.params.id, function(err, relationship) {
         if(err) {
             return res.status(500).json({
-                title: 'An error occurred',
+                title: "An error occurred",
                 error: err
             })
         }
@@ -413,13 +412,12 @@ router.post('/getrelationshipmessages/:id', function(req, res, next) {
                 error: {message: 'Relationship not found'}
             })
         }
-        //Get and return messages
-        return res.status(201).json({
-            title: 'Messages found...',
-            obj: relationship.messages
+        //Get and return users from relationship
+        return res.status(200).json({
+            title: 'Relationship users found.',
+            obj: relationship.users
         })
-
     })
-})*/
+})
 
 module.exports = router;
