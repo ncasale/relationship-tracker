@@ -124,6 +124,9 @@ router.post('/getdates/:relationshipId', function(req, res, next) {
     })
 })
 
+/**
+ * Route to edit a date
+ */
 router.patch('/edit', function(req, res, next) {
     //Decode our token
     var decoded = jwt.decode(req.query.token);
@@ -166,6 +169,49 @@ router.patch('/edit', function(req, res, next) {
             //Return success
             return res.status(201).json({
                 title: 'Date edited',
+                obj: result
+            })
+        })
+    })
+})
+
+/**
+ * Route to delete a date
+ */
+router.delete('/delete/:id', function(req, res, next) {
+    //Decode our token
+    var decoded = jwt.decode(req.query.token);
+    //Find date in database
+    DateModel.findById(req.params.id, function(err, date) {
+        if(err) {
+            return res.status(500).json({
+                title: "An error occurred",
+                error: err
+            })
+        }
+        if(!date) {
+            return res.status(404).json({
+                title: "Date not found",
+                error: {message: "Date not found"}
+            })
+        }
+        if(date.createUserId != decoded.user._id) {
+            return res.status(401).json({
+                title: "Not Authenticated",
+                error: {message: "Not Authenticated"}
+            })
+        }
+        //Delete date from database
+        date.remove(function(err, result) {
+            if(err) {
+                return res.status(500).json({
+                    title: "An error occurred",
+                    error: err
+                })
+            }
+            //Deleted successfully
+            return res.status(200).json({
+                title: "Date deleted.",
                 obj: result
             })
         })

@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, EventEmitter } from "@angular/core";
 import { Http, Headers, Response } from "@angular/http";
 import { DateObj } from "./dateObj.model";
 import { ErrorService } from "../../../error/error.service";
@@ -10,6 +10,9 @@ import { Observable } from "rxjs";
 export class DateService {
     //Inject services
     constructor(private http: Http, private errorService: ErrorService) {}
+
+    //Signal that fires when a date is deleted
+    dateDeletedEmitter = new EventEmitter<DateObj>();
 
     /**
      * Save a date to the database
@@ -100,6 +103,31 @@ export class DateService {
             '';
         //Create a request
         return this.http.patch('http://localhost:3000/date/edit' + token, body, {headers:headers})
+            .map((response: Response) => {
+                return response.json().obj;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
+    }
+
+    /**
+     * Delete the date with the passed ID from the database
+     * 
+     * @param {string} dateId ID of date to delete
+     * @returns 
+     * @memberof DateService
+     */
+    deleteDate(dateId: string) {
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get token
+        const token = localStorage.getItem('token') ?
+            "?token=" + localStorage.getItem('token') :
+            '';
+        //Create request
+        return this.http.delete('http://localhost:3000/date/delete/' + dateId + token, {headers:headers})
             .map((response: Response) => {
                 return response.json().obj;
             })

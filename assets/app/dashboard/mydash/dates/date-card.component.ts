@@ -64,22 +64,22 @@ export class DateCardComponent implements OnInit{
               date: this.date
             }
         });
-
-        /* this.date.title = "Edited Title...";
-        this.date.hour = '23';
-        this.date.minute = '41';
-        this.date.location = 'A new location for our date';
-
-        this.dateService.editDate(this.date)
-            .subscribe(
-                (response: any) => {
-                    console.log('Edited Date: ', response);
-                }
-            ) */
     }
 
+    /**
+     * Call date service to delete this date, emit date deleted signal
+     * 
+     * @memberof DateCardComponent
+     */
     deleteDate() {
-        console.log('Deleting Date...');
+        this.dateService.deleteDate(this.date.dateId)
+            .subscribe(
+                (response: any) => {
+                    console.log("Deleted message...", response);
+                }
+            );
+        
+        this.dateService.dateDeletedEmitter.emit(this.date);
     }
 
 

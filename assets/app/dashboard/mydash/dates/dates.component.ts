@@ -10,7 +10,7 @@ import { DateDialogComponent } from "./date-dialog.component";
   selector: 'app-dates',
   templateUrl: './dates.component.html'
 })
-export class DatesComponent implements OnInit{
+export class DatesComponent implements OnInit {
   relationship: Relationship;
   dates: DateObj[] = [];
 
@@ -19,6 +19,7 @@ export class DatesComponent implements OnInit{
 
 
   ngOnInit() {
+    //Get current mydash relationship and get all dates for relationship
     this.messagesService.currentMyDashRelationshipEmitter.subscribe(
       (response: Relationship) => {
           this.relationship = response;
@@ -30,9 +31,19 @@ export class DatesComponent implements OnInit{
                 this.dates = dates;
               }
             )
-      }
-  )
+      });
+
+      //When a message is deleted, delete it from the messages list
+      this.dateService.dateDeletedEmitter.subscribe(
+        (date: DateObj) => {
+            //Find array of message within messages
+            var index = this.dates.indexOf(date);
+            if(index != -1) {
+                this.dates.splice(index, 1);
+            }
+        });
   }
+  
 
   /**
    * Opens date dialog as a create date dialog
@@ -47,6 +58,6 @@ export class DatesComponent implements OnInit{
           areEditing: false
         }
     });        
-}
+  }  
 
 }
