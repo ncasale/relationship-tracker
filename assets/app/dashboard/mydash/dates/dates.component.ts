@@ -34,10 +34,18 @@ export class DatesComponent implements OnInit{
   )
   }
 
-  openAddDateDialog(): void {
+  /**
+   * Opens date dialog as a create date dialog
+   * 
+   * @memberof DatesComponent
+   */
+  openCreateDateDialog(): void {
     let dialogRef = this.addDialog.open(DateDialogComponent, {
         width: '500px',
-        data: {relationship: this.relationship}
+        data: {
+          relationship: this.relationship,
+          areEditing: false
+        }
     });        
 }
 

@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from "@angular/core";
 import { DateObj } from "./dateObj.model";
 import { DatePipe } from "@angular/common";
 import { DateService } from "./date.service";
+import { MatDialog } from "@angular/material";
+import { Relationship } from "../../../relationships/relationship.model";
+import { DateDialogComponent } from "./date-dialog.component";
 
 @Component({
     selector: 'app-date-card',
@@ -10,13 +13,14 @@ import { DateService } from "./date.service";
 })
 export class DateCardComponent implements OnInit{
     @Input() date: DateObj;
+    @Input() relationship: Relationship;
 
     //The timestamp of the message
     meetingDate: string;
     meetingDateFormat: string = 'MM/dd/yyyy';
 
     //Inject Services
-    constructor(private datePipe: DatePipe, private dateService: DateService) {}
+    constructor(private datePipe: DatePipe, private dateService: DateService, private dateDialog: MatDialog) {}
 
     ngOnInit() {
         //Set meetingDate in correct format
@@ -41,9 +45,27 @@ export class DateCardComponent implements OnInit{
         }
     }
 
+    /**
+     * Open date dialog for editing
+     * 
+     * @memberof DateCardComponent
+     */
     editDate() {
         //Open up our edit dialog
-        this.date.title = "Edited Title...";
+        let dialogRef = this.dateDialog.open(DateDialogComponent, {
+            width: '500px',
+            data: {
+              relationship: this.relationship,
+              areEditing: true,
+              editTitle: this.date.title,
+              editLocation: this.date.location,
+              editHour: this.date.hour,
+              editMinute: this.date.minute,
+              date: this.date
+            }
+        });
+
+        /* this.date.title = "Edited Title...";
         this.date.hour = '23';
         this.date.minute = '41';
         this.date.location = 'A new location for our date';
@@ -53,7 +75,7 @@ export class DateCardComponent implements OnInit{
                 (response: any) => {
                     console.log('Edited Date: ', response);
                 }
-            )
+            ) */
     }
 
     deleteDate() {
