@@ -3,6 +3,8 @@ import { ChoreDialogComponent } from "./chore-dialog.component";
 import { MatDialog } from "@angular/material";
 import { Relationship } from "../../../relationships/relationship.model";
 import { MessagesService } from "../messages/messages.service";
+import { ChoreService } from "./chore.service";
+import { Chore } from "./chore.model";
 
 @Component({
     selector: 'app-chores',
@@ -12,8 +14,13 @@ export class ChoresComponent implements OnInit{
     //The relationship to which these chores are attached
     relationship: Relationship;
 
+    //List of chores to display
+    chores: Chore[] = [];
+
     //Inject services
-    constructor(private createChoreDialog: MatDialog, private messagesService: MessagesService) {}
+    constructor(private createChoreDialog: MatDialog,
+        private messagesService: MessagesService,
+        private choreService: ChoreService) {}
 
     ngOnInit(){
         //Get current mydash relationship and get all chores for relationship
@@ -21,6 +28,12 @@ export class ChoresComponent implements OnInit{
             (response: Relationship) => {
                 this.relationship = response;
                 //Get chores for this relationship from Chores Service
+                this.choreService.getChores(this.relationship.relationshipId)
+                    .subscribe(
+                        (chores: Chore[]) => {
+                            this.chores = chores;
+                        }
+                    )
             });
     }
 

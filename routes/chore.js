@@ -26,6 +26,9 @@ router.use('/', function(req, res, next) {
     })
 })
 
+/**
+ * Route to add a new chore to database
+ */
 router.post('/add', function(req, res, next) {
     //Decode jwt token
     var decoded = jwt.decode(req.query.token);
@@ -58,6 +61,28 @@ router.post('/add', function(req, res, next) {
         })
     })
 
+})
+
+/**
+ * Route to get chores for particular relationship
+ */
+router.post('/getchores/:relationshipId', function(req, res, next) {
+    //Decode token
+    var decoded = jwt.decode(req.query.token);
+    //Find all chores with passed relationshipId
+    Chore.find({relationshipId: req.params.relationshipId}, function(err, chores) {
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            })
+        }
+        //Found chores, return to user
+        return res.status(200).json({
+            title: 'Chores found',
+            obj: chores
+        })
+    })
 })
 
 module.exports = router;

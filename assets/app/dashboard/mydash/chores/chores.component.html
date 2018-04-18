@@ -1,3 +1,5 @@
-<h3>The Chores component</h3>
-
-<button class="btn btn-primary" (click)="openCreateChoreDialog()">Create Chore</button>
+<div class="col-md-8 col-md-offset-2">
+    <app-chore-card [chore]="chore" *ngFor="let chore of chores"></app-chore-card>
+    <hr>
+    <button class="btn btn-primary" (click)="openCreateChoreDialog()">Create Chore</button>
+</div>

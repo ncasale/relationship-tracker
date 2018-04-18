@@ -18,6 +18,7 @@ import { MessageEditComponent } from "./messages/message-edit.component";
 import { DateCardComponent } from "./dates/date-card.component";
 import { DateDialogComponent } from "./dates/date-dialog.component";
 import { ChoreDialogComponent } from "./chores/chore-dialog.component";
+import { ChoreCardComponent } from "./chores/chore-card.component";
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { ChoreDialogComponent } from "./chores/chore-dialog.component";
         MessageEditComponent,
         DateCardComponent,
         DateDialogComponent,
-        ChoreDialogComponent     
+        ChoreDialogComponent,
+        ChoreCardComponent     
     ],
     imports: [
         RelationshipModule,
