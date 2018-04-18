@@ -18,6 +18,7 @@ export class ChoreDialogComponent implements OnInit{
     //Initialize form controls
     title = new FormControl (null, Validators.required);
     assignedUserId = new FormControl(null, Validators.required);
+    dueDate = new FormControl(null, Validators.required);
     selectedUser: string;
 
     //Array of possible users to assign chore to
@@ -34,6 +35,7 @@ export class ChoreDialogComponent implements OnInit{
         //Prepopulate fields if editing
         this.checkEditTitle();
         this.checkEditAssignedUser();
+        this.checkEditDueDate();
 
 
         //Get array of users for this relationship
@@ -62,7 +64,7 @@ export class ChoreDialogComponent implements OnInit{
         //Create a chore
         var chore = new Chore(
             this.title.value,
-            new Date(),
+            this.dueDate.value,
             this.assignedUserId.value,
             this.data.relationshipId
         );
@@ -86,11 +88,13 @@ export class ChoreDialogComponent implements OnInit{
         //Alter chore object
         this.data.chore.title = this.title.value;
         this.data.chore.assignedUserId = this.assignedUserId.value;
+        this.data.chore.dueDate = this.dueDate.value;
 
         //Call edit chore service
         this.choreService.editChore(this.data.chore)
             .subscribe(
                 (response: any) => {
+                    this.choreService.choreEdited.emit();
                 }
             )            
         //Close the dialog
@@ -111,7 +115,7 @@ export class ChoreDialogComponent implements OnInit{
     }
 
     /**
-     * Display error message if Title field invalid
+     * Display error message if Assignee field invalid
      * 
      * @returns Error
      * @memberof DateDialogComponent
@@ -121,7 +125,16 @@ export class ChoreDialogComponent implements OnInit{
                 '';
     }
 
-    
+    /**
+     * Display error message if Due Date not selected
+     * 
+     * @returns 
+     * @memberof ChoreDialogComponent
+     */
+    getDueDateErrorMessage() {
+        return this.dueDate.hasError('required') ? 'You must select a due date for the chore' :
+            '';
+    }    
 
     /**
      * If we are editing, prepopulate dialog with title of date
@@ -143,7 +156,18 @@ export class ChoreDialogComponent implements OnInit{
         if(this.data.areEditing) {
             this.selectedUser = this.data.chore.assignedUserId;
         }
-    }    
+    }
+    
+    /**
+     * If we are editing, set the due date equal to the existing due date for chore
+     * 
+     * @memberof ChoreDialogComponent
+     */
+    checkEditDueDate() {
+        if(this.data.areEditing) {
+            this.dueDate.setValue(this.data.chore.dueDate);
+        }
+    }
 
     /**
      * Return true if we are editing a date, false if creating
@@ -163,11 +187,8 @@ export class ChoreDialogComponent implements OnInit{
 
     isChoreValid() {
         return this.title.valid &&
-            this.assignedUserId.valid;
-            
-            //&&
-            //this.datepicker.valid;
-        //return (this.dateForm.valid && )
+            this.assignedUserId.valid &&
+            this.dueDate.valid;
     }
     
 

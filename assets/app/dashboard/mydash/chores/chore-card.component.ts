@@ -30,14 +30,30 @@ export class ChoreCardComponent implements OnInit{
         //Format due date
         this.formattedDueDate = this.datePipe.transform(this.chore.dueDate, this.dueDateFormat);
         //Get user first and last name from database
+        this.setAssignedUser();
+        //Update due date/assigned user whenever chore edited
+        this.choreService.choreEdited.subscribe(
+            (response: any) => {
+                this.formattedDueDate = this.datePipe.transform(this.chore.dueDate, this.dueDateFormat);
+                this.setAssignedUser();
+            }
+        )
+
+    }
+
+    /**
+     * Find assigned user for chore, and use to display first and last name on card
+     * 
+     * @memberof ChoreCardComponent
+     */
+    setAssignedUser() {
         this.authService.getUser(this.chore.assignedUserId)
             .subscribe(
                 (user: User) => {
                     //Set assignedUser to the first/last name of retrieved user
                     this.assignedUser = user.firstname + ' ' + user.lastname;
                 }
-            )
-
+            )       
     }
 
     /**

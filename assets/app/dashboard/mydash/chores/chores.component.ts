@@ -35,12 +35,8 @@ export class ChoresComponent implements OnInit{
                         }
                     )
             });
-    }
-
-    onSubmit() {
-        console.log('Chore added...');
-    }
-
+    } 
+    
     /**
      * Open chore dialog for chore creation
      * 

@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, EventEmitter } from "@angular/core";
 import { Http, Headers, Response } from "@angular/http";
 import { Chore } from "./chore.model";
 
@@ -12,6 +12,9 @@ export class ChoreService {
 
     //Inject services
     constructor(private http: Http, private errorService: ErrorService) {}
+
+    //Signal to update date on card if chore edited
+    choreEdited = new EventEmitter<null>();
 
     /**
      * Add a passed chore to the database

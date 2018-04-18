@@ -6,18 +6,23 @@
         <input matInput placeholder="Title" [formControl]="title" required>
         <mat-error *ngIf="title.invalid">{{getTitleErrorMessage()}}</mat-error>
     </mat-form-field>
-    <br>
     <mat-form-field>
-        <mat-select placeholder="Assign chore to relationship member..." [formControl]="assignedUserId" [(ngModel)]="selectedUser" required>
+        <mat-select placeholder="Assignee" [formControl]="assignedUserId" [(ngModel)]="selectedUser" required>
             <mat-option *ngFor="let assignedUser of assignedUsers" [value]="assignedUser.userId">
             {{ assignedUser.firstname }} {{assignedUser.lastname}}
             </mat-option>
         </mat-select>
         <mat-error *ngIf="assignedUserId.invalid">{{getAssignedUserErrorMessage()}}</mat-error>
     </mat-form-field>
+    <mat-form-field>
+        <input matInput [matDatepicker]="dueDatePicker" placeholder="Due Date" [formControl]="dueDate">
+        <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #dueDatePicker></mat-datepicker>
+        <mat-error *ngIf="dueDate.invalid">{{ getDueDateErrorMessage() }}</mat-error>
+    </mat-form-field>
+    <br>
 
     <button *ngIf="!areEditing()" class="btn btn-primary" type="submit" [disabled]="!isChoreValid()" (click)="onSubmitCreate()">Create Chore</button>
     <button *ngIf="areEditing()" class="btn btn-primary" type="submit" [disabled]="!isChoreValid()" (click)="onSubmitEdit()">Edit Chore</button>
-
     <hr>
 </div>
