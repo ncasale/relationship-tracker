@@ -70,55 +70,21 @@ router.post('/add', function(req, res, next) {
  */
 
 router.post('/getrelationships', function(req, res, next) {
-    console.log('HIT GET RELATIONSHIPS...');
+    //Decode token
     var decoded = jwt.decode(req.query.token);
-    var relationships = [];
-    var counter = 0;
-    var relationshipsLength = 0;
-    User.findById(decoded.user._id, function(err, user) {
+    //Get relationships where user is member of relationship
+    Relationship.find({users: decoded.user._id}, function(err, relationships) {
         if(err) {
             return res.status(500).json({
                 title: 'An error occurred',
                 error: err
             })
         }
-        if(!user) {
-            return res.status(404).json({
-                title: 'User not found',
-                error: {message: 'User not found'}
-            })
-        }
-
-        //Get array of relationship ids from user
-        //user.relationships
-        relationshipsLength = user.relationships.length;
-        for(var counter = 0; counter < relationshipsLength; counter++){
-            relationshipId = user.relationships[counter];
-            Relationship.findById(relationshipId, function(err, relationship) {
-                if(err) {
-                    return res.status(500).json({
-                        title: 'An error occurred',
-                        error: err
-                    })
-                }
-                if(!relationship) {
-                    return res.status(404).json({
-                        title: 'Requested relationship does not exist',
-                        error: {message: 'Requested relationship does not exist'}
-                    })
-                }
-                //If no error, append to relationships list
-                relationships.push(relationship);
-
-                //Wait to return until all relationships processed
-                if(relationships.length == relationshipsLength) {
-                    return res.status(201).json({
-                        title: 'Got Relationships',
-                        obj: relationships
-                    })
-                }
-            })
-        }
+        //Return relationships
+        return res.status(200).json({
+            title: 'Relationships found',
+            obj: relationships
+        })
     })
 })
 
