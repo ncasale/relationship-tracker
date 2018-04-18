@@ -9,7 +9,7 @@
     <br>
     <mat-form-field>
         <mat-select placeholder="Assign chore to relationship member..." [formControl]="assignedUserId" required>
-            <mat-option *ngFor="let assignedUser of assignedUsers" [value]="assignedUser.firstname + ' ' + assignedUser.lastname">
+            <mat-option *ngFor="let assignedUser of assignedUsers" [value]="assignedUser.userId">
             {{ assignedUser.firstname }} {{assignedUser.lastname}}
             </mat-option>
         </mat-select>

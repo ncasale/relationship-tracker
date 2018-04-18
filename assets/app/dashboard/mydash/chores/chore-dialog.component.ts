@@ -5,6 +5,8 @@ import { Relationship } from '../../../relationships/relationship.model';
 import { RelationshipService } from '../../../relationships/relationship.service';
 import { User } from '../../../auth/user.model';
 import { AuthService } from '../../../auth/auth.service';
+import { Chore } from './chore.model';
+import { ChoreService } from './chore.service';
 
 @Component({
     selector: 'app-chore-dialog',
@@ -20,17 +22,11 @@ export class ChoreDialogComponent implements OnInit{
     //Array of possible users to assign chore to
     assignedUsers: User[] = [];
 
-    //REMOVE
-    foods = [
-        {value: 'steak-0', viewValue: 'Steak'},
-        {value: 'pizza-1', viewValue: 'Pizza'},
-        {value: 'tacos-2', viewValue: 'Tacos'}
-      ];
-
     constructor(
         public dialogRef: MatDialogRef<ChoreDialogComponent>,
         private relationshipService: RelationshipService,
         private authService: AuthService,
+        private choreService: ChoreService,
         @Inject(MAT_DIALOG_DATA) public data: any) {}
 
     ngOnInit() {
@@ -46,33 +42,37 @@ export class ChoreDialogComponent implements OnInit{
                         this.authService.getUser(userId)
                             .subscribe(
                                 (response: User) => {
+                                    response.userId = userId;
                                     this.assignedUsers.push(response);
+                                    console.log(this.assignedUsers);
                                 }
                             )                            
                     }
-                    //Assign this array to a local array and use to populate select menu
                 }
             )
     }
 
     /**
-     * Call date service to add new date to database using form data
+     * Call chore service to add new chore to database using form data
      * 
-     * @memberof DateDialogComponent
+     * @memberof ChoreDialogComponent
      */
     onSubmitCreate() {
-        /*
-        var date = new DateObj(
+        //Create a chore
+        var chore = new Chore(
             this.title.value,
             new Date(),
-            undefined,
+            this.assignedUserId.value,
             this.data.relationship.relationshipId
         );
-        this.dateService.saveDate(date)
-            .subscribe((response: any) => {
-                console.log('Saved Date...');
-            })
-            */
+
+        //Call chore service to save chore
+        this.choreService.addChore(chore)
+            .subscribe(
+                (response: any) => {
+                    console.log(response);
+                }
+            )
 
         //Close the dialog
         this.dialogRef.close();
