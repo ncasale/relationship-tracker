@@ -35,6 +35,17 @@ export class ChoresComponent implements OnInit{
                         }
                     )
             });
+        //Update frontend when chores are deleted
+        this.choreService.choreDeleted.subscribe(
+            (chore: Chore) => {
+                //Find chore in chores
+                var index = this.chores.indexOf(chore);
+                if(index != -1) {
+                    this.chores.splice(index, 1);
+                }
+            }
+        )
+        
     } 
     
     /**

@@ -82,7 +82,7 @@ export class ChoreCardComponent implements OnInit{
         this.choreService.deleteChore(this.chore.choreId)
             .subscribe(
                 (response: any) => {
-                    console.log("Chore deleted...");
+                    this.choreService.choreDeleted.emit(this.chore);
                 }
             )
     }

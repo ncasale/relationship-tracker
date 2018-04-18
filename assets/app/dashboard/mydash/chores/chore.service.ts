@@ -13,8 +13,9 @@ export class ChoreService {
     //Inject services
     constructor(private http: Http, private errorService: ErrorService) {}
 
-    //Signal to update date on card if chore edited
+    //Signals to update date on card if chore edited/deleted
     choreEdited = new EventEmitter<null>();
+    choreDeleted = new EventEmitter<Chore>();
 
     /**
      * Add a passed chore to the database
