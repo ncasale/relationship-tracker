@@ -20,7 +20,9 @@ export class DateDialogComponent implements OnInit{
         Validators.pattern('^(2[0-3]|[01]?[0-9])$')]);
     minute = new FormControl(null, [Validators.required,
         Validators.pattern('^([012345]?[0-9])$')]);
+    dateDate = new FormControl(null, Validators.required);
 
+    //Inject services
     constructor(
         public dialogRef: MatDialogRef<DateDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -33,6 +35,7 @@ export class DateDialogComponent implements OnInit{
         this.checkEditLocation();
         this.checkEditHour();
         this.checkEditMinute();
+        this.checkEditDate();
     }
 
     /**
@@ -46,7 +49,7 @@ export class DateDialogComponent implements OnInit{
             this.location.value,
             this.hour.value,
             this.minute.value,
-            new Date(),
+            this.dateDate.value,
             undefined,
             this.data.relationship.relationshipId
         );
@@ -70,10 +73,11 @@ export class DateDialogComponent implements OnInit{
         this.data.date.location = this.location.value;
         this.data.date.hour = this.hour.value;
         this.data.date.minute = this.minute.value;
+        this.data.date.date = this.dateDate.value;
         console.log("Date before sent to date service edit: ", this.data.date);
         this.dateService.editDate(this.data.date)
             .subscribe((response: any) => {
-                console.log('Edited Date...');
+                this.dateService.dateEditedEmitter.emit();
             })
 
         //Close the dialog
@@ -129,6 +133,17 @@ export class DateDialogComponent implements OnInit{
     }
 
     /**
+     * Display error message if Date field invalid
+     * 
+     * @returns Error
+     * @memberof DateDialogComponent
+     */
+    getDateErrorMessage() {
+        return this.dateDate.hasError('required') ? 'You must enter a date' :
+            '';
+    }
+
+    /**
      * If we are editing, prepopulate dialog with title of date
      * 
      * @memberof DateDialogComponent
@@ -173,6 +188,17 @@ export class DateDialogComponent implements OnInit{
     }
 
     /**
+     * If we are editing, populate date field with existing date for date
+     * 
+     * @memberof DateDialogComponent
+     */
+    checkEditDate() {
+        if(this.data.areEditing) {
+            this.dateDate.setValue(this.data.date.date);
+        }
+    }
+
+    /**
      * Return true if we are editing a date, false if creating
      * 
      * @returns 
@@ -192,10 +218,8 @@ export class DateDialogComponent implements OnInit{
         return this.title.valid &&
             this.location.valid &&
             this.hour.valid &&
-            this.minute.valid 
-            //&&
-            //this.datepicker.valid;
-        //return (this.dateForm.valid && )
+            this.minute.valid &&
+            this.dateDate.valid;
     }
     
 

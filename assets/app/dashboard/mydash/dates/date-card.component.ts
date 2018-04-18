@@ -25,6 +25,11 @@ export class DateCardComponent implements OnInit{
     ngOnInit() {
         //Set meetingDate in correct format
         this.meetingDate = this.datePipe.transform(this.date.date, this.meetingDateFormat);
+        this.dateService.dateEditedEmitter.subscribe(
+            (response: any) => {
+                this.meetingDate = this.datePipe.transform(this.date.date, this.meetingDateFormat);
+            }
+        )
 
         //Format Hour/Minute
         this.formatTime();

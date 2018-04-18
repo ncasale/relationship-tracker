@@ -13,6 +13,7 @@ export class DateService {
 
     //Signal that fires when a date is deleted
     dateDeletedEmitter = new EventEmitter<DateObj>();
+    dateEditedEmitter = new EventEmitter<null>();
 
     /**
      * Save a date to the database

@@ -21,6 +21,12 @@
         <input matInput placeholder="Minute" [formControl]="minute" required>
         <mat-error *ngIf="minute.invalid">{{getMinuteErrorMessage()}}</mat-error>
     </mat-form-field>
+    <mat-form-field>
+        <input matInput [matDatepicker]="dateDatePicker" placeholder="Date" [formControl]="dateDate">
+        <mat-datepicker-toggle matSuffix [for]="dateDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #dateDatePicker></mat-datepicker>
+        <mat-error *ngIf="dateDate.invalid">{{ getDateErrorMessage() }}</mat-error>
+    </mat-form-field>
     <br>
 
     <button *ngIf="!areEditing()" class="btn btn-primary" type="submit" [disabled]="!isDateValid()" (click)="onSubmitCreate()">Create Date</button>
