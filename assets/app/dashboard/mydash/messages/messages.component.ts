@@ -27,6 +27,7 @@ export class MessagesComponent implements OnInit{
         this.messagesForm = new FormGroup({
             message: new FormControl(null, Validators.required)
         })
+        console.log("OnInit called...");
 
         //When current relationship in mydash updated, update the current relationship of messages
         this.messagesService.currentMyDashRelationshipEmitter.subscribe(
