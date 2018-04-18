@@ -4,6 +4,7 @@ export class Chore {
         public dueDate: Date,
         public assignedUserId: string,
         public relationshipId: string,
+        public choreId?: string,
         public createUserId?: string,
         public createTimestamp?: Date,
         public editUserId?: string,

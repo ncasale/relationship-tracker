@@ -67,6 +67,7 @@ export class ChoreService {
                         chore.dueDate,
                         chore.assignedUserId,
                         chore.relationshipId,
+                        chore._id,
                         chore.createUserId,
                         chore.createTimestamp,
                         chore.editUserId,
@@ -80,5 +81,50 @@ export class ChoreService {
                 return Observable.throw(error.json());
             })
 
+    }
+
+    /**
+     * Edit a passed chore in the database
+     * 
+     * @param {Chore} chore the edited version of the chore
+     * @returns 
+     * @memberof ChoreService
+     */
+    editChore(chore: Chore) {
+        //Create body
+        const body = JSON.stringify(chore);
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get token
+        const token = localStorage.getItem('token') ?
+            '?token=' + localStorage.getItem('token') :
+            '';
+        //Create request
+        return this.http.patch('http://localhost:3000/chore/editchore' + token, body, {headers:headers})
+            .map((response: Response) => {
+                return response.json().obj;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
+    }
+
+    deleteChore(choreId: string) {
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get token
+        const token = localStorage.getItem('token') ?
+            '?token=' + localStorage.getItem('token') :
+            '';
+        //Create request
+        return this.http.delete('http://localhost:3000/chore/delete/' + choreId + token, {headers:headers})
+            .map((response: Response) => {
+                return response.json().obj;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
     }
 }

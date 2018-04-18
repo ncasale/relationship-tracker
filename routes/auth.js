@@ -97,7 +97,7 @@ router.post('/getuser/:id', function(req, res, next) {
 
         console.log('Creating user json', userJson);
 
-        return res.status(210).json({
+        return res.status(200).json({
             title: 'User found',
             obj: userJson
         })

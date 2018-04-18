@@ -50,7 +50,7 @@ export class ChoresComponent implements OnInit{
         let dialogRef = this.createChoreDialog.open(ChoreDialogComponent , {
             width: '500px',
             data: {
-              relationship: this.relationship,
+              relationshipId: this.relationship.relationshipId,
               areEditing: false
             }
         });        

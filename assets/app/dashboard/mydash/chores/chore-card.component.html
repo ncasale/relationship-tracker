@@ -1,8 +1,8 @@
 <article class="panel panel-default">
     <div class="panel-body">
         <h1>Title: {{ chore.title }}</h1>
-        <h1>Due Date: {{ chore.dueDate }}</h1>
-        <h1>Assignee: {{ chore.assignedUserId }}</h1>
+        <h1>Due Date: {{ formattedDueDate }}</h1>
+        <h1>Assignee: {{ assignedUser }}</h1>
     </div>
     <div>
         <button class="btn btn-success" (click)="editChore()">Edit</button>

@@ -8,7 +8,7 @@
     </mat-form-field>
     <br>
     <mat-form-field>
-        <mat-select placeholder="Assign chore to relationship member..." [formControl]="assignedUserId" required>
+        <mat-select placeholder="Assign chore to relationship member..." [formControl]="assignedUserId" [(ngModel)]="selectedUser" required>
             <mat-option *ngFor="let assignedUser of assignedUsers" [value]="assignedUser.userId">
             {{ assignedUser.firstname }} {{assignedUser.lastname}}
             </mat-option>
@@ -16,8 +16,8 @@
         <mat-error *ngIf="assignedUserId.invalid">{{getAssignedUserErrorMessage()}}</mat-error>
     </mat-form-field>
 
-    <button *ngIf="!areEditing()" class="btn btn-primary" type="submit" [disabled]="!isDateValid()" (click)="onSubmitCreate()">Create Chore</button>
-    <button *ngIf="areEditing()" class="btn btn-primary" type="submit" [disabled]="!isDateValid()" (click)="onSubmitEdit()">Edit Chore</button>
+    <button *ngIf="!areEditing()" class="btn btn-primary" type="submit" [disabled]="!isChoreValid()" (click)="onSubmitCreate()">Create Chore</button>
+    <button *ngIf="areEditing()" class="btn btn-primary" type="submit" [disabled]="!isChoreValid()" (click)="onSubmitEdit()">Edit Chore</button>
 
     <hr>
 </div>
