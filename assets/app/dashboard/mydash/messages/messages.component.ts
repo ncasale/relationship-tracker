@@ -31,7 +31,6 @@ export class MessagesComponent implements OnInit{
         //When current relationship in mydash updated, update the current relationship of messages
         this.messagesService.currentMyDashRelationshipEmitter.subscribe(
             (response: Relationship) => {
-                console.log('Messages being refreshed...');
                 this.relationship = response;
                 //Get messages for this relationship from Messages Service
                 this.messagesService.getMessages(this.relationship.relationshipId)
@@ -60,8 +59,11 @@ export class MessagesComponent implements OnInit{
      * @memberof MessagesComponent
      */
     onSubmit() {
-        var message = new Message(this.messagesForm.value.message, this.relationship.relationshipId);
-        this.messagesService.saveMessage(message).subscribe(
+        var message = new Message(
+            this.messagesForm.value.message, 
+            this.relationship.relationshipId);
+        this.messagesService.saveMessage(message)
+        .subscribe(
             (message: Message) => {
                 //Update frontend messages array
                 this.messages.push(message);

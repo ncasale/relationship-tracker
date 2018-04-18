@@ -7,8 +7,7 @@ var Message = require('./message').schema
 var schema = new Schema({
     users: {type: [Schema.Types.ObjectId], ref: 'Users'},
     invitees: {type: [Schema.Types.ObjectId], ref: 'Users'},
-    title: {type: String, required: true},
-    messages: {type: [Message], ref: 'Messages'}
+    title: {type: String, required: true}
 });
 
 schema.plugin(mongooseUniqueValidator);

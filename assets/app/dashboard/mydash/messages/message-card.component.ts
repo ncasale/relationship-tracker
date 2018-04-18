@@ -4,6 +4,8 @@ import { MessagesService } from "./messages.service";
 import { DatePipe } from "@angular/common";
 import { MatDialog } from "@angular/material";
 import { MessageEditComponent } from "./message-edit.component";
+import { AuthService } from "../../../auth/auth.service";
+import { User } from "../../../auth/user.model";
 
 
 @Component({
@@ -14,14 +16,19 @@ import { MessageEditComponent } from "./message-edit.component";
 export class MessageCardComponent implements OnInit{
     //The message to display
     @Input() message: Message;
-
+    firstname: string;
+    lastname: string;
 
     //The timestamp of the message
     timestamp: string;
     timestampFormat: string = 'MM/dd/yyyy HH:mm a';
 
     //Inject services
-    constructor(private messagesService: MessagesService, private datePipe: DatePipe, public editDialog: MatDialog) {}
+    constructor(
+        private messagesService: MessagesService,
+        private authService: AuthService,
+        private datePipe: DatePipe, 
+        public editDialog: MatDialog) {}
 
     /**
      * Initialize timestamp when message component created
@@ -32,6 +39,16 @@ export class MessageCardComponent implements OnInit{
         if(this.message) {
             this.setTimestamp();
         }
+        //Get the first and last name of the user who created message
+        this.authService.getUser(this.message.userId)
+            .subscribe(
+                (user: User) => {
+                    //Set first and last name
+                    this.firstname = user.firstname;
+                    this.lastname = user.lastname;
+                }
+            )
+
     }
 
     /**
@@ -47,36 +64,15 @@ export class MessageCardComponent implements OnInit{
     }
 
     /**
-     * Edit a message
-     * 
-     * @memberof MessageCardComponent
-     */
-    editMessage() {
-        console.log('Editing Message...');
-        this.message.text = "Edited Message...";
-        this.messagesService.editMessage(this.message)
-            .subscribe(
-                (response: Message) => {
-                    //Set message
-                    this.message = response;
-                    //Set timestamp
-                    this.setTimestamp();
-                }
-            );
-    }
-
-    /**
      * Delete a message
      * 
      * @memberof MessageCardComponent
      */
     deleteMessage() {
-        console.log('Deleting Message...');
         this.messagesService.deleteMessage(this.message.messageId)
             .subscribe(
                 (response: any) => {
                     //Send signal to delete message from MessagesComponent
-                    console.log('Message deleted...');
                     this.messagesService.messageDeletedEmitter.emit(this.message);
                 }
             )

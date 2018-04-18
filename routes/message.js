@@ -37,82 +37,27 @@ router.use('/', function(req, res, next) {
 router.post('/add', function(req, res, next) {
     //Get decoded token
     var decoded = jwt.decode(req.query.token);
-    //Get user
-    User.findById(decoded.user._id, function(err, user) {
+    //Create new message
+    var message = new Message({
+        text: req.body.text,
+        relationshipId: req.body.relationshipId,
+        userId: decoded.user._id
+    })
+
+    //Save message
+    message.save(function(err, savedMessage) {
         if(err) {
             return res.status(500).json({
                 title: 'An error occurred',
                 error: err
             })
         }
-        if(!user) {
-            return res.status(404).json({
-                title: 'User not found',
-                error: {message: 'User not found'}
-            })
-        }
-        //Create message
-        var message = new Message({
-            text: req.body.text,
-            relationshipId: req.body.relationshipId,
-            userId: decoded.user._id,
-            firstname: user.firstname,
-            lastname: user.lastname
+        //Successfully saved
+        console.log("Saved message: ", savedMessage);
+        return res.status(201).json({
+            title: 'Message saved',
+            obj: savedMessage
         })
-
-        //Iterate through user list of relationships and find the one to which we are adding
-        //this message
-        var relationshipId = "";
-        
-        for(var relationshipIndex=0; relationshipIndex < user.relationships.length; relationshipIndex++) {
-            
-            if(user.relationships[relationshipIndex].equals(message.relationshipId)) {
-                relationshipId = user.relationships[relationshipIndex];
-            }
-
-            if(relationshipIndex == user.relationships.length - 1) {
-                if(relationshipId == "") {
-                    return res.status(403).json({
-                        title: 'User not a member of relationship',
-                        error: {message: 'User not a member of relationship'}
-                    })
-                }
-                //Get the relationship
-                Relationship.findById(relationshipId, function(err, relationship) {
-                    if(err) {
-                        return res.status(500).json({
-                            title: 'An error occurred',
-                            error: err
-                        })
-                    }
-                    if(!relationship) {
-                        return res.status(404).json({
-                            title: 'Relationship Not Found',
-                            error: {message: 'Relationship Not Found'}
-                        })
-                    }
-                    //Add message to relationship and save
-                    relationship.messages.push(message);
-                    relationship.save();
-
-                    //Save messsage
-                    message.save(function(err, result) {
-                        if(err) {
-                            return res.status(500).json({
-                                title: 'An error occurred',
-                                error: err
-                            })
-                        }
-                        //If successfully saved, return 201 and saved message
-                        return res.status(201).json({
-                            title: 'Message saved',
-                            obj: result
-                        })
-                    })
-
-                })
-            }
-        }
     })
 })
 
@@ -184,6 +129,7 @@ router.post('/getmessages/:id', function(req, res, next) {
                 error: {message: 'No messages with that relationship id found'}
             })
         }
+        console.log('The messages: ',messages);
         //Return list of messages
         return res.status(200).json({
             title: 'Messages found...',

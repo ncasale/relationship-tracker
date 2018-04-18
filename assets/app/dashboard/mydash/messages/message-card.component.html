@@ -4,7 +4,7 @@
     </div>
     <footer class="panel-footer">
         <div class="author">
-            {{ message.firstname }} : {{ timestamp }}
+            {{ firstname }} : {{ timestamp }}
         </div>
         <div class="config" *ngIf="messageBelongsToUser()">
             <a (click)="openEditDialog()">Edit</a>

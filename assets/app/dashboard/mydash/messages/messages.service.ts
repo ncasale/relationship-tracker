@@ -31,7 +31,6 @@ export class MessagesService {
     saveMessage(message: Message) {
         //Construct body
         const body = JSON.stringify(message);
-        console.log('JSON Message: ', body);
         //Construct headers
         const headers = new Headers ({'Content-Type':'application/json'});
         //Get token
@@ -41,18 +40,17 @@ export class MessagesService {
         //Create request
         return this.http.post('http://localhost:3000/message/add' + token, body, {headers:headers})
             .map((response: Response ) => {
-                const result = response.json();
+                const result = response.json().obj;
                 const message = new Message(
-                    result.obj.text,
-                    result.obj.relationshipId,
-                    result.obj.userId,
-                    result.obj._id,
-                    result.obj.firstname,
-                    result.obj.lastname,
-                    result.obj.createTimestamp,
-                    result.ob.editTimestamp 
-                )
+                    result.text,
+                    result.relationshipId,
+                    result.userId,
+                    result._id,
+                    result.createTimestamp,
+                    result.editTimestamp 
+                );
                 return message;
+                
             })
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
@@ -85,8 +83,6 @@ export class MessagesService {
                     result.obj.relationshipId,
                     result.obj.userId,
                     result.obj._id,
-                    result.obj.firstname,
-                    result.obj.lastname,
                     result.obj.createTimestamp,
                     result.obj.editTimestamp
                 )
@@ -115,7 +111,6 @@ export class MessagesService {
             '?token=' + localStorage.getItem('token') :
             '';
         //Create request
-        console.log(relationshipId);
         return this.http.post('http://localhost:3000/message/getmessages/' + relationshipId + token, body, {headers:headers})
             .map((response: Response) => {
                 var messages = response.json().obj;
@@ -126,8 +121,6 @@ export class MessagesService {
                         message.relationshipId,
                         message.userId,
                         message._id,
-                        message.firstname,
-                        message.lastname,
                         message.createTimestamp,
                         message.editTimestamp
                     )

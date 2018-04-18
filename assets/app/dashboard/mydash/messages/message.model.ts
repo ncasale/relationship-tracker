@@ -9,8 +9,6 @@ export class Message {
         public relationshipId?: string,
         public userId?: string,
         public messageId?: string,
-        public firstname?: string,
-        public lastname?: string,
         public createTimestamp?: Date,
         public editTimestamp?: Date) {}
 }
