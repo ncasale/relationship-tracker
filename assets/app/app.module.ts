@@ -19,6 +19,7 @@ import { MessagesService } from './dashboard/mydash/messages/messages.service';
 import { DatePipe } from '@angular/common';
 import { DateService } from './dashboard/mydash/dates/date.service';
 import { ChoreService } from './dashboard/mydash/chores/chore.service';
+import { FightService } from './dashboard/mydash/fights/fight.service';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import { ChoreService } from './dashboard/mydash/chores/chore.service';
         MessagesService,
         DateService,
         DatePipe,
-        ChoreService
+        ChoreService,
+        FightService
     ],
     bootstrap: [AppComponent]
 })

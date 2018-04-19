@@ -1,0 +1,32 @@
+<div class="col-md-8 col-md-offset-2 date-form-container">
+    <h2 *ngIf="!areEditing()">Log Fight</h2>
+    <h2 *ngIf="areEditing()">Edit Fight</h2>
+    <hr>
+    <mat-form-field>
+        <input matInput placeholder="Title" [formControl]="titleFC" required>
+        <mat-error *ngIf="titleFC.invalid">{{ getTitleErrorMessage() }}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Description" [formControl]="descriptionFC" required>
+        <mat-error *ngIf="descriptionFC.invalid">{{ getDescriptionErrorMessage() }}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Cause" [formControl]="causeFC" required>
+        <mat-error *ngIf="causeFC.invalid">{{ getCauseErrorMessage() }}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Resolution" [formControl]="resolutionFC" required>
+        <mat-error *ngIf="resolutionFC.invalid">{{ getResolutionErrorMessage() }}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput [matDatepicker]="fightDatePicker" placeholder="Fight Date" [formControl]="fightDateFC">
+        <mat-datepicker-toggle matSuffix [for]="fightDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #fightDatePicker></mat-datepicker>
+        <mat-error *ngIf="fightDateFC.invalid">{{ getFightDateErrorMessage() }}</mat-error>
+    </mat-form-field>
+    <br>
+
+    <button *ngIf="!areEditing()" class="btn btn-primary" type="submit" [disabled]="!isFightValid()" (click)="onSubmitCreate()">Log Fight</button>
+    <button *ngIf="areEditing()" class="btn btn-primary" type="submit" [disabled]="!isFightValid()" (click)="onSubmitEdit()">Edit Fight</button>
+    <hr>
+</div>
