@@ -37,6 +37,16 @@ export class FightsComponent implements OnInit{
                         }
                     )
             });
+        //Subscribe to emitter that deletes fight from fights array
+        this.fightService.deleteFightFromFightsEmitter.subscribe(
+            (fight: Fight) => {
+                //Find index of fight 
+                var index = this.fights.indexOf(fight);
+                if(index != -1) {
+                    this.fights.splice(index, 1);
+                }
+            }
+        )
     }
 
     /**
