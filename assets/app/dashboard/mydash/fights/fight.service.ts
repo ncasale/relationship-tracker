@@ -139,4 +139,44 @@ export class FightService {
                 return Observable.throw(error.json());
             })
     }
+
+    /**
+     * Check if the current user has submitted all necessary data required to view a fight
+     * 
+     * @param {string} fightId the id of the fight to check 
+     * @returns true if use has submitted all info, false otherwise
+     * @memberof FightService
+     */
+    getFight(fightId: string) {
+        //Create body
+        const body = {};
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get token
+        const token = localStorage.getItem('token') ?
+            "?token=" + localStorage.getItem('token') :
+            '';
+        //Create request
+        return this.http.post('http://localhost:3000/fight/checkUserSubmittedInfo/' + fightId + token, body, {headers:headers})
+            .map((response: Response) => {
+                var fight = response.json().obj;
+                return new Fight(
+                    fight.title,
+                    fight.descriptions,
+                    fight.causes,
+                    fight.resolutions,
+                    fight.fightDate,
+                    fight.relationshipId,
+                    fight._id,
+                    fight.createUserId,
+                    fight.createTimestamp,
+                    fight.editUserId,
+                    fight.editTimestamp
+                )
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
+    }
 }

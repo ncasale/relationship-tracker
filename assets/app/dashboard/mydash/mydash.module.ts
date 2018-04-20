@@ -5,7 +5,7 @@ import { mydashRouting } from "./mydash.routing";
 import { DatesComponent } from "./dates/dates.component";
 import { ChoresComponent } from "./chores/chores.component";
 import { FightsComponent } from "./fights/fights.component";
-import { MatSidenavModule, MatToolbar, MatToolbarModule, MatListModule, MatCalendar, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, MatDialogModule } from "@angular/material"
+import { MatSidenavModule, MatToolbar, MatToolbarModule, MatListModule, MatCalendar, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, MatDialogModule, MatSnackBar, MatSnackBarModule } from "@angular/material"
 import { CommonModule, DatePipe } from "@angular/common";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { MessagesComponent } from "./messages/messages.component";
@@ -21,6 +21,7 @@ import { ChoreDialogComponent } from "./chores/chore-dialog.component";
 import { ChoreCardComponent } from "./chores/chore-card.component";
 import { FightDialogComponent } from "./fights/fight-dialog.component";
 import { FightCardComponent } from "./fights/fight-card.component";
+import { InviteDialogComponent } from "./settings/invite-dialog.component";
 
 @NgModule({
     declarations: [
@@ -38,7 +39,8 @@ import { FightCardComponent } from "./fights/fight-card.component";
         ChoreDialogComponent,
         ChoreCardComponent,
         FightDialogComponent,
-        FightCardComponent     
+        FightCardComponent,
+        InviteDialogComponent     
     ],
     imports: [
         RelationshipModule,
@@ -55,13 +57,15 @@ import { FightCardComponent } from "./fights/fight-card.component";
         MatInputModule,
         MatSelectModule,
         MatOptionModule,
-        MatDialogModule
+        MatDialogModule,
+        MatSnackBarModule
     ],
     entryComponents: [
         MessageEditComponent,
         DateDialogComponent,
         ChoreDialogComponent,
-        FightDialogComponent
+        FightDialogComponent,
+        InviteDialogComponent
     ],
     providers: [
         DatePipe

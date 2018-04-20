@@ -157,4 +157,33 @@ router.delete('/delete/:fightId', function(req, res, next) {
     })
 })
 
+/**
+ * Route to get a particular fight
+ */
+router.post('/getFight/:fightId', function(req, res, next) {
+    //Decode token
+    var decoded = jwt.decode(req.query.token);
+    //Get Fight
+    Fight.findById(req.params.fightId, function(err, fight) {
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            })
+        }
+        if(!fight) {
+            return res.status(404).json({
+                title: 'Fight not found',
+                error: {message: 'Fight not found'}
+            })
+        }
+        //Found fight
+        return res.status(200).json({
+            title: 'Fight found',
+            obj: fight
+        })
+
+    })
+})
+
 module.exports = router;

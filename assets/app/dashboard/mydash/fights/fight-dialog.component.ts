@@ -15,7 +15,7 @@ export class FightDialogComponent implements OnInit{
     descriptionFC = new FormControl(null, Validators.required);
     causeFC = new FormControl(null, Validators.required);
     resolutionFC = new FormControl(null, Validators.required);
-    fightDateFC = new FormControl(Date.now(), Validators.required);
+    fightDateFC = new FormControl(new Date(), Validators.required);
 
     //Inject services
     constructor(

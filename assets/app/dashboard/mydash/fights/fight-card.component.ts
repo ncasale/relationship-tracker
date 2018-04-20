@@ -3,6 +3,7 @@ import { Fight } from "./fight.model";
 import { MatDialog } from "@angular/material";
 import { FightDialogComponent } from "./fight-dialog.component";
 import { FightService } from "./fight.service";
+import { DatePipe } from "@angular/common";
 
 @Component({
     selector: 'app-fight-card',
@@ -12,14 +13,20 @@ import { FightService } from "./fight.service";
 export class FightCardComponent implements OnInit{
     //The fight displayed on this card
     @Input() fight: Fight;
+    fightDate
     description: string;
     cause: string;
     resolution: string;
+    viewingFight: boolean;
+
+    //Format for date
+    dateFormat: string = "MM/dd/yyyy";
 
     //Inject services
     constructor(
         private fightDialog: MatDialog,
-        private fightService: FightService
+        private fightService: FightService,
+        private datePipe: DatePipe
     ) {}
 
     ngOnInit() {
@@ -27,7 +34,9 @@ export class FightCardComponent implements OnInit{
         this.getUserDescription();
         this.getUserCause();
         this.getUserResolution();
-        
+
+        //Format date
+        this.fightDate = this.datePipe.transform(this.fight.fightDate, this.dateFormat);
     }
 
     /**
@@ -102,6 +111,46 @@ export class FightCardComponent implements OnInit{
                     this.fightService.deleteFightFromFightsEmitter.emit(this.fight);
                 }
             )
+    }
+
+    /**
+     * View the fight card for this fight
+     * 
+     * @memberof FightCardComponent
+     */
+    viewFight() {
+        if(this.haveSubmitted()) {
+            this.viewingFight = true;
+        } else {
+            //User hasn't submitted information, prompt them to
+        }
+
+    }
+
+    /**
+     * Close the fight card for this fight
+     * 
+     * @memberof FightCardComponent
+     */
+    closeFight() {
+        this.viewingFight = false;
+    }
+
+    /**
+     * Check if a user has submitted their desc, cause, etc. for this fight. Return true
+     * if they have.
+     * 
+     * @returns true if user has submitted information for this fight
+     * @memberof FightCardComponent
+     */
+    haveSubmitted() {
+        //Iterate through descriptions and see if user matches any
+        for(let description of this.fight.descriptions) {
+            if(description.userId == localStorage.getItem('userId')) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

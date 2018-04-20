@@ -48,8 +48,7 @@ export class RelationshipService {
                     result.obj.title,
                     result.obj._id,
                     result.obj.userIds,
-                    result.obj.invitees,
-                    result.obj.messages                    
+                    result.obj.invitees                 
                 );
                 this.relationships.push(relationship);
                 return relationship;
@@ -86,8 +85,7 @@ export class RelationshipService {
                             relationship.title,
                             relationship._id,
                             relationship.users,
-                            relationship.invitees,
-                            relationship.messages
+                            relationship.invitees
                         ))
                     }
                     this.relationships = transformedRelationships;
@@ -112,7 +110,6 @@ export class RelationshipService {
         return this.http.patch('http://localhost:3000/relationship/invite/' + email + '/' + relationship.relationshipId + token, body, {headers: headers})
             .map((response: Response) => response.json())
             .catch((error: Response) => {
-                this.errorService.handleError(error.json());
                 return Observable.throw(error.json());
             })
 

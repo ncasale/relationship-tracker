@@ -1,10 +1,14 @@
-<article class="panel panel-default">
+
+<button class="btn btn-primary" (click)="viewFight()" *ngIf="!viewingFight"> {{ fight.title }} </button>
+<button class="btn btn-primary" *ngIf="viewingFight" (click)="closeFight()">Close</button>
+<hr *ngIf="viewingFight">
+<article *ngIf="viewingFight"class="panel panel-default">
     <div class="panel-body">
         <h1>Title: {{ fight.title }}</h1>
         <h1>Descriptions: {{ description }}</h1>
         <h1>Causes: {{ cause }}</h1>
         <h1>Resolutions: {{ resolution }} </h1>
-        <h1>Date: {{ fight.fightDate }} </h1>
+        <h1>Date: {{ fightDate }} </h1>
     </div>
     <div>
         <button class="btn btn-success" (click)="openEditFightDialog()">Edit</button>
@@ -18,4 +22,4 @@
         </div>
     </footer>
 </article>
-<br>
+<hr>
