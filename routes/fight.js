@@ -81,12 +81,8 @@ router.patch('/edit', function(req, res, next) {
                 error: {message: 'Fight not found'}
             })
         }
-        if(decoded.user._id != fight.createUserId) {
-            return res.status(401).json({
-                title: 'Authentication Error',
-                error: {message: 'Authentication error'}
-            })
-        }
+        //TODO: Add checking to see that user is member of relationship
+        
         //Edit fight
         fight.title = req.body.title;
         fight.descriptions = req.body.descriptions;

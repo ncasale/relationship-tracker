@@ -1,0 +1,24 @@
+<div class="col-md-8 col-md-offset-2 date-form-container">
+    <h2>Enter Fight Details</h2>
+    <p>In order to view this fight, you must first enter your interpretation of it. Please do so below.</p>
+    <hr>
+    <mat-form-field>
+        <textarea matInput matTextareaAutosize matAutosizeMinRows="3" matAutosizeMaxRows="6"
+         placeholder="Description" [formControl]="descriptionFC" required> </textarea>
+        <mat-error *ngIf="descriptionFC.invalid">{{ getDescriptionErrorMessage() }}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <textarea matInput matTextareaAutosize matAutosizeMinRows="3" matAutosizeMaxRows="6" 
+        placeholder="Cause" [formControl]="causeFC" required> </textarea>
+        <mat-error *ngIf="causeFC.invalid">{{ getCauseErrorMessage() }}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <textarea matInput matTextareaAutosize matAutosizeMinRows="3" matAutosizeMaxRows="6" 
+        placeholder="Resolution" [formControl]="resolutionFC" required> </textarea>
+        <mat-error *ngIf="resolutionFC.invalid">{{ getResolutionErrorMessage() }}</mat-error>
+    </mat-form-field>
+    <br>
+
+    <button class="btn btn-primary" type="submit" [disabled]="!isAppendValid()" (click)="onSubmitAppend()">Submit</button>
+    <hr>
+</div>

@@ -4,6 +4,7 @@ import { MatDialog } from "@angular/material";
 import { FightDialogComponent } from "./fight-dialog.component";
 import { FightService } from "./fight.service";
 import { DatePipe } from "@angular/common";
+import { FightAppendDialogComponent } from "./fight-append-dialog.component";
 
 @Component({
     selector: 'app-fight-card',
@@ -25,6 +26,7 @@ export class FightCardComponent implements OnInit{
     //Inject services
     constructor(
         private fightDialog: MatDialog,
+        private fightAppendDialog: MatDialog,
         private fightService: FightService,
         private datePipe: DatePipe
     ) {}
@@ -98,6 +100,22 @@ export class FightCardComponent implements OnInit{
     }
 
     /**
+     * Open fight append dialog for user who has not entered info for an existing fight
+     * 
+     * @memberof FightCardComponent
+     */
+    openAppendFightDialog() {
+        let dialogRef = this.fightAppendDialog.open(FightAppendDialogComponent, {
+            width: "750px",
+            data: {
+                fight: this.fight
+            }
+        })
+    }
+
+    
+
+    /**
      * Delete this fight from the database and frontend
      * 
      * @memberof FightCardComponent
@@ -123,6 +141,7 @@ export class FightCardComponent implements OnInit{
             this.viewingFight = true;
         } else {
             //User hasn't submitted information, prompt them to
+            this.openAppendFightDialog();
         }
 
     }
