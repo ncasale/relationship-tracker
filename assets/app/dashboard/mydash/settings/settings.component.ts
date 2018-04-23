@@ -19,20 +19,22 @@ export class SettingsComponent implements OnInit{
         private relationshipService: RelationshipService,
         private messsagesService: MessagesService,
         public snackBar: MatSnackBar,
-        private inviteDialog: MatDialog) {}
+        private inviteDialog: MatDialog
+    ) {}
 
-        ngOnInit() {
-            this.messsagesService.currentMyDashRelationshipEmitter.subscribe(
-                (relationship: Relationship) => {
-                    this.relationship = relationship;
-                }
-            )
-        }
-
-    toggleInvite() {
-        this.relationshipService.toggleInvite();
+    ngOnInit() {
+        this.messsagesService.currentMyDashRelationshipEmitter.subscribe(
+            (relationship: Relationship) => {
+                this.relationship = relationship;
+            }
+        )
     }
 
+    /**
+     * Show the dialog to invite a user to the relationship
+     * 
+     * @memberof SettingsComponent
+     */
     showInviteDialog() {
         let dialogRef = this.inviteDialog.open(InviteDialogComponent, {
             width: "500px",

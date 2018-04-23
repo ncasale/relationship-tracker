@@ -58,6 +58,13 @@ export class MyDashComponent {
 
     
 
+    /**
+     * Checks if the passed relationship is the currently selected relationship on the dashboard
+     * 
+     * @param {Relationship} relationship The relationship to compare to the selected relationship
+     * @returns true if relationships are the same, false otherwise
+     * @memberof MyDashComponent
+     */
     isCurrentRelationship(relationship: Relationship) {
         return relationship == this.selectedRelationship;
     }

@@ -11,7 +11,6 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { MessagesComponent } from "./messages/messages.component";
 import { MessageCardComponent } from "./messages/message-card.component";
 import { ngMaterialDatePicker } from 'ng-material-datetimepicker'
-import { DateInputComponent } from "./dates/date-input.component";
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime'
 import { SettingsComponent } from "./settings/settings.component";
 import { MessageEditComponent } from "./messages/message-edit.component";
@@ -30,7 +29,6 @@ import { FightDisplayDialogComponent } from "./fights/fight-display-dialog.compo
         MyDashComponent,
         MessagesComponent,
         DatesComponent,
-        DateInputComponent,
         ChoresComponent,
         FightsComponent,
         MessageCardComponent,

@@ -177,14 +177,14 @@ export class ChoreDialogComponent implements OnInit{
      */
     areEditing() {
         return this.data.areEditing;
-    }
+    }  
 
-    // getDatepickerErrorMessage() {
-    //     return this.datepicker.hasError('required') ? 
-    //         'You must pick a valid date' :
-    //         '';
-    // }    
-
+    /**
+     * Checks if forms for chore creation are valid.
+     * 
+     * @returns true if all chore fields valid, false otherwise
+     * @memberof ChoreDialogComponent
+     */
     isChoreValid() {
         return this.title.valid &&
             this.assignedUserId.valid &&

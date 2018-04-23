@@ -8,17 +8,21 @@ import { Message } from "./message.model";
     templateUrl: './message-edit.component.html',
     styleUrls: ['./message-edit.component.css']
 })
-export class MessageEditComponent {
+export class MessageEditComponent implements OnInit{
     //Local copy of message
     originalText: string;
 
     constructor(
         public dialogRef: MatDialogRef<MessageEditComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
-        private messagesService: MessagesService) {
-            this.originalText = this.data.message.text;
-            this.dialogRef.disableClose = true;
-        }
+        private messagesService: MessagesService) {}
+    
+    ngOnInit() {
+        //Set original text for message
+        this.originalText = this.data.message.text;
+        //Don't allow user to click off of dialog to close
+        this.dialogRef.disableClose = true;
+    }
     
     /**
      * Wrapper for closeDialog

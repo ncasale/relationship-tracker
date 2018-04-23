@@ -24,6 +24,11 @@ export class SignupComponent implements OnInit{
         })
     }
 
+    /**
+     * Called when sign-up button clicked. Will create a user object and save it in the database.
+     * 
+     * @memberof SignupComponent
+     */
     onSubmit() {
         //Use form values to create a new user
         var user = new User(
@@ -43,6 +48,12 @@ export class SignupComponent implements OnInit{
         
     }
 
+    /**
+     * Checks if all fields required for signup are valid.
+     * 
+     * @returns true if all signup fields valid, false otherwise
+     * @memberof SignupComponent
+     */
     isFormValid() {
         return this.signupForm.valid;
     }

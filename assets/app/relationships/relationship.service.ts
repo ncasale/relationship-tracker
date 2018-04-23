@@ -97,6 +97,14 @@ export class RelationshipService {
             });
     }
 
+    /**
+     * Invite a user to the passed relationship
+     * 
+     * @param {Relationship} relationship the relationship to which we invite the user
+     * @param {string} email the email of the invited user
+     * @returns JSON of the server response
+     * @memberof RelationshipService
+     */
     inviteToRelationship(relationship: Relationship, email: string) {
         //Construct the body
         const body = JSON.stringify(relationship);
@@ -108,7 +116,9 @@ export class RelationshipService {
             '';
         //Construct the patch request
         return this.http.patch('http://localhost:3000/relationship/invite/' + email + '/' + relationship.relationshipId + token, body, {headers: headers})
-            .map((response: Response) => response.json())
+            .map((response: Response) => {
+                response.json()
+            })
             .catch((error: Response) => {
                 return Observable.throw(error.json());
             })
@@ -175,6 +185,13 @@ export class RelationshipService {
             })
     }
 
+    /**
+     * Accept a relationship invite with the passed Id
+     * 
+     * @param {string} inviteId the Id of the invite to accept
+     * @returns JSON representation of the server response
+     * @memberof RelationshipService
+     */
     acceptRelationshipInvite(inviteId: string) {
         //Create body
         const body = {}
@@ -186,42 +203,14 @@ export class RelationshipService {
             '';
         //Construct request
         return this.http.patch('http://localhost:3000/relationship/acceptinvite/' + inviteId + token, body, {headers: headers})
-            .map((response: Response) => response.json())
-            .catch((error: Response) => {
-                this.errorService.handleError(error.json());
-                return Observable.throw(error.json());
-            })
-
-    }
-
-    getRelationshipMessages(relationshipId: string) {
-        //Create body
-        const body = {};
-        //Create headers
-        const headers = new Headers({'Content-Type':'application/json'});
-        //Create token
-        const token = localStorage.getItem('token') ?
-            '?token=' + localStorage.getItem('token') :
-            '';
-        //Create request
-        return this.http.post('http://localhost:3000/relationship/getrelationshipmessages/' + relationshipId + token, body, {headers:headers})
             .map((response: Response) => {
-                var messages = response.json().obj;
-                var transformedMessages = [];
-                for (let message of messages) {
-                    transformedMessages.push(new Message(
-                        message.text,
-                        message.relationshipId,
-                        message.userId,
-                        message._id)
-                    );
-                }
-                return transformedMessages;
+                response.json()
             })
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
                 return Observable.throw(error.json());
             })
+
     }
 
     /**
@@ -251,15 +240,6 @@ export class RelationshipService {
 
     }
     
-    /**
-     * Toggle invite component 
-     * 
-     * @memberof RelationshipService
-     */
-    toggleInvite() {
-        this.toggleInviteComponent.emit(null);
-    }
-
     /**
      * Emit signal to update relationship in invite component
      * 

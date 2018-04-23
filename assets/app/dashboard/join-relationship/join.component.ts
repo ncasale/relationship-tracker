@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { Relationship } from "../relationships/relationship.model";
-import { RelationshipService } from "../relationships/relationship.service";
+import { Relationship } from "../../relationships/relationship.model";
+import { RelationshipService } from "../../relationships/relationship.service";
 
 @Component({
     selector: 'app-join',

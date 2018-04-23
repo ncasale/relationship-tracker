@@ -20,7 +20,10 @@ export class DateCardComponent implements OnInit{
     meetingDateFormat: string = 'MM/dd/yyyy';
 
     //Inject Services
-    constructor(private datePipe: DatePipe, private dateService: DateService, private dateDialog: MatDialog) {}
+    constructor(
+        private datePipe: DatePipe, 
+        private dateService: DateService, 
+        private dateDialog: MatDialog) {}
 
     ngOnInit() {
         //Set meetingDate in correct format

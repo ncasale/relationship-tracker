@@ -27,6 +27,11 @@ export class InviteDialogComponent implements OnInit{
         this.relationship = this.data.relationship;
     }
 
+    /**
+     * Send an invite to the current relationship to the email in the email form
+     * 
+     * @memberof InviteDialogComponent
+     */
     sendInvite() {
         this.relationshipService.inviteToRelationship(this.relationship, this.emailFC.value)
         .subscribe(
@@ -38,10 +43,23 @@ export class InviteDialogComponent implements OnInit{
         );       
     }
 
+    /**
+     * Returns error message if email form isn't filled out properly
+     * 
+     * @returns Error
+     * @memberof InviteDialogComponent
+     */
     getEmailErrorMessage() {
         return this.emailFC.hasError('required') ? 'You must enter a valid email' : '';
     }
 
+    /**
+     * Open a snackbar with the passed message and action
+     * 
+     * @param {string} message The message to display on the snackbar
+     * @param {string} action The action text to display next to the message
+     * @memberof InviteDialogComponent
+     */
     openSnackBar(message: string, action: string) {
         this.snackBar.open(message, action, {
           duration: 3500,

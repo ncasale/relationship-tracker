@@ -1,7 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 
-import { JoinComponent } from "./join.component";
-import { CreateComponent } from "./create.component";
+import { JoinComponent } from "./join-relationship/join.component";
+import { CreateComponent } from "./create-relationship/create.component";
 import { MyDashComponent } from './mydash/mydash.component';
 import { LogoutComponent } from './logout/logout.component';
 

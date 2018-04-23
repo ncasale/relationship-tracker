@@ -27,21 +27,9 @@ import { RelationshipService } from "./relationship.service";
     `]
 })
 export class RelationshipComponent {
+    //The relationship represented by this component
     @Input() relationship: Relationship;
 
     //Inject RelationshipService
     constructor(private relationshipService: RelationshipService) {}
-
-    /**
-     * Send signal to toggle invite component visibility and set relationship
-     * 
-     * @memberof RelationshipComponent
-     */
-    showInvite() {
-        this.relationshipService.setInviteRelationship(this.relationship);
-        this.relationshipService.toggleInvite();
-    }
-
-
-
 }

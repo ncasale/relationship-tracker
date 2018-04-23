@@ -30,6 +30,12 @@ export class SignInComponent implements OnInit {
         })
     }
 
+    /**
+     * Called when sign-in button pressed. Checks if user exists in database. If they do,
+     * they will be navigated to their dashboard.
+     * 
+     * @memberof SignInComponent
+     */
     onSubmit() {
         //Will need to post to login route to see if user exists in db
         var user = new User(

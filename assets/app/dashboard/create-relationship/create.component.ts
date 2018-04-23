@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { RelationshipService } from '../relationships/relationship.service';
-import { Relationship } from '../relationships/relationship.model';
+import { RelationshipService } from '../../relationships/relationship.service';
+import { Relationship } from '../../relationships/relationship.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,8 +12,10 @@ export class CreateComponent implements OnInit{
     createForm: FormGroup;
 
     //Inject the relationship service & router
-    constructor(private relationshipService: RelationshipService, private router: Router) {}
-
+    constructor(
+        private relationshipService: RelationshipService, 
+        private router: Router
+    ) {}
 
     /**
      * Create new form on initialization
@@ -44,6 +46,4 @@ export class CreateComponent implements OnInit{
         
         this.createForm.reset();
     }
-
-
 }

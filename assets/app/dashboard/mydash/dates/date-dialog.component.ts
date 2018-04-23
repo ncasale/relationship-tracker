@@ -13,7 +13,7 @@ import { Relationship } from '../../../relationships/relationship.model';
 })
 export class DateDialogComponent implements OnInit{
 
-    //Initialize form controls
+    //Form controls
     title = new FormControl (null, Validators.required);
     location = new FormControl(null, Validators.required);
     hour = new FormControl(null, [Validators.required,
@@ -84,7 +84,6 @@ export class DateDialogComponent implements OnInit{
         this.dialogRef.close();
 
     }
-
 
     /**
      * Display error message if Title field invalid
@@ -206,14 +205,14 @@ export class DateDialogComponent implements OnInit{
      */
     areEditing() {
         return this.data.areEditing;
-    }
+    } 
 
-    // getDatepickerErrorMessage() {
-    //     return this.datepicker.hasError('required') ? 
-    //         'You must pick a valid date' :
-    //         '';
-    // }    
-
+    /**
+     * Checks that all form fields required for date are valid.
+     * 
+     * @returns true if all date fields valid, false otherwise.
+     * @memberof DateDialogComponent
+     */
     isDateValid() {
         return this.title.valid &&
             this.location.valid &&

@@ -15,7 +15,10 @@ export class MessagesComponent implements OnInit{
     messages: Message[] = [];
     
 
-    constructor(private messagesService: MessagesService, private relationshipService: RelationshipService) {}
+    constructor(
+        private messagesService: MessagesService, 
+        private relationshipService: RelationshipService
+    ) {}
 
     /**
      * Initialize form group
@@ -53,6 +56,7 @@ export class MessagesComponent implements OnInit{
             }
         )
     }
+    
     /**
      * Contact MessageService to send off message
      * 

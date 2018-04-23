@@ -114,6 +114,13 @@ export class ChoreService {
             })
     }
 
+    /**
+     * Delete a specified chore from the database
+     * 
+     * @param {string} choreId Id of chore to delete from the database
+     * @returns A JSON representation of the chore that was just deleted
+     * @memberof ChoreService
+     */
     deleteChore(choreId: string) {
         //Create headers
         const headers = new Headers({'Content-Type':'application/json'});

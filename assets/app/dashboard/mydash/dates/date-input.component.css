@@ -1,8 +1,0 @@
-.date-form-container {
-    display: flex;
-    flex-direction: column;
-  }
-  
-.date-form-container > * {
-    width: 100%;
-  }
