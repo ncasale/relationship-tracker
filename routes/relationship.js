@@ -200,8 +200,9 @@ router.post('/getinvitedrelationships', function(req, res, next) {
         }
         //Get list of invited relationships from user
         var relationships = [];
-        for(var counter = 0; counter < user.invites.length; counter++) {
-            Relationship.findById(user.invites[counter], function(err, relationship) {
+        var processedRelationshipCount = 0;
+        users.invites.array.forEach(relationshipId => {
+            Relationship.findById(relationshipId, function(err, relationship) {
                 if(err) {
                     return res.status(500).json({
                         title: 'An error occurred',
@@ -214,18 +215,20 @@ router.post('/getinvitedrelationships', function(req, res, next) {
                         error: {message: 'Requested relationship does not exist'}
                     })
                 }
+
                 //Push relationship into array
                 relationships.push(relationship);
+                processedRelationshipCount++;
 
                 //Once all invites iterated through, return array
-                if(counter == user.invites.length) {
+                if(processedRelationshipCount == user.invites.length) {
                     return res.status(201).json({
                         title: 'Got Invited Relationships.',
                         obj: relationships
                     })
                 }
             })            
-        }
+        });
     }) 
 })
 
@@ -262,14 +265,7 @@ router.patch('/declineinvite/:id', function(req, res, next) {
                     })
                 }
             }
-        }
-        
-        //If no invites found, return 404
-        return res.status(404).json({
-            title: 'No invites found!', 
-            error: {message: 'No invites found!'}
-        })
-            
+        }            
     })
 })
 
