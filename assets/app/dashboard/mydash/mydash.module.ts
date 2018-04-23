@@ -23,6 +23,7 @@ import { FightDialogComponent } from "./fights/fight-dialog.component";
 import { FightCardComponent } from "./fights/fight-card.component";
 import { InviteDialogComponent } from "./settings/invite-dialog.component";
 import { FightAppendDialogComponent } from "./fights/fight-append-dialog.component";
+import { FightDisplayDialogComponent } from "./fights/fight-display-dialog.component";
 
 @NgModule({
     declarations: [
@@ -42,7 +43,8 @@ import { FightAppendDialogComponent } from "./fights/fight-append-dialog.compone
         FightDialogComponent,
         FightCardComponent,
         InviteDialogComponent,
-        FightAppendDialogComponent     
+        FightAppendDialogComponent,
+        FightDisplayDialogComponent     
     ],
     imports: [
         RelationshipModule,
@@ -68,7 +70,8 @@ import { FightAppendDialogComponent } from "./fights/fight-append-dialog.compone
         ChoreDialogComponent,
         FightDialogComponent,
         InviteDialogComponent,
-        FightAppendDialogComponent
+        FightAppendDialogComponent,
+        FightDisplayDialogComponent
     ],
     providers: [
         DatePipe

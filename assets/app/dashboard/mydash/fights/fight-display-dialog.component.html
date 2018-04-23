@@ -1,0 +1,17 @@
+<div class="col-md-8 col-md-offset-2">
+    <h2> {{fightTitle}} </h2>
+    <h4> {{fightDate}} </h4>
+    <hr>
+    <p *ngIf="!userDataRetrieved">Loading...</p>
+    <div *ngFor="let userInfoObj of userInfoObjs">
+        <h3> {{userInfoObj.firstName}} {{userInfoObj.lastName}} </h3>
+        <h4>Description</h4>
+        <p> {{userInfoObj.description}} </p>
+        <h4>Cause</h4>
+        <p> {{userInfoObj.cause}} </p>
+        <h4>Resolution</h4>
+        <p> {{userInfoObj.resolution}} </p>
+        <hr>
+    </div>
+    <button class="btn btn-primary" (click)="this.dialogRef.close()">Close</button>
+</div>

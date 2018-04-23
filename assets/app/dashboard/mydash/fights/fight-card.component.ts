@@ -5,6 +5,7 @@ import { FightDialogComponent } from "./fight-dialog.component";
 import { FightService } from "./fight.service";
 import { DatePipe } from "@angular/common";
 import { FightAppendDialogComponent } from "./fight-append-dialog.component";
+import { FightDisplayDialogComponent } from "./fight-display-dialog.component";
 
 @Component({
     selector: 'app-fight-card',
@@ -27,6 +28,7 @@ export class FightCardComponent implements OnInit{
     constructor(
         private fightDialog: MatDialog,
         private fightAppendDialog: MatDialog,
+        private fightDisplayDialog: MatDialog,
         private fightService: FightService,
         private datePipe: DatePipe
     ) {}
@@ -107,6 +109,21 @@ export class FightCardComponent implements OnInit{
     openAppendFightDialog() {
         let dialogRef = this.fightAppendDialog.open(FightAppendDialogComponent, {
             width: "750px",
+            data: {
+                fight: this.fight
+            }
+        })
+    }
+
+    /**
+     * Open fight display dialog to show details of this fight
+     * 
+     * @memberof FightCardComponent
+     */
+    openDisplayFightDialog() {
+        let dialogRef = this.fightDisplayDialog.open(FightDisplayDialogComponent, {
+            width: '750px',
+            height: '750px',
             data: {
                 fight: this.fight
             }
