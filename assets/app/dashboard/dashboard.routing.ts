@@ -6,7 +6,7 @@ import { MyDashComponent } from './mydash/mydash.component';
 import { LogoutComponent } from './logout/logout.component';
 
 const DASHBOARD_ROUTES: Routes = [
-    { path: '', redirectTo: 'mydash', pathMatch: 'full'},
+    { path: '', redirectTo: 'mydash/messages', pathMatch: 'full'},
     { path: 'join', component: JoinComponent },
     { path: 'create', component: CreateComponent },
     { path: 'mydash', component: MyDashComponent, loadChildren: './mydash/mydash.module#MyDashModule' },

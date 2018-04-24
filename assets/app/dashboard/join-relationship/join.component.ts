@@ -8,7 +8,7 @@ import { RelationshipService } from "../../relationships/relationship.service";
 })
 export class JoinComponent implements OnInit{
     //List of relationships user is invited to
-    relationships: Relationship[];
+    relationships: Relationship[] = [];
 
     //Inject services
     constructor(private relationshipService: RelationshipService) {}

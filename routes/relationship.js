@@ -201,34 +201,36 @@ router.post('/getinvitedrelationships', function(req, res, next) {
         //Get list of invited relationships from user
         var relationships = [];
         var processedRelationshipCount = 0;
-        users.invites.array.forEach(relationshipId => {
-            Relationship.findById(relationshipId, function(err, relationship) {
-                if(err) {
-                    return res.status(500).json({
-                        title: 'An error occurred',
-                        error: err
-                    })
-                }
-                if(!relationship) {
-                    return res.status(404).json({
-                        title: 'Requested relationship does not exist',
-                        error: {message: 'Requested relationship does not exist'}
-                    })
-                }
-
-                //Push relationship into array
-                relationships.push(relationship);
-                processedRelationshipCount++;
-
-                //Once all invites iterated through, return array
-                if(processedRelationshipCount == user.invites.length) {
-                    return res.status(201).json({
-                        title: 'Got Invited Relationships.',
-                        obj: relationships
-                    })
-                }
-            })            
-        });
+        if(user.invites.length > 0) {
+            user.invites.array.forEach(relationshipId => {
+                Relationship.findById(relationshipId, function(err, relationship) {
+                    if(err) {
+                        return res.status(500).json({
+                            title: 'An error occurred',
+                            error: err
+                        })
+                    }
+                    if(!relationship) {
+                        return res.status(404).json({
+                            title: 'Requested relationship does not exist',
+                            error: {message: 'Requested relationship does not exist'}
+                        })
+                    }
+    
+                    //Push relationship into array
+                    relationships.push(relationship);
+                    processedRelationshipCount++;
+    
+                    //Once all invites iterated through, return array
+                    if(processedRelationshipCount == user.invites.length) {
+                        return res.status(201).json({
+                            title: 'Got Invited Relationships.',
+                            obj: relationships
+                        })
+                    }
+                })            
+            });
+        }
     }) 
 })
 

@@ -3,4 +3,7 @@
             [relationship]="relationship"
             *ngFor="let relationship of relationships">
         </app-join-card>
+        <div *ngIf="relationships.length == 0">
+            <h2>You have no relationship invites ;(</h2>
+        </div>
     </div>
