@@ -7,15 +7,18 @@
         <mat-error *ngIf="titleFC.invalid">{{ getTitleErrorMessage() }}</mat-error>
     </mat-form-field>
     <mat-form-field>
-        <input matInput placeholder="Description" [formControl]="descriptionFC" required>
+        <textarea matInput matTextareaAutosize matAutosizeMinRows="3" matAutosizeMaxRows="6" 
+        placeholder="Description" [formControl]="descriptionFC" required> </textarea>
         <mat-error *ngIf="descriptionFC.invalid">{{ getDescriptionErrorMessage() }}</mat-error>
     </mat-form-field>
     <mat-form-field>
-        <input matInput placeholder="Cause" [formControl]="causeFC" required>
+        <textarea matInput matTextareaAutosize matAutosizeMinRows="3" matAutosizeMaxRows="6" 
+        placeholder="Cause" [formControl]="causeFC" required> </textarea>
         <mat-error *ngIf="causeFC.invalid">{{ getCauseErrorMessage() }}</mat-error>
     </mat-form-field>
     <mat-form-field>
-        <input matInput placeholder="Resolution" [formControl]="resolutionFC" required>
+        <textarea matInput matTextareaAutosize matAutosizeMinRows="3" matAutosizeMaxRows="6"
+         placeholder="Resolution" [formControl]="resolutionFC" required> </textarea>
         <mat-error *ngIf="resolutionFC.invalid">{{ getResolutionErrorMessage() }}</mat-error>
     </mat-form-field>
     <mat-form-field>
