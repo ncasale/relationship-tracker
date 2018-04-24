@@ -75,5 +75,4 @@ export class MessagesComponent implements OnInit{
         );
         this.messagesForm.reset();
     }
-
 }

@@ -5,6 +5,7 @@ import { DateService } from "./date.service";
 import { MatDialog } from "@angular/material";
 import { Relationship } from "../../../relationships/relationship.model";
 import { DateDialogComponent } from "./date-dialog.component";
+import { DeleteItemDialogComponent } from "../delete-item-dialog.component";
 
 @Component({
     selector: 'app-date-card',
@@ -23,7 +24,9 @@ export class DateCardComponent implements OnInit{
     constructor(
         private datePipe: DatePipe, 
         private dateService: DateService, 
-        private dateDialog: MatDialog) {}
+        private dateDialog: MatDialog,
+        private deleteDialog: MatDialog
+    ) {}
 
     ngOnInit() {
         //Set meetingDate in correct format
@@ -80,14 +83,23 @@ export class DateCardComponent implements OnInit{
      * @memberof DateCardComponent
      */
     deleteDate() {
-        this.dateService.deleteDate(this.date.dateId)
-            .subscribe(
-                (response: any) => {
-                    console.log("Deleted message...", response);
+        //Open delete item dialog
+        var dialogRef = this.deleteDialog.open(DeleteItemDialogComponent, {
+            width: '500px'
+        })
+        dialogRef.afterClosed().subscribe(
+            result => {
+                if(result) {
+                    this.dateService.deleteDate(this.date.dateId)
+                        .subscribe(
+                            (response: any) => {
+                                this.dateService.dateDeletedEmitter.emit(this.date);
+                            }
+                        );
+                    
                 }
-            );
-        
-        this.dateService.dateDeletedEmitter.emit(this.date);
+            }
+        )
     }
 
 

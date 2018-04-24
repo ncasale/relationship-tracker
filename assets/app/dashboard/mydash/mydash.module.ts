@@ -5,7 +5,7 @@ import { mydashRouting } from "./mydash.routing";
 import { DatesComponent } from "./dates/dates.component";
 import { ChoresComponent } from "./chores/chores.component";
 import { FightsComponent } from "./fights/fights.component";
-import { MatSidenavModule, MatToolbar, MatToolbarModule, MatListModule, MatCalendar, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, MatDialogModule, MatSnackBar, MatSnackBarModule } from "@angular/material"
+import { MatSidenavModule, MatToolbar, MatToolbarModule, MatListModule, MatCalendar, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, MatDialogModule, MatSnackBar, MatSnackBarModule, MatButtonModule } from "@angular/material"
 import { CommonModule, DatePipe } from "@angular/common";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { MessagesComponent } from "./messages/messages.component";
@@ -23,6 +23,7 @@ import { FightCardComponent } from "./fights/fight-card.component";
 import { InviteDialogComponent } from "./settings/invite-dialog.component";
 import { FightAppendDialogComponent } from "./fights/fight-append-dialog.component";
 import { FightDisplayDialogComponent } from "./fights/fight-display-dialog.component";
+import { DeleteItemDialogComponent } from "./delete-item-dialog.component";
 
 @NgModule({
     declarations: [
@@ -42,7 +43,8 @@ import { FightDisplayDialogComponent } from "./fights/fight-display-dialog.compo
         FightCardComponent,
         InviteDialogComponent,
         FightAppendDialogComponent,
-        FightDisplayDialogComponent     
+        FightDisplayDialogComponent,
+        DeleteItemDialogComponent     
     ],
     imports: [
         RelationshipModule,
@@ -60,7 +62,8 @@ import { FightDisplayDialogComponent } from "./fights/fight-display-dialog.compo
         MatSelectModule,
         MatOptionModule,
         MatDialogModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatButtonModule
     ],
     entryComponents: [
         MessageEditComponent,
@@ -69,7 +72,8 @@ import { FightDisplayDialogComponent } from "./fights/fight-display-dialog.compo
         FightDialogComponent,
         InviteDialogComponent,
         FightAppendDialogComponent,
-        FightDisplayDialogComponent
+        FightDisplayDialogComponent,
+        DeleteItemDialogComponent
     ],
     providers: [
         DatePipe

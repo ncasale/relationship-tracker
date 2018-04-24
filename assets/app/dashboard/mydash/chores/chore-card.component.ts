@@ -6,6 +6,7 @@ import { User } from "../../../auth/user.model";
 import { MatDialog } from "@angular/material";
 import { ChoreDialogComponent } from "./chore-dialog.component";
 import { ChoreService } from "./chore.service";
+import { DeleteItemDialogComponent } from "../delete-item-dialog.component";
 
 @Component({
     selector: 'app-chore-card',
@@ -24,7 +25,9 @@ export class ChoreCardComponent implements OnInit{
         private datePipe: DatePipe,
         private authService: AuthService,
         private choreService: ChoreService,
-        private choreDialog: MatDialog) {};
+        private choreDialog: MatDialog,
+        private deleteDialog: MatDialog
+    ) {};
 
     ngOnInit() {
         //Format due date
@@ -79,12 +82,22 @@ export class ChoreCardComponent implements OnInit{
      * @memberof ChoreCardComponent
      */
     deleteChore() {
-        this.choreService.deleteChore(this.chore.choreId)
-            .subscribe(
-                (response: any) => {
-                    this.choreService.choreDeleted.emit(this.chore);
+        //Open delete item dialog
+        var dialogRef = this.deleteDialog.open(DeleteItemDialogComponent, {
+            width: '500px'
+        })
+        dialogRef.afterClosed().subscribe(
+            result => {
+                if(result) {
+                    this.choreService.deleteChore(this.chore.choreId)
+                        .subscribe(
+                            (response: any) => {
+                                this.choreService.choreDeleted.emit(this.chore);
+                            }
+                        )
                 }
-            )
+            }
+        )
     }
 
 }

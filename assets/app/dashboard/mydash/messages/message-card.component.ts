@@ -6,6 +6,7 @@ import { MatDialog } from "@angular/material";
 import { MessageEditComponent } from "./message-edit.component";
 import { AuthService } from "../../../auth/auth.service";
 import { User } from "../../../auth/user.model";
+import { DeleteItemDialogComponent } from "../delete-item-dialog.component";
 
 
 @Component({
@@ -28,7 +29,9 @@ export class MessageCardComponent implements OnInit{
         private messagesService: MessagesService,
         private authService: AuthService,
         private datePipe: DatePipe, 
-        public editDialog: MatDialog) {}
+        public editDialog: MatDialog,
+        public deleteDialog: MatDialog
+    ) {}
 
     /**
      * Initialize timestamp when message component created
@@ -69,14 +72,23 @@ export class MessageCardComponent implements OnInit{
      * @memberof MessageCardComponent
      */
     deleteMessage() {
-        this.messagesService.deleteMessage(this.message.messageId)
-            .subscribe(
-                (response: any) => {
-                    //Send signal to delete message from MessagesComponent
-                    this.messagesService.messageDeletedEmitter.emit(this.message);
+        const dialogRef = this.deleteDialog.open(DeleteItemDialogComponent, {
+            width: '500px'
+        })
+
+        dialogRef.afterClosed().subscribe(
+            result => {
+                if(result) {
+                    this.messagesService.deleteMessage(this.message.messageId)
+                        .subscribe(
+                            (response: any) => {
+                                //Send signal to delete message from MessagesComponent
+                                this.messagesService.messageDeletedEmitter.emit(this.message);
+                            }
+                        );
                 }
-            )
-            
+            }
+        )       
     }
 
     /**
