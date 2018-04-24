@@ -47,6 +47,14 @@ export class FightsComponent implements OnInit{
                 }
             }
         )
+
+        //Subscribe to emitter that adds fight to fights array when one is created
+        this.fightService.fightCreated.subscribe(
+            (fight: Fight) => {
+                //Add fight to fights
+                this.fights.push(fight);
+            }
+        )
     }
 
     /**

@@ -54,8 +54,8 @@ export class DateDialogComponent implements OnInit{
             this.data.relationship.relationshipId
         );
         this.dateService.saveDate(date)
-            .subscribe((response: any) => {
-                console.log('Saved Date...');
+            .subscribe((date: DateObj) => {
+                this.dateService.dateCreatedEmitter.emit(date);
             })
 
         //Close the dialog

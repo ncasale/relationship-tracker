@@ -45,6 +45,13 @@ export class ChoresComponent implements OnInit{
                 }
             }
         )
+
+        //Update frontend when chores created
+        this.choreService.choreCreatedEmitter.subscribe(
+            (chore: Chore) => {
+                this.chores.push(chore);
+            }
+        )
         
     } 
     

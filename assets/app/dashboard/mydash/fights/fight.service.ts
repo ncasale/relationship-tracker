@@ -10,6 +10,9 @@ import { Observable } from "rxjs";
 export class FightService {
     //Signal to delete fight from fights component
     deleteFightFromFightsEmitter = new EventEmitter<Fight>();
+
+    //Signal to add a new fight to fights component
+    fightCreated = new EventEmitter<Fight>();
     
     //Inject services
     constructor(

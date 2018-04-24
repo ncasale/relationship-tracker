@@ -48,7 +48,7 @@ export class FightDialogComponent implements OnInit{
         this.fightService.addFight(fight)
         .subscribe(
             (response: Fight) => {
-                console.log('Added fight...');
+                this.fightService.fightCreated.emit(response);
             }
         )
         //Close dialog

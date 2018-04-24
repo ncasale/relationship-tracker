@@ -16,6 +16,7 @@ export class ChoreService {
     //Signals to update date on card if chore edited/deleted
     choreEdited = new EventEmitter<null>();
     choreDeleted = new EventEmitter<Chore>();
+    choreCreatedEmitter = new EventEmitter<Chore>();
 
     /**
      * Add a passed chore to the database
@@ -36,7 +37,18 @@ export class ChoreService {
         //Create request
         return this.http.post('http://localhost:3000/chore/add' + token, body, {headers:headers})
             .map((response: Response) => {
-                return response.json().obj;
+                var chore = response.json().obj;
+                return new Chore(
+                    chore.title,
+                    chore.dueDate,
+                    chore.assignedUserId,
+                    chore.relationshipId,
+                    chore._id,
+                    chore.createUserId,
+                    chore.createTimestamp,
+                    chore.editUserId,
+                    chore.editTimestamp
+                );
             })
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());

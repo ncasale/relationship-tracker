@@ -71,8 +71,8 @@ export class ChoreDialogComponent implements OnInit{
         //Call chore service to save chore
         this.choreService.addChore(chore)
             .subscribe(
-                (response: any) => {
-                    //console.log(response);
+                (chore: Chore) => {
+                    this.choreService.choreCreatedEmitter.emit(chore);
                 }
             )
         //Close the dialog

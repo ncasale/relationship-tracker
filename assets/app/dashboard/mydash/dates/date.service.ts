@@ -14,12 +14,13 @@ export class DateService {
     //Signal that fires when a date is deleted
     dateDeletedEmitter = new EventEmitter<DateObj>();
     dateEditedEmitter = new EventEmitter<null>();
+    dateCreatedEmitter = new EventEmitter<DateObj>();
 
     /**
      * Save a date to the database
      * 
      * @param {DateObj} dateObj the date to save
-     * @returns 
+     * @returns A DateObj representing the saved date
      * @memberof DateService
      */
     saveDate(dateObj: DateObj) {
@@ -34,7 +35,20 @@ export class DateService {
         //Generate our request
         return this.http.post('http://localhost:3000/date/add/' + token, body, {headers:headers})
             .map((response: Response) => {
-                console.log(response);
+                //Create a date object from response
+                var date = response.json().obj;
+                return new DateObj(
+                    date.title,
+                    date.location,
+                    date.hour,
+                    date.minute,
+                    date.date,
+                    date._id,
+                    date.relationshipId,
+                    date.createUserId,
+                    date.createTimestamp,
+                    date.editTimestamp
+                )
             })
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());

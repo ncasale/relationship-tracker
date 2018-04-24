@@ -19,6 +19,7 @@ export class DatesComponent implements OnInit {
 
 
   ngOnInit() {
+
     //Get current mydash relationship and get all dates for relationship
     this.messagesService.currentMyDashRelationshipEmitter.subscribe(
       (response: Relationship) => {
@@ -33,7 +34,7 @@ export class DatesComponent implements OnInit {
             )
       });
 
-      //When a message is deleted, delete it from the messages list
+      //When a date is deleted, delete it from the dates array
       this.dateService.dateDeletedEmitter.subscribe(
         (date: DateObj) => {
             //Find array of message within messages
@@ -42,6 +43,14 @@ export class DatesComponent implements OnInit {
                 this.dates.splice(index, 1);
             }
         });
+      
+      //When date saved, add it to dates array
+      this.dateService.dateCreatedEmitter.subscribe(
+        (date: DateObj) => {
+          //Push to dates array
+          this.dates.push(date);
+        }
+      )
   }
   
 
