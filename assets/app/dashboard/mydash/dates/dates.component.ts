@@ -28,7 +28,6 @@ export class DatesComponent implements OnInit {
           this.dateService.getDates(this.relationship.relationshipId)
             .subscribe(
               (dates: DateObj[]) => {
-                console.log('Dates: ', dates);
                 this.dates = dates;
               }
             )

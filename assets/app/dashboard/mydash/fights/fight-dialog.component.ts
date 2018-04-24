@@ -3,6 +3,7 @@ import { FormControl, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { Fight } from "./fight.model";
 import { FightService } from "./fight.service";
+import { MyDashService } from "../mydash.service";
 
 @Component({
     selector: 'app-fight-dialog',
@@ -21,7 +22,8 @@ export class FightDialogComponent implements OnInit{
     constructor(
         public dialogRef: MatDialogRef<FightDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
-        private fightService: FightService
+        private fightService: FightService,
+        private myDashSerice: MyDashService
     ) {}
 
     ngOnInit() {
@@ -49,6 +51,7 @@ export class FightDialogComponent implements OnInit{
         .subscribe(
             (response: Fight) => {
                 this.fightService.fightCreated.emit(response);
+                this.myDashSerice.openSnackBar('Fight Created.', 'close');
             }
         )
         //Close dialog
@@ -73,6 +76,7 @@ export class FightDialogComponent implements OnInit{
             .subscribe(
                 (response: any) => {
                     console.log('Finished editing fight...');
+                    this.myDashSerice.openSnackBar('Edited Fight', 'close');
                 }
             )
         //Close dialog

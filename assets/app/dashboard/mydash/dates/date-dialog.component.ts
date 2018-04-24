@@ -5,6 +5,7 @@ import { DateObj } from './dateObj.model';
 import { MessagesService } from '../messages/messages.service';
 import { DateService } from './date.service';
 import { Relationship } from '../../../relationships/relationship.model';
+import { MyDashService } from '../mydash.service';
 
 @Component({
     selector: 'app-date-dialog',
@@ -27,7 +28,9 @@ export class DateDialogComponent implements OnInit{
         public dialogRef: MatDialogRef<DateDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         private messagesService: MessagesService,
-        private dateService: DateService) {}
+        private dateService: DateService,
+        private myDashService: MyDashService
+    ) {}
 
     ngOnInit() {
         //Prepopulate fields if editing
@@ -56,6 +59,7 @@ export class DateDialogComponent implements OnInit{
         this.dateService.saveDate(date)
             .subscribe((date: DateObj) => {
                 this.dateService.dateCreatedEmitter.emit(date);
+                this.myDashService.openSnackBar('Date Created.', 'close');
             })
 
         //Close the dialog
@@ -78,6 +82,7 @@ export class DateDialogComponent implements OnInit{
         this.dateService.editDate(this.data.date)
             .subscribe((response: any) => {
                 this.dateService.dateEditedEmitter.emit();
+                this.myDashService.openSnackBar('Date Edited.', 'close');
             })
 
         //Close the dialog

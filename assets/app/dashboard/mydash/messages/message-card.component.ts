@@ -6,7 +6,8 @@ import { MatDialog } from "@angular/material";
 import { MessageEditComponent } from "./message-edit.component";
 import { AuthService } from "../../../auth/auth.service";
 import { User } from "../../../auth/user.model";
-import { DeleteItemDialogComponent } from "../delete-item-dialog.component";
+import { DeleteItemDialogComponent } from "../common/delete-item-dialog.component";
+import { MyDashService } from "../mydash.service";
 
 
 @Component({
@@ -30,7 +31,8 @@ export class MessageCardComponent implements OnInit{
         private authService: AuthService,
         private datePipe: DatePipe, 
         public editDialog: MatDialog,
-        public deleteDialog: MatDialog
+        public deleteDialog: MatDialog,
+        private myDashService: MyDashService
     ) {}
 
     /**
@@ -84,6 +86,7 @@ export class MessageCardComponent implements OnInit{
                             (response: any) => {
                                 //Send signal to delete message from MessagesComponent
                                 this.messagesService.messageDeletedEmitter.emit(this.message);
+                                this.myDashService.openSnackBar('Message Deleted.', 'close');
                             }
                         );
                 }

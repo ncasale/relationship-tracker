@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RelationshipService } from '../../relationships/relationship.service';
 import { Relationship } from '../../relationships/relationship.model';
 import { Router } from '@angular/router';
+import { MyDashService } from '../mydash/mydash.service';
 
 @Component({
     selector: 'app-create',
@@ -14,7 +15,8 @@ export class CreateComponent implements OnInit{
     //Inject the relationship service & router
     constructor(
         private relationshipService: RelationshipService, 
-        private router: Router
+        private router: Router,
+        private myDashService: MyDashService
     ) {}
 
     /**
@@ -40,7 +42,10 @@ export class CreateComponent implements OnInit{
 
         this.relationshipService.addRelationship(relationship)
             .subscribe(
-                data => this.router.navigate(['dashboard']),
+                data => {
+                    this.myDashService.openSnackBar('Relationship Created.', 'close');
+                    this.router.navigateByUrl('/dashboard/mydash');
+                },
                 error => console.error(error)
             )
         

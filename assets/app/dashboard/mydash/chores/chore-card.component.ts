@@ -6,7 +6,8 @@ import { User } from "../../../auth/user.model";
 import { MatDialog } from "@angular/material";
 import { ChoreDialogComponent } from "./chore-dialog.component";
 import { ChoreService } from "./chore.service";
-import { DeleteItemDialogComponent } from "../delete-item-dialog.component";
+import { DeleteItemDialogComponent } from "../common/delete-item-dialog.component";
+import { MyDashService } from "../mydash.service";
 
 @Component({
     selector: 'app-chore-card',
@@ -26,7 +27,8 @@ export class ChoreCardComponent implements OnInit{
         private authService: AuthService,
         private choreService: ChoreService,
         private choreDialog: MatDialog,
-        private deleteDialog: MatDialog
+        private deleteDialog: MatDialog,
+        private myDashService: MyDashService
     ) {};
 
     ngOnInit() {
@@ -93,6 +95,7 @@ export class ChoreCardComponent implements OnInit{
                         .subscribe(
                             (response: any) => {
                                 this.choreService.choreDeleted.emit(this.chore);
+                                this.myDashService.openSnackBar('Chore Deleted.', 'close');
                             }
                         )
                 }

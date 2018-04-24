@@ -2,6 +2,7 @@ import { Component, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from "@angular/material";
 import { FormControl, Validators } from "@angular/forms";
 import { FightService } from "./fight.service";
+import { MyDashService } from "../mydash.service";
 
 @Component({
     selector: 'app-fight-append-dialog',
@@ -19,7 +20,7 @@ export class FightAppendDialogComponent {
         public dialogRef: MatDialogRef<FightAppendDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         private fightService: FightService,
-        public snackBar: MatSnackBar
+        private myDashService: MyDashService
     ) {}
 
     /**
@@ -89,23 +90,10 @@ export class FightAppendDialogComponent {
                 (response: any) => {
                     //Show snackbar
                     var snackBarMessage = "Submission Successful. Please reload page to see fight.";
-                    this.openSnackBar(snackBarMessage, 'close');
+                    this.myDashService.openSnackBar(snackBarMessage, 'close');
                 }
             );
         //Close dialog
         this.dialogRef.close();
-    }
-
-    /**
-     * Open a snackbar message
-     * 
-     * @param {string} message the message to display
-     * @param {string} action the action text
-     * @memberof FightAppendDialogComponent
-     */
-    openSnackBar(message: string, action: string) {
-        this.snackBar.open(message, action, {
-          duration: 3500,
-        });
     }
 }

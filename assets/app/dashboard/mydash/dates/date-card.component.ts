@@ -5,7 +5,8 @@ import { DateService } from "./date.service";
 import { MatDialog } from "@angular/material";
 import { Relationship } from "../../../relationships/relationship.model";
 import { DateDialogComponent } from "./date-dialog.component";
-import { DeleteItemDialogComponent } from "../delete-item-dialog.component";
+import { DeleteItemDialogComponent } from "../common/delete-item-dialog.component";
+import { MyDashService } from "../mydash.service";
 
 @Component({
     selector: 'app-date-card',
@@ -25,7 +26,8 @@ export class DateCardComponent implements OnInit{
         private datePipe: DatePipe, 
         private dateService: DateService, 
         private dateDialog: MatDialog,
-        private deleteDialog: MatDialog
+        private deleteDialog: MatDialog,
+        private myDashService: MyDashService
     ) {}
 
     ngOnInit() {
@@ -94,6 +96,7 @@ export class DateCardComponent implements OnInit{
                         .subscribe(
                             (response: any) => {
                                 this.dateService.dateDeletedEmitter.emit(this.date);
+                                this.myDashService.openSnackBar('Date Deleted.', 'close');
                             }
                         );
                     

@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from "@angular/material";
 import { RelationshipService } from "../../../relationships/relationship.service";
 import { Relationship } from "../../../relationships/relationship.model";
 import { Router } from "@angular/router";
+import { MyDashService } from "../mydash.service";
 
 @Component({
     selector: 'app-invite-dialog',
@@ -19,7 +20,7 @@ export class InviteDialogComponent implements OnInit{
         @Inject(MAT_DIALOG_DATA) public data: any,
         private relationshipService: RelationshipService,
         private router: Router,
-        public snackBar: MatSnackBar
+        private myDashService: MyDashService
     ) {}
 
     ngOnInit() {
@@ -36,10 +37,10 @@ export class InviteDialogComponent implements OnInit{
         this.relationshipService.inviteToRelationship(this.relationship, this.emailFC.value)
         .subscribe(
             data => {
-                this.openSnackBar('User invited', 'close');
+                this.myDashService.openSnackBar('User invited', 'close');
                 this.dialogRef.close();
             }, 
-            error => this.openSnackBar('Invalid email or User already a member of relationship', 'close')
+            error => this.myDashService.openSnackBar('Invalid email or User already a member of relationship', 'close')
         );       
     }
 
@@ -51,18 +52,5 @@ export class InviteDialogComponent implements OnInit{
      */
     getEmailErrorMessage() {
         return this.emailFC.hasError('required') ? 'You must enter a valid email' : '';
-    }
-
-    /**
-     * Open a snackbar with the passed message and action
-     * 
-     * @param {string} message The message to display on the snackbar
-     * @param {string} action The action text to display next to the message
-     * @memberof InviteDialogComponent
-     */
-    openSnackBar(message: string, action: string) {
-        this.snackBar.open(message, action, {
-          duration: 3500,
-        });
     }
 }

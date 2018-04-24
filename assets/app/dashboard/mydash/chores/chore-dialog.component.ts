@@ -7,6 +7,7 @@ import { User } from '../../../auth/user.model';
 import { AuthService } from '../../../auth/auth.service';
 import { Chore } from './chore.model';
 import { ChoreService } from './chore.service';
+import { MyDashService } from '../mydash.service';
 
 @Component({
     selector: 'app-chore-dialog',
@@ -29,6 +30,7 @@ export class ChoreDialogComponent implements OnInit{
         private relationshipService: RelationshipService,
         private authService: AuthService,
         private choreService: ChoreService,
+        private myDashService: MyDashService,
         @Inject(MAT_DIALOG_DATA) public data: any) {}
 
     ngOnInit() {
@@ -73,6 +75,7 @@ export class ChoreDialogComponent implements OnInit{
             .subscribe(
                 (chore: Chore) => {
                     this.choreService.choreCreatedEmitter.emit(chore);
+                    this.myDashService.openSnackBar('Chore created.', 'close');
                 }
             )
         //Close the dialog
@@ -95,6 +98,7 @@ export class ChoreDialogComponent implements OnInit{
             .subscribe(
                 (response: any) => {
                     this.choreService.choreEdited.emit();
+                    this.myDashService.openSnackBar('Chore edited.', 'close');
                 }
             )            
         //Close the dialog

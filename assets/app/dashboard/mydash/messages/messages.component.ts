@@ -4,6 +4,7 @@ import { MessagesService } from "./messages.service";
 import { Message } from "./message.model";
 import { Relationship } from "../../../relationships/relationship.model";
 import { RelationshipService } from "../../../relationships/relationship.service";
+import { MyDashService } from "../mydash.service";
 
 @Component({
     selector: 'app-messages',
@@ -17,7 +18,8 @@ export class MessagesComponent implements OnInit{
 
     constructor(
         private messagesService: MessagesService, 
-        private relationshipService: RelationshipService
+        private relationshipService: RelationshipService,
+        private myDashService: MyDashService
     ) {}
 
     /**
@@ -70,6 +72,7 @@ export class MessagesComponent implements OnInit{
         .subscribe(
             (message: Message) => {
                 //Update frontend messages array
+                this.myDashService.openSnackBar('Message Created.', 'close');
                 this.messages.push(message);
             }
         );

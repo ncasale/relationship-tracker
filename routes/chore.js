@@ -105,12 +105,6 @@ router.patch('/editchore', function(req, res, next) {
                 error: {message: 'Chore not found'}
             })
         }
-        if(decoded.user._id != chore.createUserId) {
-            return res.status(401).json({
-                title: 'Authentication error',
-                error: {message: 'Authentication Error'}
-            })
-        }
         //Make edits to chore
         chore.title = req.body.title;
         chore.dueDate = req.body.dueDate;

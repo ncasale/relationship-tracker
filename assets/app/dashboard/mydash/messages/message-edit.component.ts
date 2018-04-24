@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from "@angular/core";
 import { MessagesService } from "./messages.service";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { Message } from "./message.model";
+import { MyDashService } from "../mydash.service";
 
 @Component({
     selector: 'app-message-edit',
@@ -15,7 +16,9 @@ export class MessageEditComponent implements OnInit{
     constructor(
         public dialogRef: MatDialogRef<MessageEditComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
-        private messagesService: MessagesService) {}
+        private messagesService: MessagesService,
+        private myDashService: MyDashService    
+    ) {}
     
     ngOnInit() {
         //Set original text for message
@@ -43,7 +46,7 @@ export class MessageEditComponent implements OnInit{
         this.messagesService.editMessage(this.data.message)
             .subscribe(
                 (response: Message) => {
-                    console.log(response);
+                    this.myDashService.openSnackBar('Message Edited.', 'close');
                 }
             )
         this.dialogRef.close();

@@ -18,7 +18,6 @@ export class SettingsComponent implements OnInit{
     constructor(
         private relationshipService: RelationshipService,
         private messsagesService: MessagesService,
-        public snackBar: MatSnackBar,
         private inviteDialog: MatDialog
     ) {}
 
