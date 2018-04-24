@@ -77,8 +77,7 @@ import { MyDashService } from "./mydash.service";
         DeleteItemDialogComponent
     ],
     providers: [
-        DatePipe,
-        MyDashService
+        DatePipe
     ],
     exports: [
         MyDashComponent

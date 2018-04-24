@@ -1,19 +1,21 @@
-import { Component, OnInit, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, OnDestroy } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { MessagesService } from "./messages.service";
 import { Message } from "./message.model";
 import { Relationship } from "../../../relationships/relationship.model";
 import { RelationshipService } from "../../../relationships/relationship.service";
 import { MyDashService } from "../mydash.service";
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
     selector: 'app-messages',
     templateUrl: './messages.component.html'
 })
-export class MessagesComponent implements OnInit{
+export class MessagesComponent implements OnInit, OnDestroy{
     messagesForm: FormGroup;
     relationship: Relationship;
     messages: Message[] = [];
+    currentRelationshipSubscription: Subscription;
     
 
     constructor(
@@ -34,18 +36,19 @@ export class MessagesComponent implements OnInit{
         })
 
         //When current relationship in mydash updated, update the current relationship of messages
-        this.messagesService.currentMyDashRelationshipEmitter.subscribe(
-            (response: Relationship) => {
-                this.relationship = response;
-                //Get messages for this relationship from Messages Service
-                this.messagesService.getMessages(this.relationship.relationshipId)
+        this.currentRelationshipSubscription = this.myDashService.getCurrentRelationship()
+            .subscribe(relationship => {
+                this.messagesService.getMessages(relationship.relationshipId)
                     .subscribe(
                         (response: Message[]) => {
                             this.messages = response;
+                            //this.myDashService.contentLoadedEmitter.emit(this.relationship);
                         }
                     )
-            }
-        )
+            });
+
+        //Have observable emit relatinship if it exists
+        this.myDashService.conditionallyEmitRelationship();
         
         //When a message is deleted, delete it from the messages list
         this.messagesService.messageDeletedEmitter.subscribe(
@@ -57,6 +60,11 @@ export class MessagesComponent implements OnInit{
                 }
             }
         )
+
+    }
+
+    ngOnDestroy() {
+        this.currentRelationshipSubscription.unsubscribe();
     }
     
     /**

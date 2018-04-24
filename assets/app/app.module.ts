@@ -21,6 +21,7 @@ import { DateService } from './dashboard/mydash/dates/date.service';
 import { ChoreService } from './dashboard/mydash/chores/chore.service';
 import { FightService } from './dashboard/mydash/fights/fight.service';
 import { MyDashService } from './dashboard/mydash/mydash.service';
+import { MatSnackBarModule } from '@angular/material';
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import { MyDashService } from './dashboard/mydash/mydash.service';
         ReactiveFormsModule,
         HttpModule,
         RelationshipModule,
-        routing
+        routing,
+        MatSnackBarModule
     ],
     providers: [
         AuthService,
