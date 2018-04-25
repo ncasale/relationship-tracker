@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { AuthService } from "../../auth/auth.service";
+import { MyDashService } from "../mydash/mydash.service";
 
 @Component({
     selector: 'app-logout',
@@ -8,7 +9,10 @@ import { AuthService } from "../../auth/auth.service";
 })
 export class LogoutComponent{
 
-    constructor(private authService: AuthService) {}
+    constructor(
+        private authService: AuthService,
+        private myDashService: MyDashService
+    ) {}
 
     /**
      * Call Auth Service to logout current user
@@ -16,6 +20,8 @@ export class LogoutComponent{
      * @memberof LogoutComponent
      */
     logout() {
+        this.myDashService.setCurrentRelationship(null);
+        this.myDashService.subjectComplete();
         this.authService.logout();
     }
 

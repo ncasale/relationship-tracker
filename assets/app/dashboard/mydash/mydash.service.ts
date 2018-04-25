@@ -41,6 +41,7 @@ export class MyDashService implements OnInit{
     }
 
     getCurrentRelationship() : Observable<any> {
+        this.relationshipSubject = new Subject<any>();
         return this.relationshipSubject.asObservable();
     }
 
@@ -50,9 +51,14 @@ export class MyDashService implements OnInit{
     }
     
     conditionallyEmitRelationship() {
+        console.log("Conditional Emission: ", this.currentRelationship);
         if(this.currentRelationship) {
             this.relationshipSubject.next(this.currentRelationship);
         }
+    }
+
+    subjectComplete() {
+        this.relationshipSubject.complete();
     }
 
 

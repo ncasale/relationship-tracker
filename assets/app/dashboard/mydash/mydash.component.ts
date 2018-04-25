@@ -33,6 +33,7 @@ export class MyDashComponent {
                 (relationships: Relationship[]) => {
                     this.relationships = relationships;
                     //Set selected relationship to first in relationship list, if it exists
+                    console.log("Relationships in MyDash: ", this.relationships);
                     if(this.relationships.length > 0) {
                         this.selectedRelationship = relationships[0];
                         this.myDashService.setCurrentRelationship(this.selectedRelationship);

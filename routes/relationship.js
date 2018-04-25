@@ -201,8 +201,9 @@ router.post('/getinvitedrelationships', function(req, res, next) {
         //Get list of invited relationships from user
         var relationships = [];
         var processedRelationshipCount = 0;
+        console.log('Ben: ', user);
         if(user.invites.length > 0) {
-            user.invites.array.forEach(relationshipId => {
+            user.invites.forEach(relationshipId => {
                 Relationship.findById(relationshipId, function(err, relationship) {
                     if(err) {
                         return res.status(500).json({
