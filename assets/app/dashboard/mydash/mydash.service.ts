@@ -9,9 +9,8 @@ export class MyDashService implements OnInit{
     //The currently selected relationship on My Dash
     currentRelationship: Relationship;
     
-    //Signal that fires when current relationship is updated
-    currentRelationshipUpdatedEmitter = new EventEmitter<Relationship>();
-    contentLoadedEmitter = new EventEmitter<Relationship>();
+    //Signal that fires when mydash relationships need to be updated
+    updateMyDashRelationships = new EventEmitter<any>();
     
     //Subject for distributing current relationship
     private relationshipSubject = new Subject<any>();

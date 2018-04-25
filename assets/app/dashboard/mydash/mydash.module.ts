@@ -25,6 +25,7 @@ import { FightAppendDialogComponent } from "./fights/fight-append-dialog.compone
 import { FightDisplayDialogComponent } from "./fights/fight-display-dialog.component";
 import { DeleteItemDialogComponent } from "./common/delete-item-dialog.component";
 import { MyDashService } from "./mydash.service";
+import { LeaveDialogComponent } from "./settings/leave-dialog.component";
 
 @NgModule({
     declarations: [
@@ -45,7 +46,8 @@ import { MyDashService } from "./mydash.service";
         InviteDialogComponent,
         FightAppendDialogComponent,
         FightDisplayDialogComponent,
-        DeleteItemDialogComponent     
+        DeleteItemDialogComponent,
+        LeaveDialogComponent     
     ],
     imports: [
         RelationshipModule,
@@ -74,7 +76,8 @@ import { MyDashService } from "./mydash.service";
         InviteDialogComponent,
         FightAppendDialogComponent,
         FightDisplayDialogComponent,
-        DeleteItemDialogComponent
+        DeleteItemDialogComponent,
+        LeaveDialogComponent
     ],
     providers: [
         DatePipe

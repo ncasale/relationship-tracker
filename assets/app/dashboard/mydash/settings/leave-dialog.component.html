@@ -1,0 +1,14 @@
+<div class="col-md-8 col-md-offset-2">
+    <h2>Leave Relationship?</h2>
+    <p>This cannot be undone<br></p>
+        <div class="form-container">
+            <mat-form-field>
+                <input matInput placeholder="Please type: '{{data.relationship.title}}' to confirm'" [formControl]="nameConfirmationFC" required>
+            </mat-form-field>
+            
+            <div>
+                <button class="btn btn-danger leave-btn" [disabled]="!compareName()" (click)="leaveRelationship()">Leave</button>
+                <button class="btn btn-primary cancel-btn" (click)="dialogRef.close()">Cancel</button>
+            </div>
+        </div>
+</div>

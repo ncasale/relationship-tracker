@@ -7,6 +7,8 @@ import { MessagesService } from "../messages/messages.service";
 import { Relationship } from "../../../relationships/relationship.model";
 import { Subscription } from "rxjs/Subscription";
 import { MyDashService } from "../mydash.service";
+import { Router } from "@angular/router";
+import { LeaveDialogComponent } from "./leave-dialog.component";
 
 @Component({
     selector: 'app-settings',
@@ -22,7 +24,9 @@ export class SettingsComponent implements OnInit, OnDestroy{
         private relationshipService: RelationshipService,
         private messsagesService: MessagesService,
         private inviteDialog: MatDialog,
-        private myDashService: MyDashService
+        private myDashService: MyDashService,
+        private router: Router,
+        public leaveDialog: MatDialog
     ) {}
 
     ngOnInit() {
@@ -55,5 +59,15 @@ export class SettingsComponent implements OnInit, OnDestroy{
                 relationship: this.relationship
             }
         })
+    }
+
+    openLeaveRelationshipDialog() {
+        this.leaveDialog.open(LeaveDialogComponent, {
+            width: '750px', 
+            data: {
+                relationship: this.relationship
+            }
+        })
+        
     }
 }

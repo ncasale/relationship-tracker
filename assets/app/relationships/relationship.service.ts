@@ -239,6 +239,26 @@ export class RelationshipService {
             })
 
     }
+
+    leaveRelationship(relationshipId: string) {
+        //Create body
+        const body = {};
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get Token
+        const token = localStorage.getItem('token') ?
+            '?token=' + localStorage.getItem('token') :
+            '';
+        //Create request
+        return this.http.patch('http://localhost:3000/relationship/leave/' + relationshipId + token, body, {headers:headers})
+            .map((response: Response) => {
+                return response.json().obj;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
+    }
     
     /**
      * Emit signal to update relationship in invite component

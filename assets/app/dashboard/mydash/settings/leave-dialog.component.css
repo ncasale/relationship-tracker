@@ -1,0 +1,26 @@
+h2 {
+    width: 100%;
+    text-align: 'center';
+}
+
+.leave-btn {
+    width: 40%;
+}
+
+.cancel-btn {
+    width: 40%;
+    float: right;
+}
+
+.edit-input {
+    width: 100%;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+.date-form-container > * {
+    width: 100%;
+  }

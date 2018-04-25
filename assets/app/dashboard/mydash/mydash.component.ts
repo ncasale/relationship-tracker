@@ -31,24 +31,15 @@ export class MyDashComponent {
      * @memberof MyDashComponent
      */
     ngOnInit() {
-        this.relationshipService.getRelationships()
-            .subscribe(
-                (relationships: Relationship[]) => {
-                    this.relationships = relationships;
-                    //Set selected relationship to first in relationship list, if it exists
-                    if(this.relationships.length > 0) {
-                        //Check if we are navigated to our messages route
-                        this.router.navigateByUrl('/dashboard/mydash/messages');
-                        this.selectedRelationship = relationships[0];
-                        this.myDashService.setCurrentRelationship(this.selectedRelationship);
-                        this.noRelationships = false;
-                        //this.myDashService.currentRelationshipUpdatedEmitter.emit(this.relationships[0]);
-                    }
-                    else {
-                        this.noRelationships = true;
-                    }
-                }
-            )       
+        //Get user relationships
+        this.refreshRelationships();
+    
+        //Update relationships if necessary
+        this.myDashService.updateMyDashRelationships.subscribe(
+            (response: any) => {
+                this.refreshRelationships();
+            }
+        )
     }
 
     /**
@@ -112,5 +103,25 @@ export class MyDashComponent {
 
     onMyDashHome() {
         return this.router.url == '/dashboard/mydash';
+    }
+
+    refreshRelationships() {
+        this.relationshipService.getRelationships()
+            .subscribe(
+                (relationships: Relationship[]) => {
+                    this.relationships = relationships;
+                    //Set selected relationship to first in relationship list, if it exists
+                    if(this.relationships.length > 0) {
+                        //Check if we are navigated to our messages route
+                        this.router.navigateByUrl('/dashboard/mydash/messages');
+                        this.selectedRelationship = relationships[0];
+                        this.myDashService.setCurrentRelationship(this.selectedRelationship);
+                        this.noRelationships = false;
+                    }
+                    else {
+                        this.noRelationships = true;
+                    }
+                }
+            )
     }
 }

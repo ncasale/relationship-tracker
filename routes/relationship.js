@@ -359,6 +359,9 @@ router.patch('/acceptinvite/:id', function(req, res, next) {
     })
 })
 
+/**
+ * Route that gets the users belonging to the passed relationship
+ */
 router.post('/getusers/:id', function(req, res, next) {
     //Decode token
     var decoded = jwt.decode(req.query.token);
@@ -381,6 +384,65 @@ router.post('/getusers/:id', function(req, res, next) {
             title: 'Relationship users found.',
             obj: relationship.users
         })
+    })
+})
+
+/**
+ * Route to leave a relationship with the given relationshipId
+ */
+router.patch('/leave/:relationshipId', function(req, res, next) {
+    //Get token
+    var decoded = jwt.decode(req.query.token);
+    //Get the relationship
+    Relationship.findById(req.params.relationshipId, function(err, relationship) {
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            })
+        }
+        if(!relationship) {
+            return res.status(404).json({
+                title: "Relationship not found",
+                error: {message: "Relationship not found"}
+            })
+        }
+        //Iterate through users in relationship and remove user
+        var removedUser = false;
+        var removedIndex = 0;
+        if(relationship.users) {
+            for(var count=0; count < relationship.users.length; count++) {
+                if(relationship.users[count] == decoded.user._id) {
+                    relationship.users.splice(count, 1);
+                    removedUser = true;
+                    removedIndex = count;
+                }
+                
+                //When done iterating, save relationship
+                if(removedUser && count == removedIndex) {
+                    relationship.save(function(err, result) {
+                        if(err) {
+                            return res.status(500).json({
+                                title: 'An error occurred',
+                                error: err
+                            })
+                        }
+                        //Save successful
+                        return res.status(200).json({
+                            title: 'Left Relationship',
+                            obj: result
+                        })
+                    })
+                }
+
+                if(count == relationship.users.length && !removedUser) {
+                    return res.status(200).json({
+                        title: 'No user removed',
+                        obj: relationship
+                    })
+                }
+            }            
+        }        
     })
 })
 
