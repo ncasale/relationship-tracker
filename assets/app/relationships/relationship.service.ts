@@ -36,11 +36,13 @@ export class RelationshipService {
      * @memberof RelationshipService
      */
     addRelationship(relationship: Relationship) {
+        //Create body
         const body = JSON.stringify(relationship);
+        //Create headers
         const headers = new Headers({'Content-Type': 'application/json'});
-        const token = localStorage.getItem('token') ?
-            "?token=" + localStorage.getItem('token') : 
-            '';
+        //Get token
+        const token = this.getToken();
+        //Create request
         return this.http.post('http://localhost:3000/relationship/add' + token, body, {headers:headers})
             .map((response: Response) => {
                 const result = response.json();
@@ -73,9 +75,8 @@ export class RelationshipService {
         //Headers
         const headers = new Headers({'Content-Type': 'application/json'});
         //Get token
-        const token = localStorage.getItem('token') ?
-            '?token=' + localStorage.getItem('token') :
-            '';
+        const token = this.getToken();
+        //Create request
         return this.http.post('http://localhost:3000/relationship/getrelationships' + token, body, {headers: headers})
             .map((response: Response) => {
                     const relationships = response.json().obj;
@@ -111,9 +112,7 @@ export class RelationshipService {
         //Construct the headers
         const headers = new Headers({'Content-Type':'application/json'});
         //Get token
-        const token = localStorage.getItem('token') ?
-            '?token=' + localStorage.getItem('token') : 
-            '';
+        const token = this.getToken();
         //Construct the patch request
         return this.http.patch('http://localhost:3000/relationship/invite/' + email + '/' + relationship.relationshipId + token, body, {headers: headers})
             .map((response: Response) => {
@@ -137,9 +136,7 @@ export class RelationshipService {
         //Construct headers
         const headers = new Headers({'Content-Type':'application/json'});
         //Get token
-        const token = localStorage.getItem('token') ?
-            '?token=' + localStorage.getItem('token') :
-            '';
+        const token = this.getToken();
         //Create post request
         return this.http.post('http://localhost:3000/relationship/getinvitedrelationships' + token,
             body, {headers:headers})
@@ -173,9 +170,7 @@ export class RelationshipService {
         //Create headers
         const headers = new Headers({'Content-Type':'application/json'});
         //Get token
-        const token = localStorage.getItem('token') ?
-            '?token=' + localStorage.getItem('token') :
-            '';
+        const token = this.getToken();
         //Generate request
         return this.http.patch('http://localhost:3000/relationship/declineinvite/' + inviteId + token, body, {headers:headers})
             .map((response: Response) => response.json())
@@ -198,9 +193,7 @@ export class RelationshipService {
         //Create headers
         const headers = new Headers({'Content-Type':'application/json'});
         //Get token
-        const token = localStorage.getItem('token') ?
-            '?token=' + localStorage.getItem('token') :
-            '';
+        const token = this.getToken();
         //Construct request
         return this.http.patch('http://localhost:3000/relationship/acceptinvite/' + inviteId + token, body, {headers: headers})
             .map((response: Response) => {
@@ -225,9 +218,7 @@ export class RelationshipService {
         //Create headers
         const headers = new Headers({'Content-Type':'application/json'});
         //Get token
-        const token = localStorage.getItem('token') ?
-            '?token=' + localStorage.getItem('token') :
-            '';
+        const token = this.getToken();
         //Create request
         return this.http.post('http://localhost:3000/relationship/getusers/' + relationshipId + token, body, {headers:headers})
             .map((response: Response) => {
@@ -246,9 +237,7 @@ export class RelationshipService {
         //Create headers
         const headers = new Headers({'Content-Type':'application/json'});
         //Get Token
-        const token = localStorage.getItem('token') ?
-            '?token=' + localStorage.getItem('token') :
-            '';
+        const token = this.getToken();
         //Create request
         return this.http.patch('http://localhost:3000/relationship/leave/' + relationshipId + token, body, {headers:headers})
             .map((response: Response) => {
@@ -275,9 +264,7 @@ export class RelationshipService {
         //Create headers
         const headers = new Headers({'Content-Type':'application/json'});
         //Get token
-        const token = localStorage.getItem('token') ? 
-            '?token=' + localStorage.getItem('token') :
-            '';
+        const token = this.getToken();
         //Create request
         return this.http.post('http://localhost:3000/relationship/getrelationshipsbyid/' + token, body, {headers:headers})
             .map((response: Response) => {
@@ -310,6 +297,18 @@ export class RelationshipService {
      */
     setInviteRelationship(relationship: Relationship) {
         this.setInviteRelationshipEmitter.emit(relationship);
+    }
+
+    /**
+     * Returns the local storage token if it exists
+     * 
+     * @returns string - local storage token
+     * @memberof RelationshipService
+     */
+    getToken() {
+        return localStorage.getItem('token') ?
+            '?token' + localStorage.getItem('token') :
+            '';
     }
 
 }

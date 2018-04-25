@@ -29,9 +29,7 @@ export class DateService {
         //Create the headers
         const headers = new Headers({'Content-Type': 'application/json'});
         //Get token
-        const token = localStorage.getItem('token') ?
-            "?token=" + localStorage.getItem('token') :
-            '';
+        const token = this.getToken();
         //Generate our request
         return this.http.post('http://localhost:3000/date/add/' + token, body, {headers:headers})
             .map((response: Response) => {
@@ -69,9 +67,7 @@ export class DateService {
         //Create headers
         const headers = new Headers({'Content-Type': 'application/json'});
         //Get token
-        const token = localStorage.getItem('token') ?
-            '?token=' + localStorage.getItem('token') :
-            '';
+        const token = this.getToken();
         //Generate request
         return this.http.post('http://localhost:3000/date/getdates/' + relationshipId + token, body, {headers:headers})
             .map((response: any) => {
@@ -113,9 +109,7 @@ export class DateService {
         //Create headers
         const headers = new Headers({'Content-Type':'application/json'});
         //Get token
-        const token = localStorage.getItem('token') ?
-            '?token=' + localStorage.getItem('token') :
-            '';
+        const token = this.getToken();
         //Create a request
         return this.http.patch('http://localhost:3000/date/edit' + token, body, {headers:headers})
             .map((response: Response) => {
@@ -138,9 +132,7 @@ export class DateService {
         //Create headers
         const headers = new Headers({'Content-Type':'application/json'});
         //Get token
-        const token = localStorage.getItem('token') ?
-            "?token=" + localStorage.getItem('token') :
-            '';
+        const token = this.getToken();
         //Create request
         return this.http.delete('http://localhost:3000/date/delete/' + dateId + token, {headers:headers})
             .map((response: Response) => {
@@ -150,5 +142,17 @@ export class DateService {
                 this.errorService.handleError(error.json());
                 return Observable.throw(error.json());
             })
+    }
+
+    /**
+     * Returns the local storage token if it exists
+     * 
+     * @returns string - local storage token
+     * @memberof RelationshipService
+     */
+    getToken() {
+        return localStorage.getItem('token') ?
+            '?token' + localStorage.getItem('token') :
+            '';
     }
 }

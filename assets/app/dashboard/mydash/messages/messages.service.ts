@@ -34,9 +34,7 @@ export class MessagesService {
         //Construct headers
         const headers = new Headers ({'Content-Type':'application/json'});
         //Get token
-        const token  = localStorage.getItem('token') ?
-            '?token=' + localStorage.getItem('token') :
-            '';
+        const token  = this.getToken();
         //Create request
         return this.http.post('http://localhost:3000/message/add' + token, body, {headers:headers})
             .map((response: Response ) => {
@@ -71,9 +69,7 @@ export class MessagesService {
         //Create headers
         const headers = new Headers({'Content-Type':'application/json'});
         //Get token
-        const token = localStorage.getItem('token') ?
-            '?token=' + localStorage.getItem('token') :
-            '';
+        const token = this.getToken();
         //Create request
         return this.http.patch('http://localhost:3000/message/edit/' + message.messageId + token, body, {headers:headers})
             .map((response: Response) => {
@@ -107,9 +103,7 @@ export class MessagesService {
         //Create headers
         const headers = new Headers({'Content-Type':'application/json'});
         //Get token
-        const token = localStorage.getItem('token') ?
-            '?token=' + localStorage.getItem('token') :
-            '';
+        const token = this.getToken();
         //Create request
         return this.http.post('http://localhost:3000/message/getmessages/' + relationshipId + token, body, {headers:headers})
             .map((response: Response) => {
@@ -145,9 +139,7 @@ export class MessagesService {
      */
     deleteMessage(messageId : string) {
         //Get token
-        const token = localStorage.getItem('token') ?
-            '?token=' + localStorage.getItem('token') :
-            '';
+        const token = this.getToken();
         //Create request
         return this.http.delete('http://localhost:3000/message/deletemessage/' + messageId + token)
             .map((response: Response) => {})
@@ -155,6 +147,18 @@ export class MessagesService {
                 this.errorService.handleError(error.json());
                 return Observable.throw(error.json());
             })        
+    }
+
+    /**
+     * Returns the local storage token if it exists
+     * 
+     * @returns string - local storage token
+     * @memberof RelationshipService
+     */
+    getToken() {
+        return localStorage.getItem('token') ?
+            '?token' + localStorage.getItem('token') :
+            '';
     }
 
 }

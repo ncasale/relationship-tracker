@@ -68,9 +68,7 @@ export class AuthService {
         //Create headers
         const headers = new Headers({'Content-Type':'application/json'});
         //Get token
-        const token = localStorage.getItem('token') ?
-            '?token=' + localStorage.getItem('token') :
-            '';
+        const token = this.getToken();
         //Create request
         return this.http.post('http://localhost:3000/auth/getuser/' + userId + token, body, {headers:headers})
             .map((response: Response) => {
@@ -102,9 +100,7 @@ export class AuthService {
         //Create headers
         const headers = new Headers({'Content-Type':'application/json'});
         //Get token
-        const token = localStorage.getItem('token') ?
-            '?token=' + localStorage.getItem('token') :
-            '';
+        const token = this.getToken();
         //Create request
         return this.http.post('http://localhost:3000/auth/getuserinvites/' + token, body, {headers:headers})
             .map((response: Response) => {
@@ -125,5 +121,17 @@ export class AuthService {
     logout() {
         localStorage.clear();
         this.router.navigateByUrl('/');    
+    }
+
+    /**
+     * Returns the local storage token if it exists
+     * 
+     * @returns string - local storage token
+     * @memberof RelationshipService
+     */
+    getToken() {
+        return localStorage.getItem('token') ?
+            '?token' + localStorage.getItem('token') :
+            '';
     }
 }

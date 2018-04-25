@@ -38,22 +38,44 @@ export class MyDashService implements OnInit{
         });
     }
 
+    /**
+     * Returns the Subject for the current relationship as an observable
+     * 
+     * @returns {Observable<any>} The subject as an observable
+     * @memberof MyDashService
+     */
     getCurrentRelationship() : Observable<any> {
         this.relationshipSubject = new Subject<any>();
         return this.relationshipSubject.asObservable();
     }
 
+    /**
+     * Sets the current relationship and sends relationship to subscribers
+     * 
+     * @param {Relationship} relationship The current relationship
+     * @memberof MyDashService
+     */
     setCurrentRelationship(relationship: Relationship) {
         this.currentRelationship = relationship;
         this.relationshipSubject.next(relationship);
     }
     
+    /**
+     * Emit the current relationship if it exists
+     * 
+     * @memberof MyDashService
+     */
     conditionallyEmitRelationship() {
         if(this.currentRelationship) {
             this.relationshipSubject.next(this.currentRelationship);
         }
     }
 
+    /**
+     * Mark the current Subject as complete
+     * 
+     * @memberof MyDashService
+     */
     subjectComplete() {
         this.relationshipSubject.complete();
     }
