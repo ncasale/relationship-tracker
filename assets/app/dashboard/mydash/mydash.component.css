@@ -30,4 +30,9 @@
   background: rgb(197, 197, 14);
 } 
 
+#norelationships {
+  text-align: center;
+}
+
+
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";

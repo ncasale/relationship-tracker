@@ -5,6 +5,7 @@ import { MessagesService } from "./messages/messages.service";
 import { MyDashService } from "./mydash.service";
 
 import { Subscription } from "rxjs/Subscription";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'app-mydash',
@@ -15,11 +16,13 @@ export class MyDashComponent {
     selectedRelationship: Relationship;
     relationships: Relationship[] = [];
     relationshipSubscription: Subscription;
+    noRelationships = false;
 
     constructor(
         private relationshipService: RelationshipService, 
         private messageService: MessagesService,
-        private myDashService: MyDashService
+        private myDashService: MyDashService,
+        private router: Router
     ) {}
 
     /**
@@ -37,7 +40,11 @@ export class MyDashComponent {
                     if(this.relationships.length > 0) {
                         this.selectedRelationship = relationships[0];
                         this.myDashService.setCurrentRelationship(this.selectedRelationship);
+                        this.noRelationships = false;
                         //this.myDashService.currentRelationshipUpdatedEmitter.emit(this.relationships[0]);
+                    }
+                    else {
+                        this.noRelationships = true;
                     }
                 }
             )       
@@ -87,5 +94,18 @@ export class MyDashComponent {
      */
     isCurrentRelationship(relationship: Relationship) {
         return relationship == this.selectedRelationship;
+    }
+
+    /**
+     * Navigate to create relationship page
+     * 
+     * @memberof MyDashComponent
+     */
+    navigateToCreateRelationship() {
+        this.router.navigateByUrl('/dashboard/create');
+    }
+
+    userNotInRelationship() {
+        return this.relationships.length == 0;
     }
 }

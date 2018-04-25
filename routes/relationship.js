@@ -201,9 +201,9 @@ router.post('/getinvitedrelationships', function(req, res, next) {
         //Get list of invited relationships from user
         var relationships = [];
         var processedRelationshipCount = 0;
-        console.log('Ben: ', user);
         if(user.invites.length > 0) {
-            user.invites.forEach(relationshipId => {
+            for(processedRelationshipCount = 0; processedRelationshipCount < user.invites.length; processedRelationshipCount++) {
+                var relationshipId = user.invites[processedRelationshipCount];
                 Relationship.findById(relationshipId, function(err, relationship) {
                     if(err) {
                         return res.status(500).json({
@@ -220,17 +220,16 @@ router.post('/getinvitedrelationships', function(req, res, next) {
     
                     //Push relationship into array
                     relationships.push(relationship);
-                    processedRelationshipCount++;
     
                     //Once all invites iterated through, return array
-                    if(processedRelationshipCount == user.invites.length) {
+                    if(processedRelationshipCount == user.invites.length - 1) {
                         return res.status(201).json({
                             title: 'Got Invited Relationships.',
                             obj: relationships
                         })
                     }
                 })            
-            });
+            };
         }
     }) 
 })

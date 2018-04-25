@@ -7,20 +7,29 @@
     
 
 <mat-sidenav-content>
-    <header class="row spacing">
-        <nav class="col-md-8 col-md-offset-2">
-            <ul class="nav nav-tabs">
-                <li routerLinkActive="active"><a [routerLink]="['messages']">Messages</a></li>
-                <li routerLinkActive="active"><a [routerLink]="['dates']">Dates</a></li>
-                <li routerLinkActive="active"><a [routerLink]="['chores']">Chores</a></li>
-                <li routerLinkActive="active"><a [routerLink]="['fights']">Fights</a></li>
-                <li routerLinkActive="active"><a [routerLink]="['settings']">Settings</a></li>
-            </ul>
-        </nav>
-    </header>
-    <br>        
+    <div *ngIf="!userNotInRelationship()">
+        <header class="row spacing">
+            <nav class="col-md-8 col-md-offset-2">
+                <ul class="nav nav-tabs">
+                    <li routerLinkActive="active"><a [routerLink]="['messages']">Messages</a></li>
+                    <li routerLinkActive="active"><a [routerLink]="['dates']">Dates</a></li>
+                    <li routerLinkActive="active"><a [routerLink]="['chores']">Chores</a></li>
+                    <li routerLinkActive="active"><a [routerLink]="['fights']">Fights</a></li>
+                    <li routerLinkActive="active"><a [routerLink]="['settings']">Settings</a></li>
+                </ul>
+            </nav>
+        </header>
+        <br>        
+        
     
-    <router-outlet></router-outlet>        
+        <router-outlet></router-outlet>
+    </div>
+    
+    <div *ngIf="userNotInRelationship()" class="col-md-8 col-md-offset-2" id="norelationships">
+        <h2>You don't appear to be a member of any relationships.</h2>
+        <h2>You should create one!</h2>
+        <button class="btn btn-primary" (click)="navigateToCreateRelationship()">Create!</button>
+    </div>
     
     <button (click)="sidenav.toggle()">Toggle</button>
 </mat-sidenav-content>
