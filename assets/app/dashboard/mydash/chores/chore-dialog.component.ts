@@ -19,7 +19,7 @@ export class ChoreDialogComponent implements OnInit{
     //Initialize form controls
     title = new FormControl (null, Validators.required);
     assignedUserId = new FormControl(null, Validators.required);
-    dueDate = new FormControl(null, Validators.required);
+    dueDate = new FormControl(new Date(), Validators.required);
     selectedUser: string;
 
     //Array of possible users to assign chore to

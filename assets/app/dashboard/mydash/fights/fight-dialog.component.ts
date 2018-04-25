@@ -75,7 +75,6 @@ export class FightDialogComponent implements OnInit{
         this.fightService.editFight(this.data.fight)
             .subscribe(
                 (response: any) => {
-                    console.log('Finished editing fight...');
                     this.myDashSerice.openSnackBar('Edited Fight', 'close');
                 }
             )

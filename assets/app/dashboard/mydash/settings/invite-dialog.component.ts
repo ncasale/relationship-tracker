@@ -41,7 +41,9 @@ export class InviteDialogComponent implements OnInit{
                 this.dialogRef.close();
             }, 
             error => this.myDashService.openSnackBar('Invalid email or User already a member of relationship', 'close')
-        );       
+        );
+        //Clear form
+        this.emailFC.reset();       
     }
 
     /**
@@ -52,5 +54,9 @@ export class InviteDialogComponent implements OnInit{
      */
     getEmailErrorMessage() {
         return this.emailFC.hasError('required') ? 'You must enter a valid email' : '';
+    }
+
+    isInviteValid() {
+        return this.emailFC.valid;
     }
 }

@@ -36,8 +36,9 @@ export class MyDashComponent {
                 (relationships: Relationship[]) => {
                     this.relationships = relationships;
                     //Set selected relationship to first in relationship list, if it exists
-                    console.log("Relationships in MyDash: ", this.relationships);
                     if(this.relationships.length > 0) {
+                        //Check if we are navigated to our messages route
+                        this.router.navigateByUrl('/dashboard/mydash/messages');
                         this.selectedRelationship = relationships[0];
                         this.myDashService.setCurrentRelationship(this.selectedRelationship);
                         this.noRelationships = false;
@@ -107,5 +108,9 @@ export class MyDashComponent {
 
     userNotInRelationship() {
         return this.relationships.length == 0;
+    }
+
+    onMyDashHome() {
+        return this.router.url == '/dashboard/mydash';
     }
 }

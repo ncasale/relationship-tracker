@@ -1,9 +1,11 @@
 <div class="col-md-8 col-md-offset-2">
     <h2>Invite</h2>
-    <mat-form-field>
-        <input matInput placeholder="Email" [formControl]="emailFC" required>
-        <mat-error *ngIf="emailFC.invalid">{{ getEmailErrorMessage() }}</mat-error>
-    </mat-form-field>
-
-    <button class="btn btn-primary" (click)="sendInvite()">Send Invite</button>
+    <form (ngSubmit)="sendInvite()">
+        <mat-form-field>
+            <input matInput placeholder="Email" [formControl]="emailFC" required>
+            <mat-error *ngIf="emailFC.invalid">{{ getEmailErrorMessage() }}</mat-error>
+        </mat-form-field>
+    
+        <button class="btn btn-primary" [disabled]="!isInviteValid()" (click)="sendInvite()">Send Invite</button>
+    </form>
 </div>

@@ -33,7 +33,6 @@ export class ChoresComponent implements OnInit, OnDestroy{
             .subscribe(
                 relationship => {
                     this.relationship = relationship;
-                    console.log("Relationship in Chores: ", this.relationship);
                     //Get chores for this relationship from Chores Service
                     if(this.relationship) {
                         this.choreService.getChores(this.relationship.relationshipId)

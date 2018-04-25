@@ -21,7 +21,7 @@ export class DateDialogComponent implements OnInit{
         Validators.pattern('^(2[0-3]|[01]?[0-9])$')]);
     minute = new FormControl(null, [Validators.required,
         Validators.pattern('^([012345]?[0-9])$')]);
-    dateDate = new FormControl(null, Validators.required);
+    dateDate = new FormControl(new Date(), Validators.required);
 
     //Inject services
     constructor(
@@ -78,7 +78,6 @@ export class DateDialogComponent implements OnInit{
         this.data.date.hour = this.hour.value;
         this.data.date.minute = this.minute.value;
         this.data.date.date = this.dateDate.value;
-        console.log("Date before sent to date service edit: ", this.data.date);
         this.dateService.editDate(this.data.date)
             .subscribe((response: any) => {
                 this.dateService.dateEditedEmitter.emit();

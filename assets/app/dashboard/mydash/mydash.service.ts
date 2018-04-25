@@ -21,8 +21,7 @@ export class MyDashService implements OnInit{
         public snackBar: MatSnackBar
     ){}
 
-    ngOnInit() {
-        console.log("MyDashService init");        
+    ngOnInit() {   
     }
 
     
@@ -51,7 +50,6 @@ export class MyDashService implements OnInit{
     }
     
     conditionallyEmitRelationship() {
-        console.log("Conditional Emission: ", this.currentRelationship);
         if(this.currentRelationship) {
             this.relationshipSubject.next(this.currentRelationship);
         }

@@ -40,7 +40,7 @@ export class SignupComponent implements OnInit{
         //Create user using AuthService
         this.authService.saveUser(user)
             .subscribe(
-                data => console.log(data),
+                data => {},
                 error => console.error(error)
             )
         //Clear form

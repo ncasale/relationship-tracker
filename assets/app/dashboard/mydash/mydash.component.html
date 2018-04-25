@@ -19,6 +19,7 @@
                 </ul>
             </nav>
         </header>
+        <p *ngIf="onMyDashHome()">Welcome to your Dashboard -- click one of the above tabs to get started.</p>
         <br>        
         
     
@@ -27,7 +28,9 @@
     
     <div *ngIf="userNotInRelationship()" class="col-md-8 col-md-offset-2" id="norelationships">
         <h2>You don't appear to be a member of any relationships.</h2>
+        <br>
         <h2>You should create one!</h2>
+        <br>
         <button class="btn btn-primary" (click)="navigateToCreateRelationship()">Create!</button>
     </div>
     

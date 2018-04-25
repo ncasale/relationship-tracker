@@ -40,7 +40,6 @@ export class SettingsComponent implements OnInit, OnDestroy{
     }
 
     ngOnDestroy() {
-        console.log('Settings unsubscribed...');
         this.currentRelationshipSubscription.unsubscribe();
     }
 

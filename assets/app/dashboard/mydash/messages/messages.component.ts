@@ -35,12 +35,9 @@ export class MessagesComponent implements OnInit, OnDestroy{
             message: new FormControl(null, Validators.required)
         })
 
-        console.log('Messages On Init called...');
-
         //When current relationship in mydash updated, update the current relationship of messages
         this.currentRelationshipSubscription = this.myDashService.getCurrentRelationship()
             .subscribe(relationship => {
-                console.log('Subscription function called in Messages');
                 this.relationship = relationship;
                 this.messagesService.getMessages(relationship.relationshipId)
                     .subscribe(
