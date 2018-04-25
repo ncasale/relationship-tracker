@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Relationship } from "../../relationships/relationship.model";
 import { RelationshipService } from "../../relationships/relationship.service";
+import { AuthService } from "../../auth/auth.service";
 
 @Component({
     selector: 'app-join',
@@ -11,7 +12,10 @@ export class JoinComponent implements OnInit{
     relationships: Relationship[] = [];
 
     //Inject services
-    constructor(private relationshipService: RelationshipService) {}
+    constructor(
+        private relationshipService: RelationshipService,
+        private authService: AuthService
+    ) {}
     
     /**
      * Get all relationships user is invited to, subscribe to invite deny signal
@@ -19,13 +23,20 @@ export class JoinComponent implements OnInit{
      * @memberof JoinComponent
      */
     ngOnInit() {
-        this.relationshipService.getInvitedRelationships()
-            .subscribe(
-                (relationships: Relationship []) => {
-                    this.relationships = relationships 
-                }
-            )
+        //Use auth service to get list of relationship ids to which user is invited
+        this.authService.getUserInvites().subscribe(
+            (relationshipIds: string[]) => {
+                console.log('Invite Ids: ', relationshipIds);
+                //Using array of relationship ids, get the relationships
+                this.relationshipService.getRelationshipsById(relationshipIds).subscribe(
+                    (relationships: Relationship[]) => {
+                        this.relationships = relationships;
+                    }
+                )
+            }
+        )
 
+        //When a user declines an invite, remove it from the list
         this.relationshipService.removeInviteId.subscribe(
             (inviteId: string) => {
                 var indexToRemove = -1;

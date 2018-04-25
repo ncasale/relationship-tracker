@@ -446,4 +446,32 @@ router.patch('/leave/:relationshipId', function(req, res, next) {
     })
 })
 
+/**
+ * Route to get an array of relationships given a list of relationship ids
+ */
+router.post('/getrelationshipsbyid/', function(req, res, next) {
+    //Decode token
+    var decoded = jwt.decode(req.query.token);
+    //Get Relationships
+    Relationship.find({_id: req.body.relationshipIds}, function(err, relationships) {
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            })
+        }
+        if(!relationships) {
+            return res.status(404).json({
+                title: 'No relationships found',
+                error: {message: 'No relationships foudn'}
+            })
+        }
+        //Found relationships
+        return res.status(200).json({
+            title: 'Relationships found',
+            obj: relationships
+        })
+    })
+})
+
 module.exports = router;

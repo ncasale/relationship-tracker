@@ -90,6 +90,34 @@ export class AuthService {
     }
 
     /**
+     * Gets an array of relationship Ids representing the relationships to which this user is 
+     * invited.
+     * 
+     * @returns an array of strings -- the relationship ids of invited relationships 
+     * @memberof AuthService
+     */
+    getUserInvites() {
+        //Create body
+        const body = {};
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get token
+        const token = localStorage.getItem('token') ?
+            '?token=' + localStorage.getItem('token') :
+            '';
+        //Create request
+        return this.http.post('http://localhost:3000/auth/getuserinvites/' + token, body, {headers:headers})
+            .map((response: Response) => {
+                //We are returned an array of ids
+                return response.json().obj;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
+    }
+
+    /**
      * Clears local storage and navigates to home -- effectively logging user out
      * 
      * @memberof AuthService

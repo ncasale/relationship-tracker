@@ -259,6 +259,48 @@ export class RelationshipService {
                 return Observable.throw(error.json());
             })
     }
+
+    /**
+     * Returns a list of relationships given a list of ids to lookup
+     * 
+     * @param {string[]} relationshipIds the list of ids to lookup
+     * @returns a list of Relationship objects
+     * @memberof RelationshipService
+     */
+    getRelationshipsById(relationshipIds: string[]) {
+        //Create body
+        const body = JSON.stringify({
+            relationshipIds: relationshipIds
+        })
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get token
+        const token = localStorage.getItem('token') ? 
+            '?token=' + localStorage.getItem('token') :
+            '';
+        //Create request
+        return this.http.post('http://localhost:3000/relationship/getrelationshipsbyid/' + token, body, {headers:headers})
+            .map((response: Response) => {
+                //Transform relationships array into frontend relationships
+                console.log('Relationships: ', response.json().obj);
+                var relationships = response.json().obj;
+                var transformedRelationships = [];
+                for(let relationship of relationships) {
+                    transformedRelationships.push(new Relationship(
+                        relationship.title,
+                        relationship._id,
+                        relationship.userIds,
+                        relationship.invitees
+                    ));
+                }
+                console.log('Transformed Relationships: ', transformedRelationships);
+                return transformedRelationships;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
+    }
     
     /**
      * Emit signal to update relationship in invite component
