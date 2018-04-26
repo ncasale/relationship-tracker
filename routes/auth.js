@@ -60,7 +60,8 @@ router.post('/login', function(req, res, next) {
             })
         }
         
-        var token = jwt.sign({user: user}, 'secret');
+        var expiryTime = 72000000;
+        var token = jwt.sign({user: user}, 'secret', {expiresIn: expiryTime});
         return res.status(200).json({
             message: 'Successfully logged in!',
             token: token,
@@ -71,6 +72,10 @@ router.post('/login', function(req, res, next) {
     })
 })
 
+/**
+ * Route that will automatically log a user back in if their browser has a valid token
+ * in its local storage
+ */
 router.post('/loginwithtoken', function(req, res, next) {
     //Check if valid token
 
