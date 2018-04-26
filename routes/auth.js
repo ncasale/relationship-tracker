@@ -59,8 +59,8 @@ router.post('/login', function(req, res, next) {
                 error: {message: 'Invalid login credentials'}
             })
         }
-        var expirationTime = 7200;
-        var token = jwt.sign({user: user}, 'secret', {expiresIn: expirationTime});
+        
+        var token = jwt.sign({user: user}, 'secret');
         return res.status(200).json({
             message: 'Successfully logged in!',
             token: token,
@@ -68,6 +68,36 @@ router.post('/login', function(req, res, next) {
         })
 
 
+    })
+})
+
+router.post('/loginwithtoken', function(req, res, next) {
+    //Check if valid token
+
+    jwt.verify(req.query.token, 'secret', function(err, result) {
+        if(err) {
+            return res.status(401).json({
+                title: 'Authentication error', 
+                error: err
+            })
+        }
+
+        //Check if token expired
+        var dateNow = new Date();
+        console.log('Current Time: ', dateNow.getTime(), 'Exp Time: ', jwt.decode(req.query.token).exp);
+        if(jwt.decode(req.query.token).exp * 1000 < dateNow.getTime()) {
+            return res.status(200).json({
+                token: '',
+                userId: '',
+                valid: false
+            })
+        }
+        //Token is valid, return to user
+        return res.status(200).json({
+            token: req.query.token,
+            userId: jwt.decode(req.query.token).user._id,
+            valid: true
+        })
     })
 })
 

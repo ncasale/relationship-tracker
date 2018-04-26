@@ -55,6 +55,24 @@ export class AuthService {
             });
     }
 
+    loginWithToken() {
+        //Create body
+        const body = {};
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get token
+        const token = this.getToken();
+        //Create request
+        return this.http.post('http://localhost:3000/auth/loginwithtoken' + token, body, {headers:headers})
+            .map((response: Response) => {
+                return response.json();
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
+    }
+
     /**
      * Return a user from the database with the passed userId
      * 
@@ -73,7 +91,6 @@ export class AuthService {
         return this.http.post('http://localhost:3000/auth/getuser/' + userId + token, body, {headers:headers})
             .map((response: Response) => {
                 var returnedUser = response.json().obj;
-                console.log('Returned User: ', returnedUser);
                 var user = new User(
                     undefined,
                     undefined,

@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { AuthService } from "./auth.service";
 import { User } from "./user.model"
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'app-signup',
@@ -11,7 +12,10 @@ export class SignupComponent implements OnInit{
     signupForm: FormGroup;
 
     //Inject the auth service
-    constructor(private authService: AuthService) {}
+    constructor(
+        private authService: AuthService,
+        private router: Router
+    ) {}
 
     ngOnInit() {
         //Instantiate form
@@ -22,6 +26,19 @@ export class SignupComponent implements OnInit{
                 Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")]),
             password: new FormControl(null, Validators.required)
         })
+
+        //Try to login user if their token already exists
+        if(localStorage.getItem('token')) {
+            this.authService.loginWithToken().subscribe(
+                (response: any) => {
+                    if(response.valid) {
+                        localStorage.setItem('token', response.token);
+                        localStorage.setItem('userId', response.userId);
+                        this.router.navigateByUrl('/dashboard');
+                    }
+                }
+            )
+        }
     }
 
     /**
@@ -40,8 +57,18 @@ export class SignupComponent implements OnInit{
         //Create user using AuthService
         this.authService.saveUser(user)
             .subscribe(
-                data => {},
-                error => console.error(error)
+                (response: Response) => {
+                    //Log the user in
+                    //Use AuthService to log user in
+                    this.authService.loginUser(user)
+                    .subscribe(
+                        (response: any) => {
+                            localStorage.setItem('token', response.token);
+                            localStorage.setItem('userId', response.userId);
+                            this.router.navigateByUrl('/dashboard');
+                    }        
+                    )
+                }
             )
         //Clear form
         this.signupForm.reset();
