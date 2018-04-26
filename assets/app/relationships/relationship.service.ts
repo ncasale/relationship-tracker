@@ -50,7 +50,8 @@ export class RelationshipService {
                     result.obj.title,
                     result.obj._id,
                     result.obj.userIds,
-                    result.obj.invitees                 
+                    result.obj.invitees,
+                    result.obj.createTimestamp               
                 );
                 this.relationships.push(relationship);
                 return relationship;
@@ -86,7 +87,8 @@ export class RelationshipService {
                             relationship.title,
                             relationship._id,
                             relationship.users,
-                            relationship.invitees
+                            relationship.invitees,
+                            relationship.createTimestamp
                         ))
                     }
                     this.relationships = transformedRelationships;
@@ -148,7 +150,8 @@ export class RelationshipService {
                         relationship.title,
                         relationship._id,
                         relationship.users,
-                        relationship.invitees
+                        relationship.invitees,
+                        relationship.createTimestamp
                     ))
                 }
                 return transformedInvitedRelationships;
@@ -277,7 +280,8 @@ export class RelationshipService {
                         relationship.title,
                         relationship._id,
                         relationship.userIds,
-                        relationship.invitees
+                        relationship.invitees,
+                        relationship.createTimestamp
                     ));
                 }
                 console.log('Transformed Relationships: ', transformedRelationships);

@@ -112,9 +112,18 @@ export class MyDashComponent {
                     this.relationships = relationships;
                     //Set selected relationship to first in relationship list, if it exists
                     if(this.relationships.length > 0) {
-                        //Check if we are navigated to our messages route
+                        //Sort Relationships
+                        this.relationships.sort(function(r1, r2) {
+                            if(r1.createTimestamp < r2.createTimestamp) {
+                                return -1;
+                            } else if (r1.createTimestamp > r2.createTimestamp){
+                                return 1;
+                            } else {
+                                return 0;
+                            }
+                        })
                         this.router.navigateByUrl('/dashboard/mydash/messages');
-                        this.selectedRelationship = relationships[0];
+                        this.selectedRelationship = this.relationships[0];
                         this.myDashService.setCurrentRelationship(this.selectedRelationship);
                         this.noRelationships = false;
                     }

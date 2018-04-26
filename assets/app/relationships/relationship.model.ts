@@ -10,5 +10,6 @@ export class Relationship {
     constructor(public title: string,
         public relationshipId?: string,
         public userIds?: string[], 
-        public invitees?: string[]) {}
+        public invitees?: string[],
+        public createTimestamp?: string) {}
 }
