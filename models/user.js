@@ -8,7 +8,8 @@ var schema = new Schema({
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
     relationships: [{type: Schema.Types.ObjectId, ref: 'Relationship'}],
-    invites: [{type: Schema.Types.ObjectId, ref: 'Relationship'}]
+    invites: [{type: Schema.Types.ObjectId, ref: 'Relationship'}],
+    createTimestamp: {type: Date, default: Date.now()}
 });
 
 schema.plugin(mongooseUniqueValidator);

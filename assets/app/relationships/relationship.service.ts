@@ -272,7 +272,6 @@ export class RelationshipService {
         return this.http.post('http://localhost:3000/relationship/getrelationshipsbyid/' + token, body, {headers:headers})
             .map((response: Response) => {
                 //Transform relationships array into frontend relationships
-                console.log('Relationships: ', response.json().obj);
                 var relationships = response.json().obj;
                 var transformedRelationships = [];
                 for(let relationship of relationships) {
@@ -284,7 +283,6 @@ export class RelationshipService {
                         relationship.createTimestamp
                     ));
                 }
-                console.log('Transformed Relationships: ', transformedRelationships);
                 return transformedRelationships;
             })
             .catch((error: Response) => {

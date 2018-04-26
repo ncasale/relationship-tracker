@@ -3,6 +3,7 @@ import { MatDialog } from "@angular/material";
 import { ChangePasswordDialogComponent } from "./change-password-dialog.component";
 import { User } from "../../auth/user.model";
 import { AuthService } from "../../auth/auth.service";
+import { DatePipe } from "@angular/common";
 
 @Component({
     selector: 'app-profile',
@@ -14,13 +15,19 @@ export class ProfileComponent implements OnInit{
         undefined,
         undefined,
         undefined,
+        undefined,
+        undefined,
         undefined
     );
+
+    joinDate: string = "";
+    joinDateFormat: string = "MM/dd/yyyy";
 
     //Inject services
     constructor(
         public changePasswordDialog: MatDialog,
-        private authService: AuthService
+        private authService: AuthService,
+        private datePipe: DatePipe
     ){}
 
     ngOnInit() {
@@ -28,6 +35,7 @@ export class ProfileComponent implements OnInit{
         this.authService.getUser(localStorage.getItem('userId')).subscribe(
             (response: User) => {
                 this.user = response;
+                this.joinDate = this.datePipe.transform(this.user.createTimestamp, this.joinDateFormat);
             }
         )
     }

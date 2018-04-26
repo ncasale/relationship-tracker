@@ -95,7 +95,8 @@ router.post('/getuser/:id', function(req, res, next) {
         //Return the user stripped of sensitive information
         var userJson = {
             firstname: user.firstname,
-            lastname: user.lastname
+            lastname: user.lastname,
+            createTimestamp: user.createTimestamp
         }
 
         console.log('Creating user json', userJson);

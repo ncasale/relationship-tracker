@@ -26,7 +26,6 @@ export class JoinComponent implements OnInit{
         //Use auth service to get list of relationship ids to which user is invited
         this.authService.getUserInvites().subscribe(
             (relationshipIds: string[]) => {
-                console.log('Invite Ids: ', relationshipIds);
                 //Using array of relationship ids, get the relationships
                 this.relationshipService.getRelationshipsById(relationshipIds).subscribe(
                     (relationships: Relationship[]) => {

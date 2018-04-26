@@ -73,11 +73,14 @@ export class AuthService {
         return this.http.post('http://localhost:3000/auth/getuser/' + userId + token, body, {headers:headers})
             .map((response: Response) => {
                 var returnedUser = response.json().obj;
+                console.log('Returned User: ', returnedUser);
                 var user = new User(
                     undefined,
                     undefined,
                     returnedUser.firstname,
-                    returnedUser.lastname
+                    returnedUser.lastname,
+                    undefined,
+                    returnedUser.createTimestamp
                 )
                 return user;
             })
