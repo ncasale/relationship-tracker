@@ -1,0 +1,21 @@
+.dash-nav {
+    margin-top : 0 !important;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background-color: aqua !important;
+}
+
+a {
+    padding: 0px;
+}
+
+button {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}

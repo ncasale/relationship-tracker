@@ -1,12 +1,19 @@
-<header class="row">
-    <nav class="col-md-8 col-md-offset-2">
-        <ul class="nav nav-pills">
-            <li routerLinkActive="active"><a [routerLink]="['/dashboard/join']">Join Relationship</a></li>
-            <li routerLinkActive="active"><a [routerLink]="['/dashboard/create']">Create Relationship</a></li>
-            <li routerLinkActive="active"><a [routerLink]="['/dashboard/mydash/']">My Dash</a></li>
-            <li routerLinkActive="active"><a [routerLink]="['/dashboard/profile']">Profile</a></li>            
-        </ul>
-    </nav>
-</header>
-<hr>
+<nav >
+    <mat-toolbar style="height:38px; padding: 0px; width: 100%;">
+        Relationship Manager
+        <span class="spacer"></span>        
+        <a [routerLink]="['/dashboard/join']" style="padding: 0px;">
+            <button mat-button >Join Relationship</button></a>
+        <span class="spacer"></span>
+        <a [routerLink]="['/dashboard/create']" style="padding: 0px;">
+        <span class="spacer"></span>
+            <button mat-button >Create Relationship</button></a>
+        <span class="spacer"></span>            
+        <a [routerLink]="['/dashboard/mydash/']" style="padding: 0px;">
+            <button mat-button >My Dash</button></a>
+        <span class="spacer"></span>            
+        <a [routerLink]="['/dashboard/profile']" style="padding: 0px;">
+            <button mat-button >Profile</button></a>
+    </mat-toolbar>
+</nav>
 <router-outlet></router-outlet>

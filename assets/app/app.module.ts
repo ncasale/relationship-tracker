@@ -22,12 +22,12 @@ import { ChoreService } from './dashboard/mydash/chores/chore.service';
 import { FightService } from './dashboard/mydash/fights/fight.service';
 import { MyDashService } from './dashboard/mydash/mydash.service';
 import { MatSnackBarModule } from '@angular/material';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @NgModule({
     declarations: [
         AppComponent,
-        AuthComponent,
-        DashboardComponent,
+        AuthComponent,        
         ErrorComponent
     ],
     imports: [
@@ -38,7 +38,8 @@ import { MatSnackBarModule } from '@angular/material';
         HttpModule,
         RelationshipModule,
         routing,
-        MatSnackBarModule
+        MatSnackBarModule,
+        DashboardModule
     ],
     providers: [
         AuthService,
