@@ -181,7 +181,7 @@ export class FightService {
      */
     getToken() {
         return localStorage.getItem('token') ?
-            '?token' + localStorage.getItem('token') :
+            '?token=' + localStorage.getItem('token') :
             '';
     }
 }

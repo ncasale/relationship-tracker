@@ -137,4 +137,54 @@ router.post('/getuserinvites', function(req, res, next) {
     })
 })
 
+/**
+ * Route to change a user password
+ */
+router.patch('/changepassword', function(req, res, next) {
+    //Decode token
+    var decoded = jwt.decode(req.query.token);
+    //Get user
+    User.findById(decoded.user._id, function(err, user) {
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            })
+        }
+        if(!user) {
+            return res.status(404).json({
+                title: "User not found",
+                error: {message: 'User not found'}
+            })
+        }
+        //Found user -- check if passwords match
+        if(!bcrypt.compareSync(req.body.oldPassword, user.password)) {
+            return res.status(200).json({
+                title: 'Password mismatch',
+                obj: false
+            })
+        }
+
+        //Passwords match -- set new password
+        user.password = bcrypt.hashSync(req.body.newPassword, 10);
+
+        //Save changes to db
+        user.save(function(err, savedUser) {
+            if(err) { 
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: err
+                })
+            }
+            //Successfully saved
+            return res.status(201).json({
+                title: 'Password changed',
+                obj: true
+            })
+        })
+        
+    })
+    
+})
+
 module.exports = router;

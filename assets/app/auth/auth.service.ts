@@ -114,6 +114,35 @@ export class AuthService {
     }
 
     /**
+     * Allow a user to change their password
+     * 
+     * @param {string} oldPassword the user's old password
+     * @param {string} newPassword the user's new password
+     * @returns true or false if password change was successful
+     * @memberof AuthService
+     */
+    changePassword(oldPassword: string, newPassword: string) {
+        //Create body
+        const body = {
+            oldPassword: oldPassword,
+            newPassword: newPassword
+        };
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get token
+        const token = this.getToken();
+        //Create request
+        return this.http.patch('http://localhost:3000/auth/changepassword' + token, body, {headers:headers})
+            .map((response: Response) => {
+                return response.json().obj;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
+    }
+
+    /**
      * Clears local storage and navigates to home -- effectively logging user out
      * 
      * @memberof AuthService
@@ -131,7 +160,7 @@ export class AuthService {
      */
     getToken() {
         return localStorage.getItem('token') ?
-            '?token' + localStorage.getItem('token') :
+            '?token=' + localStorage.getItem('token') :
             '';
     }
 }

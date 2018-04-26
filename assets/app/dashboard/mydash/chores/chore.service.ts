@@ -151,7 +151,7 @@ export class ChoreService {
      */
     getToken() {
         return localStorage.getItem('token') ?
-            '?token' + localStorage.getItem('token') :
+            '?token=' + localStorage.getItem('token') :
             '';
     }
 }

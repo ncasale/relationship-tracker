@@ -157,7 +157,7 @@ export class MessagesService {
      */
     getToken() {
         return localStorage.getItem('token') ?
-            '?token' + localStorage.getItem('token') :
+            '?token=' + localStorage.getItem('token') :
             '';
     }
 

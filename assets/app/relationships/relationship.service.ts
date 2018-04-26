@@ -307,7 +307,7 @@ export class RelationshipService {
      */
     getToken() {
         return localStorage.getItem('token') ?
-            '?token' + localStorage.getItem('token') :
+            '?token=' + localStorage.getItem('token') :
             '';
     }
 
