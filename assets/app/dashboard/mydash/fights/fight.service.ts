@@ -97,7 +97,6 @@ export class FightService {
     editFight(fight: Fight) {
         //Create body
         const body = JSON.stringify(fight);
-        console.log('Beginning Fight: ', fight);
         //Create headers
         const headers = new Headers({'Content-Type':'application/json'});
         //Get token
