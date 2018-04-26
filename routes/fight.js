@@ -67,6 +67,7 @@ router.post('/getfights/:relationshipId', function(req, res, next) {
 router.patch('/edit', function(req, res, next) {
     //Decode token
     var decoded = jwt.decode(req.query.token);
+    console.log("Fight: ", req.body);
     //Find fight
     Fight.findById(req.body.fightId, function(err, fight) {
         if(err) {
