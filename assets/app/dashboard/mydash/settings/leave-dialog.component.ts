@@ -19,8 +19,7 @@ export class LeaveDialogComponent {
         @Inject(MAT_DIALOG_DATA) public data: any,
         private relationshipService: RelationshipService,
         private router: Router,
-        private myDashService: MyDashService,
-        public snackBar: MatSnackBar
+        private myDashService: MyDashService
     ) {}
 
     /**

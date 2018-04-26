@@ -1,11 +1,13 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Fight } from "./fight.model";
-import { MatDialog } from "@angular/material";
+import { MatDialog, MatDialogRef } from "@angular/material";
 import { FightDialogComponent } from "./fight-dialog.component";
 import { FightService } from "./fight.service";
 import { DatePipe } from "@angular/common";
 import { FightAppendDialogComponent } from "./fight-append-dialog.component";
 import { FightDisplayDialogComponent } from "./fight-display-dialog.component";
+import { MyDashService } from "../mydash.service";
+import { DeleteItemDialogComponent } from "../common/delete-item-dialog.component";
 
 @Component({
     selector: 'app-fight-card',
@@ -30,7 +32,9 @@ export class FightCardComponent implements OnInit{
         private fightAppendDialog: MatDialog,
         private fightDisplayDialog: MatDialog,
         private fightService: FightService,
-        private datePipe: DatePipe
+        private myDashService: MyDashService,
+        private datePipe: DatePipe,
+        public deleteDialog: MatDialog
     ) {}
 
     ngOnInit() {
@@ -138,14 +142,27 @@ export class FightCardComponent implements OnInit{
      * @memberof FightCardComponent
      */
     deleteFight() {
-        //Use fight service to delete fight from database
-        this.fightService.deleteFight(this.fight.fightId)
-            .subscribe(
-                (response: any) => {
-                    //Emit signal to delete fight from fights component
-                    this.fightService.deleteFightFromFightsEmitter.emit(this.fight);
+        //Open delete confirm dialog
+        var dialogRef = this.deleteDialog.open(DeleteItemDialogComponent, {
+            width: '500px'
+        })
+        dialogRef.afterClosed().subscribe(
+            result => {
+                //If we confirm our deletion
+                if(result) {
+                    //Use fight service to delete fight from database
+                    this.fightService.deleteFight(this.fight.fightId)
+                        .subscribe(
+                            (response: any) => {
+                                //Emit signal to delete fight from fights component
+                                this.fightService.deleteFightFromFightsEmitter.emit(this.fight);
+                                this.myDashService.openSnackBar('Fight Deleted', 'close');
+                            }
+                        )
                 }
-            )
+            }
+            
+        )
     }
 
     /**
