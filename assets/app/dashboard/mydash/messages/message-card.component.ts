@@ -118,4 +118,8 @@ export class MessageCardComponent implements OnInit{
             this.timestamp = this.datePipe.transform(this.message.editTimestamp, this.timestampFormat) + ' [edited]';            
         }
     }
+
+    isMyMessage() {
+        return this.message.userId == localStorage.getItem('userId');
+    }
 }

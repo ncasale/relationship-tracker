@@ -1,14 +1,20 @@
-<article class="panel panel-default">
-    <div class="panel-body">
-        <h1>{{ message.text }}</h1>
-    </div>
-    <footer class="panel-footer">
-        <div class="author">
-            {{ firstname }} : {{ timestamp }}
-        </div>
-        <div class="config" *ngIf="messageBelongsToUser()">
-            <a (click)="openEditDialog()">Edit</a>
-            <a (click)="deleteMessage()">Delete</a>
-        </div>
-    </footer>
-</article>
+<div [class.own-message]="isMyMessage()" [class.other-message]="!isMyMessage()">
+    <mat-card>
+        <mat-card-header [class.own-card-header]="isMyMessage()" [class.other-card-header]="!isMyMessage()">
+            <div class="mat-card-header-text">
+                <mat-card-title > {{message.text}} </mat-card-title>
+            </div>
+        </mat-card-header>
+        <mat-card-footer>
+            <div class="author">
+                {{ firstname }} : {{ timestamp }}
+            </div>
+            <div class="buttons" >
+                <button mat-button *ngIf="isMyMessage()" (click)="openEditDialog()">Edit</button>
+            </div>
+            <div class="buttons" >
+                <button mat-button *ngIf="isMyMessage()" (click)="deleteMessage()">Delete</button>
+            </div>
+        </mat-card-footer>
+    </mat-card>
+</div>
