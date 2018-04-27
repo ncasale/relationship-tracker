@@ -5,7 +5,7 @@ import { mydashRouting } from "./mydash.routing";
 import { DatesComponent } from "./dates/dates.component";
 import { ChoresComponent } from "./chores/chores.component";
 import { FightsComponent } from "./fights/fights.component";
-import { MatSidenavModule, MatToolbar, MatToolbarModule, MatListModule, MatCalendar, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, MatDialogModule, MatSnackBar, MatSnackBarModule, MatButtonModule } from "@angular/material"
+import { MatSidenavModule, MatToolbar, MatToolbarModule, MatListModule, MatCalendar, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, MatDialogModule, MatSnackBar, MatSnackBarModule, MatButtonModule, MatCardModule, MatIconModule } from "@angular/material"
 import { CommonModule, DatePipe } from "@angular/common";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { MessagesComponent } from "./messages/messages.component";
@@ -66,7 +66,9 @@ import { LeaveDialogComponent } from "./settings/leave-dialog.component";
         MatOptionModule,
         MatDialogModule,
         MatSnackBarModule,
-        MatButtonModule
+        MatButtonModule,
+        MatCardModule,
+        MatIconModule
     ],
     entryComponents: [
         MessageEditComponent,
