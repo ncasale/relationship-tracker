@@ -19,3 +19,7 @@ button {
 .spacer {
     flex: 1 1 auto;
 }
+
+mat-toolbar {
+    background-color: #E6E6FA
+}
