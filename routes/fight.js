@@ -128,12 +128,6 @@ router.delete('/delete/:fightId', function(req, res, next) {
                 error: {message: 'Fight not found'}
             })
         }
-        if(decoded.user._id != fight.createUserId) {
-            return res.status(401).json({
-                title: 'Authentication error',
-                error: {message: 'Authentication error'}
-            })
-        }
         //Remove fight
         fight.remove(function(err, deletedFight) {
             if(err) {

@@ -1,3 +1,19 @@
+<mat-card>
+    <mat-card-header>
+        <div class="mat-card-header-text">
+            <mat-card-title class="date-card-title"> {{fight.title}} </mat-card-title>
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <button mat-raised-button (click)="openDisplayFightDialog()" *ngIf="!viewingFight"><mat-icon>whatshot</mat-icon>View Fight</button>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button (click)="openEditFightDialog()">Edit</button>
+        <button mat-button (click)="deleteFight()">Delete</button>
+    </mat-card-actions>
+</mat-card>
+
+<!--
 <article>
     <button class="btn btn-primary" (click)="openDisplayFightDialog()" *ngIf="!viewingFight"> Fight: {{ fight.title }} </button>
     <button class="btn btn-success" (click)="openEditFightDialog()">Edit</button>
@@ -5,3 +21,4 @@
 </article>
 
 <hr>
+-->
