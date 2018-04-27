@@ -15,6 +15,7 @@ router.use('/', function(req, res, next) {
 
         //Check if token expired
         var dateNow = new Date();
+        
         if(jwt.decode(req.query.token).exp < dateNow.getTime()) {
             return res.status(401).json({
                 title: 'Authentication Error',
@@ -149,12 +150,7 @@ router.delete('/delete/:choreId', function(req, res, next) {
                 error: {message: 'Chore not found'}
             })
         }
-        if(decoded.user._id != chore.createUserId) {
-            return res.status(401).json({
-                title: 'Authentication error',
-                error: {message: 'Authentication error'}
-            })
-        }
+        
         //Delete chore
         chore.remove(function(err, result) {
             if(err) {
