@@ -30,18 +30,20 @@ export class SignupComponent implements OnInit{
         console.log('Hitting Signup..');
 
         //Try to login user if their token already exists
-        /*
+        
         if(localStorage.getItem('token')) {
             this.authService.loginWithToken().subscribe(
                 (response: any) => {
                     if(response.valid) {
+                        /*
                         localStorage.setItem('token', response.token);
                         localStorage.setItem('userId', response.userId);
-                        this.router.navigateByUrl('/dashboard');
+                        this.router.navigateByUrl('/dashboard');*/
+                        console.log("You reached this stupid fucking route");
                     }
                 }
             )
-        }*/
+        }
     }
 
     /**
