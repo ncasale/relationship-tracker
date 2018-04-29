@@ -33,7 +33,7 @@ export class ChoreService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.post('http://localhost:3000/chore/add' + token, body, {headers:headers})
+        return this.http.post('http://52.91.114.12:3000/chore/add' + token, body, {headers:headers})
             .map((response: Response) => {
                 var chore = response.json().obj;
                 return new Chore(
@@ -69,7 +69,7 @@ export class ChoreService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.post('http://localhost:3000/chore/getchores/' + relationshipId + token, body, {headers:headers})
+        return this.http.post('http://52.91.114.12:3000/chore/getchores/' + relationshipId + token, body, {headers:headers})
             .map((response: Response) => {
                 var chores = response.json().obj;
                 var transformedChores = [];
@@ -110,7 +110,7 @@ export class ChoreService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.patch('http://localhost:3000/chore/editchore' + token, body, {headers:headers})
+        return this.http.patch('http://52.91.114.12:3000/chore/editchore' + token, body, {headers:headers})
             .map((response: Response) => {
                 return response.json().obj;
             })
@@ -133,7 +133,7 @@ export class ChoreService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.delete('http://localhost:3000/chore/delete/' + choreId + token, {headers:headers})
+        return this.http.delete('http://52.91.114.12:3000/chore/delete/' + choreId + token, {headers:headers})
             .map((response: Response) => {
                 return response.json().obj;
             })
