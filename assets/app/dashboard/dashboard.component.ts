@@ -10,6 +10,8 @@ export class DashboardComponent {
     
     constructor(
         private authService: AuthService
-    ) {}
+    ) {
+        console.log('Hitting dashboard...');
+    }
     
 }

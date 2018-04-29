@@ -27,6 +27,8 @@ export class SignupComponent implements OnInit{
             password: new FormControl(null, Validators.required)
         })
 
+        console.log('Hitting Signup..');
+
         //Try to login user if their token already exists
         /*
         if(localStorage.getItem('token')) {
