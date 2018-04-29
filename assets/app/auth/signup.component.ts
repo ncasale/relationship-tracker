@@ -28,6 +28,7 @@ export class SignupComponent implements OnInit{
         })
 
         //Try to login user if their token already exists
+        /*
         if(localStorage.getItem('token')) {
             this.authService.loginWithToken().subscribe(
                 (response: any) => {
@@ -38,7 +39,7 @@ export class SignupComponent implements OnInit{
                     }
                 }
             )
-        }
+        }*/
     }
 
     /**
