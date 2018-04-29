@@ -7,7 +7,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { ProfileComponent } from './profile/profile.component';
 
 const DASHBOARD_ROUTES: Routes = [
-    { path: '', redirectTo: 'profile', pathMatch: 'full'},
+    { path: '', redirectTo: 'mydash/messages', pathMatch: 'full'},
     { path: 'join', component: JoinComponent },
     { path: 'create', component: CreateComponent },
     { path: 'mydash', component: MyDashComponent, loadChildren: './mydash/mydash.module#MyDashModule' },

@@ -78,7 +78,7 @@ router.post('/login', function(req, res, next) {
  */
 router.post('/loginwithtoken', function(req, res, next) {
     //Check if valid token
-
+    
     jwt.verify(req.query.token, 'secret', function(err, result) {
         if(err) {
             return res.status(401).json({
