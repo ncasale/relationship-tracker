@@ -27,6 +27,8 @@ export class SignupComponent implements OnInit{
             password: new FormControl(null, Validators.required)
         })
 
+        console.log('Got to Signup ngOnInit');
+
         //Try to login user if their token already exists
         if(localStorage.getItem('token')) {
             this.authService.loginWithToken().subscribe(

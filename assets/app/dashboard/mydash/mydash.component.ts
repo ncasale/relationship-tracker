@@ -33,6 +33,8 @@ export class MyDashComponent {
     ngOnInit() {
         //Get user relationships
         this.refreshRelationships();
+
+        console.log('Got to MyDash ngoninit');
     
         //Update relationships if necessary
         this.myDashService.updateMyDashRelationships.subscribe(

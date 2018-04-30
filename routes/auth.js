@@ -81,9 +81,10 @@ router.post('/loginwithtoken', function(req, res, next) {
 
     jwt.verify(req.query.token, 'secret', function(err, result) {
         if(err) {
-            return res.status(401).json({
-                title: 'Authentication error', 
-                error: err
+            return res.status(200).json({
+                token: '',
+                userId: '', 
+                valid: false
             })
         }
 
