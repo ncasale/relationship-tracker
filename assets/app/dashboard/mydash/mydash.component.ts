@@ -31,11 +31,8 @@ export class MyDashComponent {
      * @memberof MyDashComponent
      */
     ngOnInit() {
-        console.log('Got to MyDash ngoninit');
-        console.log('Token: ', localStorage.getItem('token'));
         //Workaround to redirect to home if we accidentally get here without logging in
         if(!localStorage.getItem('token')) {
-            console.log('No token, back to auth');
             this.router.navigateByUrl('/auth/login');
         }  else {
             //Get user relationships

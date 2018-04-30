@@ -26,9 +26,7 @@ export class SignupComponent implements OnInit{
                 Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")]),
             password: new FormControl(null, Validators.required)
         })
-
-        console.log('Got to Signup ngOnInit');
-
+        
         //Try to login user if their token already exists
         if(localStorage.getItem('token')) {
             this.authService.loginWithToken().subscribe(
