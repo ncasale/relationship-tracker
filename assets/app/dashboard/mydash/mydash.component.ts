@@ -37,18 +37,19 @@ export class MyDashComponent {
         if(!localStorage.getItem('token')) {
             console.log('No token, back to auth');
             this.router.navigateByUrl('/auth/login');
-        } 
-            
-        //Get user relationships
-        this.refreshRelationships();
-
+        }  else {
+            //Get user relationships
+            this.refreshRelationships();
     
-        //Update relationships if necessary
-        this.myDashService.updateMyDashRelationships.subscribe(
-            (response: any) => {
-                this.refreshRelationships();
-            }
-        )
+        
+            //Update relationships if necessary
+            this.myDashService.updateMyDashRelationships.subscribe(
+                (response: any) => {
+                    this.refreshRelationships();
+                }
+            )
+        }
+            
     }
 
     /**
