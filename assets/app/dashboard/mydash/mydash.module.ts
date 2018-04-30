@@ -26,6 +26,7 @@ import { FightDisplayDialogComponent } from "./fights/fight-display-dialog.compo
 import { DeleteItemDialogComponent } from "./common/delete-item-dialog.component";
 import { MyDashService } from "./mydash.service";
 import { LeaveDialogComponent } from "./settings/leave-dialog.component";
+import { GratitudesComponent } from "./gratitudes/gratitudes.component";
 
 @NgModule({
     declarations: [
@@ -47,7 +48,8 @@ import { LeaveDialogComponent } from "./settings/leave-dialog.component";
         FightAppendDialogComponent,
         FightDisplayDialogComponent,
         DeleteItemDialogComponent,
-        LeaveDialogComponent     
+        LeaveDialogComponent,
+        GratitudesComponent     
     ],
     imports: [
         RelationshipModule,
