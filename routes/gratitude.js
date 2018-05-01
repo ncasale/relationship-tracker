@@ -55,5 +55,48 @@ router.post('/getgratitudes/:relationshipId', function(req, res, next) {
     })
 })
 
+/**
+ * Route to edit an existing gratitude in the db
+ */
+router.patch('/edit', function(req, res, next) {
+    //Decode token
+    var decoded = jwt.decode(req.query.token);
+    //Find gratitude
+    Gratitude.findById(req.body.gratitudeId, function(err, gratitude) {
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            })
+        }
+        if(!gratitude) {
+            return res.status(404).json({
+                title: 'Gratitude not foudn',
+                error: {message: 'Gratitude not found'}
+            })
+        }
+        //Found gratitude -- apply edits
+        gratitude.title = req.body.title;
+        gratitude.text = req.body.text;
+        gratitude.editUserId = decoded.user._id;
+        gratitude.editTimestamp = Date.now();
+
+        //Save gratitude
+        gratitude.save(function(err, savedGratitude) {
+            if(err) {
+                return res.status(500).json({
+                    title: 'Edited Gratitude',
+                    error: err
+                })
+            }
+            //Successfully saved
+            return res.status(201).json({
+                title: 'Gratitude edited',
+                obj: savedGratitude
+            })
+        })
+    })
+})
+
 
 module.exports = router;

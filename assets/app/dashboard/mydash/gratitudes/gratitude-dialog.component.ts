@@ -11,7 +11,7 @@ import { MyDashService } from "../mydash.service";
     templateUrl: './gratitude-dialog.component.html',
     styleUrls: ['./gratitude-dialog.component.css']
 })
-export class GratitudeDialogComponent {
+export class GratitudeDialogComponent implements OnInit{
     //Form Controls
     titleFC = new FormControl(null, Validators.required);
     textFC = new FormControl(null, Validators.required);
@@ -25,6 +25,12 @@ export class GratitudeDialogComponent {
         public dialogRef: MatDialogRef<GratitudeDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any
     ){}
+
+    ngOnInit() {
+        //Prepopulate fields on edit
+        this.populateTitleOnEdit();
+        this.populateTextOnEdit();
+    }
 
     /**
      * Call gratitude service to submit gratitude object to db
@@ -58,11 +64,43 @@ export class GratitudeDialogComponent {
      * @memberof GratitudeDialogComponent
      */
     onSubmitEdit() {
-        //Create gratitude object
+        //Modify gratitude object
+        this.data.gratitude.title = this.titleFC.value;
+        this.data.gratitude.text = this.textFC.value;        
         //Call gratitude service to edit gratitude in db
+        this.gratitudeService.editGratitude(this.data.gratitude)
+            .subscribe(
+                (response: Gratitude) => {
+                    this.gratitudeService.gratitudeEditedEmitter.emit();
+                    this.myDashService.openSnackBar('Gratitude Edited', 'close');
+                }
+            )
         //Close dialog
         this.dialogRef.close();
     }
+
+    /**
+     * Prepopulate title field of dialog if editing
+     * 
+     * @memberof GratitudeDialogComponent
+     */
+    populateTitleOnEdit() {
+        if(this.data.areEditing) {
+            this.titleFC.setValue(this.data.gratitude.title);
+        }
+    }
+
+    /**
+     * Prepopulate text field of dialog if editing
+     * 
+     * @memberof GratitudeDialogComponent
+     */
+    populateTextOnEdit() {
+        if(this.data.areEditing) {
+            this.textFC.setValue(this.data.gratitude.text);
+        }
+    }
+
 
     /**
      * Return error message for title form control

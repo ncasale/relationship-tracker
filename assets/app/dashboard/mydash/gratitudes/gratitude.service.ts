@@ -8,6 +8,7 @@ import { Observable } from "rxjs/Observable"
 export class GratitudeService {
     //Signal that fires when new gratitude created
     gratitudeCreatedEmitter = new EventEmitter<Gratitude>();
+    gratitudeEditedEmitter = new EventEmitter<any>();
     
     //Inject services
     constructor(
@@ -83,6 +84,41 @@ export class GratitudeService {
                     ));
                 }
                 return transformedGratitudes;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
+        }
+    
+    /**
+     * Edit an exisitng gratitude in the db
+     * 
+     * @param {Gratitude} gratitude The gratitude to edit
+     * @memberof GratitudeService
+     */
+    editGratitude(gratitude: Gratitude) {
+        //Create body
+        const body = JSON.stringify(gratitude);
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get token
+        const token = this.getToken();
+        //Create request
+        return this.http.patch('http://localhost:3000/gratitude/edit' + token, body, {headers:headers})
+            .map((response: Response) => {
+                var gratitude = response.json().obj;
+                var transformedGratitude = new Gratitude(
+                    gratitude.title,
+                    gratitude.text,
+                    gratitude._id,
+                    gratitude.relationshipId,
+                    gratitude.createTimestamp,
+                    gratitude.createUser,
+                    gratitude.editTimestamp,
+                    gratitude.editUser
+                );
+                return transformedGratitude;
             })
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
