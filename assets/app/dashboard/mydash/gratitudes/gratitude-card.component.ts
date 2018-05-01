@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { Gratitude } from "./gratitude.model";
 
 @Component({
@@ -7,7 +7,7 @@ import { Gratitude } from "./gratitude.model";
     styleUrls: ['./gratitude-card.component.css']
 })
 export class GratitudeCardComponent {
-    gratitude: Gratitude;
+    @Input() gratitude: Gratitude;
 
     editGratitude() {
         console.log('Editing gratitude...');

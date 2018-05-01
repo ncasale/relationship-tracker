@@ -1,0 +1,19 @@
+<div class="col-md-8 col-md-offset-2 date-form-container">
+    <h2 *ngIf="!areEditing()">Create Date</h2>
+    <h2 *ngIf="areEditing()">Edit Date</h2>
+    <hr>
+    <mat-form-field>
+        <input matInput placeholder="Title" [formControl]="titleFC" required>
+        <mat-error *ngIf="titleFC.invalid">{{ getTitleErrorMessage() }}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput placeholder="Gratitude" [formControl]="textFC" required>
+        <mat-error *ngIf="textFC.invalid">{{ getTextErrorMessage() }}</mat-error>
+    </mat-form-field>
+    <br>
+    <button *ngIf="!areEditing()" class="btn btn-primary" type="submit" [disabled]="!isGratitudeValid()" (click)="onSubmitCreate()">Create Gratitude</button>
+    <button *ngIf="areEditing()" class="btn btn-primary" type="submit" [disabled]="!isGratitudeValid()" (click)="onSubmitEdit()">Edit Gratitude</button>
+
+    <hr>
+</div>

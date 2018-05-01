@@ -23,6 +23,7 @@ import { FightService } from './dashboard/mydash/fights/fight.service';
 import { MyDashService } from './dashboard/mydash/mydash.service';
 import { MatSnackBarModule } from '@angular/material';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { GratitudeService } from './dashboard/mydash/gratitudes/gratitude.service';
 
 @NgModule({
     declarations: [
@@ -50,7 +51,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
         DatePipe,
         ChoreService,
         FightService,
-        MyDashService
+        MyDashService,
+        GratitudeService
     ],
     bootstrap: [AppComponent]
 })

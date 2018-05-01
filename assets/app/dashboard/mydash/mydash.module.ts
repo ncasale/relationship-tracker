@@ -27,6 +27,8 @@ import { DeleteItemDialogComponent } from "./common/delete-item-dialog.component
 import { MyDashService } from "./mydash.service";
 import { LeaveDialogComponent } from "./settings/leave-dialog.component";
 import { GratitudesComponent } from "./gratitudes/gratitudes.component";
+import { GratitudeCardComponent } from "./gratitudes/gratitude-card.component";
+import { GratitudeDialogComponent } from "./gratitudes/gratitude-dialog.component";
 
 @NgModule({
     declarations: [
@@ -49,7 +51,9 @@ import { GratitudesComponent } from "./gratitudes/gratitudes.component";
         FightDisplayDialogComponent,
         DeleteItemDialogComponent,
         LeaveDialogComponent,
-        GratitudesComponent     
+        GratitudesComponent,
+        GratitudeCardComponent,
+        GratitudeDialogComponent     
     ],
     imports: [
         RelationshipModule,
@@ -81,7 +85,8 @@ import { GratitudesComponent } from "./gratitudes/gratitudes.component";
         FightAppendDialogComponent,
         FightDisplayDialogComponent,
         DeleteItemDialogComponent,
-        LeaveDialogComponent
+        LeaveDialogComponent,
+        GratitudeDialogComponent
     ],
     providers: [
         DatePipe

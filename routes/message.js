@@ -129,7 +129,6 @@ router.post('/getmessages/:id', function(req, res, next) {
                 error: {message: 'No messages with that relationship id found'}
             })
         }
-        console.log('The messages: ',messages);
         //Return list of messages
         return res.status(200).json({
             title: 'Messages found...',
