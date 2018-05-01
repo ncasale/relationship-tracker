@@ -98,5 +98,42 @@ router.patch('/edit', function(req, res, next) {
     })
 })
 
+/**
+ * Route to delete gratitude from db
+ */
+router.delete('/delete/:gratitudeId', function(req, res, next) {
+    //Decode token 
+    var decoded = jwt.decode(req.query.token);
+    //Get gratitude
+    Gratitude.findById(req.params.gratitudeId, function(err, gratitude) {
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            })
+        }
+        if(!gratitude) {
+            return res.status(404).json({
+                title: 'Gratitude not found',
+                error: {message: 'Gratitude not found'}
+            })
+        }
+        //Found gratitude -- remove
+        gratitude.remove(function(err, deletedGratitude) {
+            if(err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: err
+                })
+            }
+            //Successfully deleted gratitude
+            return res.status(200).json({
+                title: 'Gratitude deleted',
+                obj: deletedGratitude
+            })
+        })
+    })
+})
+
 
 module.exports = router;

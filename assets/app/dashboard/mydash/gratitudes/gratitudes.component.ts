@@ -49,6 +49,18 @@ export class GratitudesComponent implements OnInit{
               this.gratitudes.push(gratitude);
           }
       )
+
+      //When a gratitude is deleted, remove from frontend
+      this.gratitudeService.gratitudeDeletedEmitter.subscribe(
+          (response: Gratitude) => {
+              //Find gratitude in array and remove
+              for(var index = 0; index < this.gratitudes.length; index ++) {
+                  if(this.gratitudes[index].gratitudeId == response.gratitudeId) {
+                      this.gratitudes.splice(index, 1);
+                  }
+              }
+          }
+      )
     }
 
     /**

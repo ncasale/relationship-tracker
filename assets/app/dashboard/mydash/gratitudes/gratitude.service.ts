@@ -9,6 +9,7 @@ export class GratitudeService {
     //Signal that fires when new gratitude created
     gratitudeCreatedEmitter = new EventEmitter<Gratitude>();
     gratitudeEditedEmitter = new EventEmitter<any>();
+    gratitudeDeletedEmitter = new EventEmitter<Gratitude>();
     
     //Inject services
     constructor(
@@ -119,6 +120,29 @@ export class GratitudeService {
                     gratitude.editUser
                 );
                 return transformedGratitude;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
+    }
+
+    /**
+     * Delete a gratitude from the database
+     * 
+     * @param {string} gratitudeId ID of gratitude to delete
+     * @returns deleted gratitude
+     * @memberof GratitudeService
+     */
+    deleteGratitude(gratitudeId: string) {
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get token
+        const token = this.getToken();
+        //Create request
+        return this.http.delete('http://localhost:3000/gratitude/delete/' + gratitudeId + token, {headers:headers})
+            .map((response: Response) => {
+                return response.json().obj;
             })
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());

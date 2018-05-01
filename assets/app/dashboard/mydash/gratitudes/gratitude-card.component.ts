@@ -3,6 +3,8 @@ import { Gratitude } from "./gratitude.model";
 import { GratitudeService } from "./gratitude.service";
 import { GratitudeDialogComponent } from "./gratitude-dialog.component";
 import { MatDialog } from "@angular/material";
+import { DeleteItemDialogComponent } from "../common/delete-item-dialog.component";
+import { MyDashService } from "../mydash.service";
 
 @Component({
     selector: 'app-gratitude-card',
@@ -15,7 +17,9 @@ export class GratitudeCardComponent {
     //Inject services
     constructor(
         private gratitudeService: GratitudeService,
-        public editGratitudeDialog: MatDialog
+        private myDashService: MyDashService,
+        public editGratitudeDialog: MatDialog,
+        public deleteDialog: MatDialog
     ){}
 
     /**
@@ -33,8 +37,28 @@ export class GratitudeCardComponent {
         })
     }
 
+    /**
+     * Open delete dialog. If user confirms deletion, delete gratitude from db/frontend
+     * 
+     * @memberof GratitudeCardComponent
+     */
     deleteGratitude() {
-        console.log('Deleting gratitude...');
-    }
+        var dialogRef = this.deleteDialog.open(DeleteItemDialogComponent, {
+            width: '500px'
+        });
 
+        dialogRef.afterClosed().subscribe(
+            result => {
+                if(result) {
+                    this.gratitudeService.deleteGratitude(this.gratitude.gratitudeId)
+                        .subscribe(
+                            (response: any) => {
+                                this.gratitudeService.gratitudeDeletedEmitter.emit(this.gratitude);
+                                this.myDashService.openSnackBar('Gratitude Deleted.', 'close');
+                            }
+                        )
+                }
+            }
+        )
+    }
 }
