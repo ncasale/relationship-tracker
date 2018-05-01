@@ -1,5 +1,5 @@
 import { Component, Inject } from "@angular/core";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from "@angular/material";
 import { FormControl, Validators } from "@angular/forms";
 import { AuthService } from "../../auth/auth.service";
 
@@ -18,7 +18,8 @@ export class ChangePasswordDialogComponent {
     constructor(
         public dialogRef: MatDialogRef<ChangePasswordDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
-        private authService: AuthService
+        private authService: AuthService,
+        public snackbar: MatSnackBar
     ){}
 
     getOldPassErrorMessage() {
@@ -50,9 +51,13 @@ export class ChangePasswordDialogComponent {
             (response: boolean) => {
                 if(response) {
                     //Open snackbar
-                    console.log('Password change successful!');
+                    this.snackbar.open('Password Changed', 'close', {
+                        duration: 3500
+                    })
                 } else {
-                    console.log('Invalid Password Change');
+                    this.snackbar.open('Invalid Password Change', 'close', {
+                        duration: 3500
+                    })
                 }
             }
         )
