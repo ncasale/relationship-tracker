@@ -1,0 +1,17 @@
+<div class="col-md-8 col-md-offset-2 date-form-container">
+    <h2>Send Feedback</h2>
+    <hr>
+    <mat-form-field>
+        <input matInput placeholder="Title" [formControl]="titleFC" required>
+        <mat-error *ngIf="titleFC.invalid">{{ getTitleErrorMessage() }}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+            <input matInput placeholder="Description" [formControl]="descriptionFC" required>
+            <mat-error *ngIf="descriptionFC.invalid">{{ getDescriptionErrorMessage() }}</mat-error>
+    </mat-form-field>
+    <br>
+
+    <button class="btn btn-primary" type="submit" [disabled]="!isFeedbackValid()" (click)="onSubmit()">Send</button>
+    <hr>
+</div>

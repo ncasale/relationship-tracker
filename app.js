@@ -15,6 +15,7 @@ var dateRoutes = require('./routes/date');
 var choreRoutes = require('./routes/chore');
 var fightRoutes = require('./routes/fight');
 var gratitudeRoutes = require('./routes/gratitude');
+var feedbackRoutes = require('./routes/feedback');
 
 var app = express();
 
@@ -54,6 +55,7 @@ app.use('/dashboard', dashboardRoutes);
 app.use('/chore', choreRoutes);
 app.use('/fight', fightRoutes);
 app.use('/gratitude', gratitudeRoutes);
+app.use('/feedback', feedbackRoutes);
 app.use('/', appRoutes);
 
 // catch 404 and forward to error handler

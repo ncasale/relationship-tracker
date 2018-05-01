@@ -11,8 +11,10 @@ import { MyDashModule } from './mydash/mydash.module';
 import { LogoutComponent } from './logout/logout.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ChangePasswordDialogComponent } from './profile/change-password-dialog.component';
-import { MatInputModule, MatDialogModule, MatCheckboxModule, MatToolbarModule, MatButtonModule } from '@angular/material';
+import { MatInputModule, MatDialogModule, MatCheckboxModule, MatToolbarModule, MatButtonModule, MatSnackBarModule } from '@angular/material';
 import { DashboardComponent } from './dashboard.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { FeedbackDialogComponent } from './feedback/feedback-dialog.component';
 
 @NgModule({
     declarations: [
@@ -22,7 +24,9 @@ import { DashboardComponent } from './dashboard.component';
         LogoutComponent,
         ProfileComponent,
         ChangePasswordDialogComponent,
-        DashboardComponent
+        DashboardComponent,
+        FeedbackComponent,
+        FeedbackDialogComponent
     ],
     imports: [
         CommonModule,
@@ -35,10 +39,12 @@ import { DashboardComponent } from './dashboard.component';
         MatDialogModule,
         MatCheckboxModule,
         MatToolbarModule,
-        MatButtonModule      
+        MatButtonModule,
+        MatSnackBarModule      
     ],
     entryComponents: [
-        ChangePasswordDialogComponent
+        ChangePasswordDialogComponent,
+        FeedbackDialogComponent
     ]
 
 })
