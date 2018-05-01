@@ -4,6 +4,7 @@ var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 
 var User = require('../models/user');
+var Admin = require('../models/admin');
 
 /**
  * Route to create new user
@@ -222,6 +223,33 @@ router.patch('/changepassword', function(req, res, next) {
         
     })
     
+})
+
+/**
+ * Route to check if a user is an admin
+ */
+router.post('/checkadmin', function(req, res, next) {
+    //Get decoded user
+    var decoded = jwt.decode(req.query.token);
+
+    //Check if user in admin table
+    Admin.find({userId: decoded.user._id}, function(err, admin) {
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            })
+        }
+        if(admin === undefined || admin.length == 0) {
+            return res.status(200).json({
+                isAdmin: false
+            })
+        }
+        //User is admin
+        return res.status(200).json({
+            isAdmin: true
+        })
+    })
 })
 
 module.exports = router;

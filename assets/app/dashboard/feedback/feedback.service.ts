@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, EventEmitter } from "@angular/core";
 import { Http, Headers, Response } from "@angular/http";
 import { Feedback } from './feedback.model'
 import { ErrorService } from "../../error/error.service";
@@ -7,6 +7,9 @@ import { MatSnackBar } from "@angular/material";
 
 @Injectable() 
 export class FeedbackService {
+    //Signal that fires when feedback resolved
+    feedbackModifiedEmitter = new EventEmitter<Feedback>();
+
     //Inject services
     constructor(
         private http: Http,
@@ -32,6 +35,78 @@ export class FeedbackService {
         return this.http.post('http://localhost:3000/feedback/add' + token, body, {headers:headers})
             .map((response: Response) => {
                 return response.json().obj;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
+    }
+
+    /**
+     * Gets all feedback for site
+     * 
+     * @returns an array of feedback objects
+     * @memberof FeedbackService
+     */
+    getFeedback() {
+        //Create body
+        const body = {};
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get token
+        const token = this.getToken();
+        //Create request
+        return this.http.post('http://localhost:3000/feedback/getfeedback' + token, body, {headers:headers})
+            .map((response: Response) => {
+                var feedbacks = response.json().obj;
+                var transformedFeedback = [];
+                for(let feedback of feedbacks) {
+                    transformedFeedback.push(new Feedback(
+                        feedback.title,
+                        feedback.description,
+                        feedback._id,
+                        feedback.createUserId,
+                        feedback.createTimestamp,
+                        feedback.closed 
+                    ));
+                }
+                return transformedFeedback;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
+    }
+
+    /**
+     * Mark feedback as resolved
+     * 
+     * @param {string} feedbackId the id of the feedback to resolve
+     * @param {boolean} closing true if we are to close feedback, false if we are re-opening
+     * @returns the resolved feedback
+     * @memberof FeedbackService
+     */
+    modifyFeedback(feedbackId: string, closing: boolean) {
+        //Create body
+        const body = {};
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get token
+        const token = this.getToken();
+        //Create request
+        return this.http.patch('http://localhost:3000/feedback/modify/' + feedbackId + '/' + closing + token, body, {headers:headers})
+            .map((response: Response) => {
+                //Return feedback object
+                var feedback = response.json().obj;
+                var transformedFeedback = new Feedback(
+                    feedback.title,
+                    feedback.description,
+                    feedback._id,
+                    feedback.createUserId,
+                    feedback.createTimestamp,
+                    feedback.closed
+                );
+                return transformedFeedback;
             })
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());

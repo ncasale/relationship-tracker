@@ -1,0 +1,20 @@
+<mat-card>
+    <mat-card-header [class.closed-feedback]="feedback.closed">
+        <div class="mat-card-header-text">
+            <mat-card-title > {{feedback.title}} </mat-card-title>
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <p> {{ feedback.description }} </p>
+    </mat-card-content>
+    <mat-card-footer>
+        <div class="author">
+            {{firstname}} {{lastname}}
+        </div>
+        <div class="buttons" >
+            <button mat-button *ngIf="!feedback.closed" (click)="modifyFeedback(true)">Close</button>
+            <button mat-button *ngIf="feedback.closed" (click)="modifyFeedback(false)">Re-Open</button>
+        </div>
+    </mat-card-footer>
+</mat-card>
+<hr>

@@ -163,6 +163,30 @@ export class AuthService {
     }
 
     /**
+     * Checks if a user is an admin user
+     * 
+     * @returns true if admin, false otherwise
+     * @memberof AuthService
+     */
+    isUserAdmin() {
+        //Create body
+        const body = {};
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get token
+        const token = this.getToken();
+        //Create request
+        return this.http.post('http://localhost:3000/auth/checkadmin' + token, body, {headers:headers})
+            .map((response: Response) => {
+                return response.json().isAdmin;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
+    }
+
+    /**
      * Clears local storage and navigates to home -- effectively logging user out
      * 
      * @memberof AuthService

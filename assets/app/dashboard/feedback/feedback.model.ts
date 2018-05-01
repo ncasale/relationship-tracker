@@ -3,7 +3,8 @@ export class Feedback{
         public title: string,
         public description: string,
         public feedbackId?: string,
-        public createUser?: string,
-        public createTimestamp?: string
+        public createUserId?: string,
+        public createTimestamp?: string,
+        public closed?: boolean
     ){}
 }
