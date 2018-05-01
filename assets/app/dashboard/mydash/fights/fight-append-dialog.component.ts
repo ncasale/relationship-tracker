@@ -89,8 +89,7 @@ export class FightAppendDialogComponent {
             .subscribe(
                 (response: any) => {
                     //Show snackbar
-                    var snackBarMessage = "Submission Successful. Please reload page to see fight.";
-                    this.myDashService.openSnackBar(snackBarMessage, 'close');
+                    this.myDashService.openSnackBar('Piece said', 'close');
                 }
             );
         //Close dialog
