@@ -22,6 +22,7 @@ mat-card {
     padding: 0px;
     background-color: #DCDCDC;
     margin-bottom: 40px;
+    font-family: 'Quicksand', sans-serif;
 }
 
 mat-card-header {
@@ -31,7 +32,7 @@ mat-card-header {
 mat-card-title {
     margin-top: 16px;
     margin-bottom: 4px;
-    font-size: 48px !important;
+    font-size: 30px !important;
     width: 100% !important;
     word-wrap: break-word;
 }
@@ -75,6 +76,10 @@ mat-icon {
 mat-card-footer {
     margin-left: 0px;
     padding-left: 28px;
+}
+
+.mat-button {
+    font-family: 'Quicksand', sans-serif;
 }
 
 .own-message {

@@ -11,23 +11,37 @@
     align-items: top;
     justify-content: center;
     width: 200px;
-    background:	#E6E6FA
+    background:	#fafafa
   }
 
+.nav {
+  margin-top: 5px;
+}
+
+.nav li a {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
 .mat-nav-list {
-  padding-top: 0px;
+  padding-top: 5px;
 }
 .mat-list-item {
   display: flex;
   width: 200px;
 }
 
+.mat-list-item:hover {
+  background: #81ecec;
+}
+
 .acitve-nav-list-item {
-  background: #DDA0DD
+  background: #00cec9;
+  color: #fff;
 }
 
 .acitve-nav-list-item:hover {
-  background: #DDA0DD
+  background: #81ecec
 } 
 
 #norelationships {

@@ -1,6 +1,13 @@
 body {
   padding: 0px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family:'Quicksand', "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+}
+
+.row {
+  max-width: 1140px;
+  margin: 0 auto;
 }
 
 a {
@@ -16,4 +23,16 @@ a {
 
 .nav-tabs, .nav-pills {
   text-align:center;
+}
+
+mat-card  {
+  font-family: 'Quicksand', sans-serif !important;
+}
+
+.mat-button {
+  font-family: 'Quicksand', sans-serif !important;
+}
+
+.mat-raised-button {
+  font-family: 'Quicksand', sans-serif !important;
 }
