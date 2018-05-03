@@ -75,6 +75,7 @@ h1 {
     border: 1px solid #00aca8;    
 }
 
+/* Mat Input Formatting*/
 ::ng-deep .mat-form-field{ width:50% !important; }
 
 ::ng-deep .mat-input-element{ color: #fff !important; }
