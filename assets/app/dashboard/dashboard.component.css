@@ -17,6 +17,18 @@ button {
     color: #fff;
 }
 
+::ng-deep .mat-form-field{ width:50% !important; }
+
+::ng-deep .mat-input-element{ color: #000 !important; }
+
+::ng-deep .mat-form-field-underline {
+    background-color: #000 !important;
+}
+
+::ng-deep .mat-form-field-label {
+    color: #000 !important;
+}
+
 
 .spacer {
     flex: 1 1 auto;
