@@ -29,7 +29,6 @@ export class FeedbackCardComponent implements OnInit{
 
     ngOnInit() {
         //Get user from auth service
-        console.log(this.feedback);
         this.authService.getUser(this.feedback.createUserId)
             .subscribe(
                 (response: User) => {
