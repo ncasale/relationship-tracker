@@ -1,0 +1,100 @@
+header {
+    position: relative;
+    background-image: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url('img/hero.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.hero-text-box {
+    position: absolute;
+    width: 1080px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+h1 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 200%;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    word-spacing: 3px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 30px;
+    font-weight: 300;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 150px;
+    transition: background-color 0.2s, border 0.2s;
+}
+
+.btn:link,
+.btn:visited {
+    display: inline-block;
+    padding: 10px 30px;
+    font-weight: 300;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 150px;
+    transition: background-color 0.2s, border 0.2s;
+}
+
+
+.btn-signup {
+    background-color: #00cec9;
+    border: 1px solid #00cec9;
+    margin-right: 15px;
+}
+
+.btn-login {
+    border: 1px solid #00cec9; 
+    background-color: transparent;   
+}
+
+.btn:hover,
+.btn:active {
+    background-color: #00aca8;
+    
+}
+
+.btn-signup:hover,
+.btn-signup:active {
+    background-color: #00aca8;
+    border: 1px solid #00aca8;
+}
+
+.btn-login:hover,
+.btn-login:active {
+    border: 1px solid #00aca8;    
+}
+
+::ng-deep .mat-form-field{ width:50% !important; }
+
+::ng-deep .mat-input-element{ color: #fff !important; }
+
+::ng-deep .mat-form-field-underline {
+    background-color: #fff !important;
+}
+
+::ng-deep .mat-form-field-label {
+    color: #fff !important;
+}
+
+@-webkit-keyframes autofill {
+    to {
+        color: #fff;
+        background: transparent;
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+}

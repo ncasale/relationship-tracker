@@ -1,0 +1,43 @@
+<header>
+    <div class="hero-text-box">
+        <h1>Stay on top of your relationships</h1>
+        <div *ngIf="areLoggingIn">
+            <br>
+            <mat-form-field>
+                <input matInput placeholder="Username" [formControl]="loginEmailFC" required>
+                <mat-error *ngIf="loginEmailFC.invalid">{{ getLoginEmailErrorMessage() }}</mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                    <input matInput placeholder="Password" type="password" [formControl]="loginPasswordFC" required>
+                    <mat-error *ngIf="loginPasswordFC.invalid">{{ getLoginPasswordErrorMessage() }} </mat-error>
+            </mat-form-field>
+            <br><br>
+        </div>
+        <div *ngIf="areSigningUp">
+                <br>
+                <mat-form-field>
+                    <input matInput placeholder="First Name" [formControl]="signupFirstnameFC" required>
+                    <mat-error *ngIf="signupFirstnameFC.invalid">{{ getSignupFirstnameErrorMessage() }}</mat-error>
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                    <input matInput placeholder="Last Name" [formControl]="signupLastnameFC" required>
+                    <mat-error *ngIf="signupLastnameFC.invalid">{{ getSignupLastnameErrorMessage() }}</mat-error>
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                    <input matInput placeholder="Username" [formControl]="signupEmailFC" required>
+                    <mat-error *ngIf="signupEmailFC.invalid">{{ getSignupEmailErrorMessage() }}</mat-error>
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                        <input matInput placeholder="Password" type="password" [formControl]="signupPasswordFC" required>
+                        <mat-error *ngIf="signupPasswordFC.invalid">{{ getSignupPasswordErrorMessage() }} </mat-error>
+                </mat-form-field>
+                <br><br>
+            </div>
+        <button class="btn btn-signup" (click)="signup()" [disabled]="areSigningUp && !isSignupValid()"> {{signupText}}</button>
+        <button class="btn btn-login" (click)="login()" [disabled]="areLoggingIn && !isLoginValid()"> {{loginText}}</button>
+    </div>
+</header>

@@ -25,11 +25,12 @@ import { MatSnackBarModule } from '@angular/material';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { GratitudeService } from './dashboard/mydash/gratitudes/gratitude.service';
 import { FeedbackService } from './dashboard/feedback/feedback.service';
+import { LandingModule } from './landing/landing.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
     declarations: [
-        AppComponent,
-        AuthComponent,        
+        AppComponent,        
         ErrorComponent
     ],
     imports: [
@@ -38,6 +39,8 @@ import { FeedbackService } from './dashboard/feedback/feedback.service';
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
+        LandingModule,
+        AuthModule,
         RelationshipModule,
         routing,
         MatSnackBarModule,
