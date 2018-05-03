@@ -29,8 +29,8 @@
     </mat-form-field>
     <br>
 
-    <button *ngIf="!areEditing()" class="btn btn-primary" type="submit" [disabled]="!isDateValid()" (click)="onSubmitCreate()">Create Date</button>
-    <button *ngIf="areEditing()" class="btn btn-primary" type="submit" [disabled]="!isDateValid()" (click)="onSubmitEdit()">Edit Date</button>
+    <button *ngIf="!areEditing()" class="btn btn-site-default" type="submit" [disabled]="!isDateValid()" (click)="onSubmitCreate()">Create Date</button>
+    <button *ngIf="areEditing()" class="btn btn-site-default" type="submit" [disabled]="!isDateValid()" (click)="onSubmitEdit()">Edit Date</button>
 
     <hr>
 </div>

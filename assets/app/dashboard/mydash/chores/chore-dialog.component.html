@@ -22,7 +22,7 @@
     </mat-form-field>
     <br>
 
-    <button *ngIf="!areEditing()" class="btn btn-primary" type="submit" [disabled]="!isChoreValid()" (click)="onSubmitCreate()">Create Chore</button>
-    <button *ngIf="areEditing()" class="btn btn-primary" type="submit" [disabled]="!isChoreValid()" (click)="onSubmitEdit()">Edit Chore</button>
+    <button *ngIf="!areEditing()" class="btn btn-site-default" type="submit" [disabled]="!isChoreValid()" (click)="onSubmitCreate()">Create Chore</button>
+    <button *ngIf="areEditing()" class="btn btn-site-default" type="submit" [disabled]="!isChoreValid()" (click)="onSubmitEdit()">Edit Chore</button>
     <hr>
 </div>

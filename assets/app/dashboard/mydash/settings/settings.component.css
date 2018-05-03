@@ -1,8 +1,21 @@
 button{
+    width: 60%;
     margin:auto;
     display:block;
   }
   
 h2{
     text-align:center;
+}
+
+.btn-leave-relationship {
+    background-color: #d74d48;
+    border-color: #d74d48;
+}
+
+.btn-leave-relationship:hover,
+.btn-leave-relationship:active {
+    background-color: #d0332d;
+    border-color: #d0332d;
+
 }

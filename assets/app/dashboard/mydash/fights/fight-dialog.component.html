@@ -29,7 +29,7 @@
     </mat-form-field>
     <br>
 
-    <button *ngIf="!areEditing()" class="btn btn-primary" type="submit" [disabled]="!isFightValid()" (click)="onSubmitCreate()">Log Fight</button>
-    <button *ngIf="areEditing()" class="btn btn-primary" type="submit" [disabled]="!isFightValid()" (click)="onSubmitEdit()">Edit Fight</button>
+    <button *ngIf="!areEditing()" class="btn btn-site-default" type="submit" [disabled]="!isFightValid()" (click)="onSubmitCreate()">Log Fight</button>
+    <button *ngIf="areEditing()" class="btn btn-site-default" type="submit" [disabled]="!isFightValid()" (click)="onSubmitEdit()">Edit Fight</button>
     <hr>
 </div>

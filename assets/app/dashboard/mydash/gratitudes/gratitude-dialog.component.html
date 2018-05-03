@@ -12,8 +12,8 @@
         <mat-error *ngIf="textFC.invalid">{{ getTextErrorMessage() }}</mat-error>
     </mat-form-field>
     <br>
-    <button *ngIf="!areEditing()" class="btn btn-primary" type="submit" [disabled]="!isGratitudeValid()" (click)="onSubmitCreate()">Create Gratitude</button>
-    <button *ngIf="areEditing()" class="btn btn-primary" type="submit" [disabled]="!isGratitudeValid()" (click)="onSubmitEdit()">Edit Gratitude</button>
+    <button *ngIf="!areEditing()" class="btn btn-site-default" type="submit" [disabled]="!isGratitudeValid()" (click)="onSubmitCreate()">Create Gratitude</button>
+    <button *ngIf="areEditing()" class="btn btn-site-default" type="submit" [disabled]="!isGratitudeValid()" (click)="onSubmitEdit()">Edit Gratitude</button>
 
     <hr>
 </div>

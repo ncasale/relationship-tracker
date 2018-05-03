@@ -2,4 +2,13 @@
     width: 60%;
     margin:auto;
     display:block;
+    background-color: #d74d48;
+    border-color: #d74d48;
+}
+
+.logout-button:hover,
+.logout-button:active {
+    background-color: #d0332d;
+    border-color: #d0332d;
+
 }

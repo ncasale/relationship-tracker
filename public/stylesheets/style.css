@@ -37,6 +37,36 @@ mat-card  {
   font-family: 'Quicksand', sans-serif !important;
 }
 
+.btn-site-default {
+  color: #fff;
+  background-color: #00cec9;
+  border: 1px solid #00cec9;
+  border-radius: 150px;
+  transition: background-color 0.2s, border 0.2s; 
+}
+
+.btn-site-default:hover,
+.btn-site-default:active {
+    background-color: #00aca8;
+    border: 1px solid #00aca8;
+    color: #fff;
+}
+
+.btn-site-danger {
+  color: #fff;
+  border-radius: 150px;
+  transition: background-color 0.2s, border 0.2s; 
+  background-color: #d74d48;
+  border: 1px solid #d74d48;
+}
+
+.btn-site-danger:hover,
+.btn-site-danger:active {
+  background-color: #d0332d;
+  border: 1px solid #d0332d;
+  color: #fff;
+}
+
 /* Spinner */
 .spinner {
     margin: 50vh auto;
