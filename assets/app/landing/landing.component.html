@@ -1,43 +1,64 @@
 <header>
+    <nav>
+        <div class="row">
+            <img src="../../../public/img/s-logo.png" alt="Shipp Logo" class="logo">
+            <h1 class="logo-text">shipp</h1>
+        </div>
+    </nav>
     <div class="hero-text-box">
-        <h1>Stay on top of your relationships</h1>
-        <div *ngIf="areLoggingIn">
-            <br>
-            <mat-form-field>
-                <input matInput placeholder="Username" [formControl]="loginEmailFC" required>
-                <mat-error *ngIf="loginEmailFC.invalid">{{ getLoginEmailErrorMessage() }}</mat-error>
-            </mat-form-field>
-            <br>
-            <mat-form-field>
+        <h2 class="sub-text">Be Better Together</h2>
+        <div class="move-down">
+            <div *ngIf="areLoggingIn">
+                <br>
+                <mat-form-field class="login-field">
+                    <input matInput placeholder="Email" [formControl]="loginEmailFC" required>
+                    <mat-error *ngIf="loginEmailFC.invalid">{{ getLoginEmailErrorMessage() }}</mat-error>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="login-field">
                     <input matInput placeholder="Password" type="password" [formControl]="loginPasswordFC" required>
                     <mat-error *ngIf="loginPasswordFC.invalid">{{ getLoginPasswordErrorMessage() }} </mat-error>
-            </mat-form-field>
-            <br><br>
-        </div>
-        <div *ngIf="areSigningUp">
-                <br>
-                <mat-form-field>
-                    <input matInput placeholder="First Name" [formControl]="signupFirstnameFC" required>
-                    <mat-error *ngIf="signupFirstnameFC.invalid">{{ getSignupFirstnameErrorMessage() }}</mat-error>
                 </mat-form-field>
                 <br>
-                <mat-form-field>
-                    <input matInput placeholder="Last Name" [formControl]="signupLastnameFC" required>
-                    <mat-error *ngIf="signupLastnameFC.invalid">{{ getSignupLastnameErrorMessage() }}</mat-error>
-                </mat-form-field>
-                <br>
-                <mat-form-field>
-                    <input matInput placeholder="Username" [formControl]="signupEmailFC" required>
-                    <mat-error *ngIf="signupEmailFC.invalid">{{ getSignupEmailErrorMessage() }}</mat-error>
-                </mat-form-field>
-                <br>
-                <mat-form-field>
-                        <input matInput placeholder="Password" type="password" [formControl]="signupPasswordFC" required>
-                        <mat-error *ngIf="signupPasswordFC.invalid">{{ getSignupPasswordErrorMessage() }} </mat-error>
-                </mat-form-field>
-                <br><br>
             </div>
-        <button class="btn btn-signup" (click)="signup()" [disabled]="areSigningUp && !isSignupValid()"> {{signupText}}</button>
-        <button class="btn btn-login" (click)="login()" [disabled]="areLoggingIn && !isLoginValid()"> {{loginText}}</button>
+            <div *ngIf="areSigningUp">
+                <div class="row">
+                    <br>
+                    <div class="signup-left">
+                        <mat-form-field class="signup-field">
+                            <input matInput placeholder="First Name" [formControl]="signupFirstnameFC" required>
+                            <mat-error *ngIf="signupFirstnameFC.invalid">{{ getSignupFirstnameErrorMessage() }}</mat-error>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field class="signup-field">
+                            <input matInput placeholder="Last Name" [formControl]="signupLastnameFC" required>
+                            <mat-error *ngIf="signupLastnameFC.invalid">{{ getSignupLastnameErrorMessage() }}</mat-error>
+                        </mat-form-field>                        
+                    </div>
+                    <div class="signup-right">
+                        <mat-form-field class="signup-field">
+                            <input matInput placeholder="Email" [formControl]="signupEmailFC" required>
+                            <mat-error *ngIf="signupEmailFC.invalid">{{ getSignupEmailErrorMessage() }}</mat-error>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field class="signup-field">
+                            <input matInput placeholder="Password" type="password" [formControl]="signupPasswordFC" required>
+                            <mat-error *ngIf="signupPasswordFC.invalid">{{ getSignupPasswordErrorMessage() }} </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <br><br>
+                </div>
+            </div>
+            <div *ngIf="!areLoggingIn" class="signup-button-layout">
+                <button class="btn btn-login" (click)="login()" [disabled]="areLoggingIn && !isLoginValid()"> {{loginText}}</button>
+                <button class="btn btn-signup" [class.pulse]='animateSignup' (mouseenter)="hoverEnter()" (mouseleave)="hoverLeave()"
+                (click)="signup()" [disabled]="areSigningUp && !isSignupValid()"> {{signupText}}</button>
+            </div>
+            <div *ngIf="areLoggingIn" class="signup-button-layout">
+                <button class="btn btn-login" [class.pulse]='animateSignup' (mouseenter)="hoverEnter()" (mouseleave)="hoverLeave()"
+                (click)="signup()" [disabled]="areSigningUp && !isSignupValid()"> {{signupText}}</button>
+                <button class="btn" [class.btn-login]="!areLoggingIn" [class.btn-signup]="areLoggingIn" (click)="login()" [disabled]="areLoggingIn && !isLoginValid()"> {{loginText}}</button>
+            </div>                
+        </div>
     </div>
 </header>

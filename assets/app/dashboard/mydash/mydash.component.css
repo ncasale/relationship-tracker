@@ -39,6 +39,10 @@
   transition: background-color 0.2s, border 0.2s; 
 }
 
+.mat-list-item:focus {
+  outline: none;
+}
+
 .acitve-nav-list-item {
   background: #00cec9;
   color: #fff;

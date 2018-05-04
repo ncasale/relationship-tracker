@@ -26,7 +26,11 @@ export class LandingComponent {
 
     //Text for buttons
     loginText: string = 'LOGIN';
-    signupText: string = 'SIGNUP'
+    signupText: string = 'SIGNUP';
+
+    //Animation
+    animateSignup = false;
+    animateLogin = false;
 
 
     //Inject services
@@ -143,15 +147,42 @@ export class LandingComponent {
         return this.signupPasswordFC.hasError('required') ? 'Please enter a password' : '';
     }
 
+    hoverEnter() {
+        this.animateLogin = false;
+        this.animateSignup = false;
+    }
+
+    hoverLeave() {
+        if(this.loginPasswordFC.valid && this.loginEmailFC.valid) {
+            this.animateLogin = true;
+        }
+
+        if(this.signupEmailFC.valid && this.signupEmailFC.valid &&
+            this.signupFirstnameFC.valid && this.signupLastnameFC.valid) {
+            this.animateSignup = true;
+        }
+    }
+
     isSignupValid() {
-        return this.signupPasswordFC.valid &&
+        if(this.signupPasswordFC.valid &&
             this.signupEmailFC.valid &&
             this.signupFirstnameFC.valid &&
-            this.signupLastnameFC.valid
+            this.signupLastnameFC.valid) {
+                this.animateSignup = true;
+                return true;
+        } else {
+            this.animateSignup = false;
+            return false;
+        }
     }
 
     isLoginValid() {
-        return this.loginPasswordFC.valid &&
-            this.loginEmailFC.valid
+        if(this.loginPasswordFC.valid && this.loginEmailFC.valid) {
+            this.animateLogin = true;
+            return true;
+        } else {
+            this.animateSignup = false;
+            return false;
+        }
     }
 }
