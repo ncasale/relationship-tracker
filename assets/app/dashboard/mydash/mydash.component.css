@@ -29,10 +29,14 @@
 .mat-list-item {
   display: flex;
   width: 200px;
+  transition: background-color 0.2s, border 0.2s;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px; 
 }
 
 .mat-list-item:hover {
   background: #81ecec;
+  transition: background-color 0.2s, border 0.2s; 
 }
 
 .acitve-nav-list-item {
