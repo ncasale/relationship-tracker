@@ -7,7 +7,10 @@ import { User } from "../auth/user.model";
 @Component({
     selector: 'app-landing',
     templateUrl: './landing.component.html',
-    styleUrls: ['./landing.component.css']
+    styleUrls: [
+        './landing.component.css',
+        './landing.component.queries.css'
+    ]
 })
 export class LandingComponent {
     //Form Controls -- Signup
