@@ -1,21 +1,23 @@
 .author {
     display: inline-block;
     font-style: italic;
-    font-size: 12px;
+    font-size: 70%;
     width: 50%;
+    padding-left: 2%;
 }
 
 .buttons {
     display: inline-block;
-    font-style: italic;
-    font-size: 12px;
-    width: 19%
+    text-align: right;
+    font-size: 70%;
+    width: 40%;
+    padding: 0;
 }
 .config {
     display: inline-block;
     text-align: right;
     font-size: 12px;
-    width: 19%;
+    width: 10%;
 }
 
 mat-card {
@@ -74,12 +76,18 @@ mat-icon {
 }
 
 mat-card-footer {
-    margin-left: 0px;
-    padding-left: 28px;
+    margin-left: 0;
+    margin-right: 0;
 }
 
-.mat-button {
+.spacer {
+    display: inline-block;
+    width: 3%;
+}
+
+.mat-icon-button {
     font-family: 'Quicksand', sans-serif;
+    display: inline-block;
 }
 
 .own-message {

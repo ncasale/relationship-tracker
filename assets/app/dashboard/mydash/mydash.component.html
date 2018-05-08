@@ -1,26 +1,48 @@
 <mat-sidenav-container class="example-container">
 <mat-sidenav #sidenav mode="side" opened="true" class="example-sidenav">
-    <mat-nav-list>        
-            <a mat-list-item disableRipple [ngClass]="{'acitve-nav-list-item': isCurrentRelationship(relationship)}" (click)="sideNavClicked(relationship)" *ngFor="let relationship of relationships">{{relationship.title}}</a>
+    <mat-nav-list *ngIf="!relationshipSelected">        
+            <!--<a mat-list-item disableRipple [ngClass]="{'acitve-nav-list-item': isCurrentRelationship(relationship)}" 
+            (click)="sideNavClicked(relationship)" *ngFor="let relationship of relationships">{{relationship.title}}</a>
+            -->
+            <a mat-list-item disableRipple (click)="sideNavSelect('relationship')"
+            [ngClass]="{'acitve-nav-list-item': relationshipSelected}"><mat-icon class="sidenav-icon">people</mat-icon><p *ngIf="isSidenavExpanded">{{selectedRelationship.title}}</p></a>
+
+            <a mat-list-item disableRipple [routerLink]="['messages']" (click)="sideNavSelect('messages')"
+            [ngClass]="{'acitve-nav-list-item': messagesSelected}"><mat-icon class="sidenav-icon">chat</mat-icon><p *ngIf="isSidenavExpanded">Messages</p></a>
+
+            <a mat-list-item disableRipple [routerLink]="['dates']" (click)="sideNavSelect('dates')"
+            [ngClass]="{'acitve-nav-list-item': datesSelected}"><mat-icon class="sidenav-icon">local_activity</mat-icon><p *ngIf="isSidenavExpanded">Dates</p></a>
+
+            <a mat-list-item disableRipple [routerLink]="['chores']" (click)="sideNavSelect('chores')"
+            [ngClass]="{'acitve-nav-list-item': choresSelected}"><mat-icon class="sidenav-icon">event</mat-icon><p *ngIf="isSidenavExpanded">Chores</p></a>
+
+            <a mat-list-item disableRipple [routerLink]="['gratitudes']" (click)="sideNavSelect('gratitudes')"
+            [ngClass]="{'acitve-nav-list-item': gratitudesSelected}"><mat-icon class="sidenav-icon">mood</mat-icon><p *ngIf="isSidenavExpanded">Gratitudes</p></a>
+
+            <a mat-list-item disableRipple [routerLink]="['fights']" (click)="sideNavSelect('fights')"
+            [ngClass]="{'acitve-nav-list-item': fightsSelected}"><mat-icon class="sidenav-icon">whatshot</mat-icon><p *ngIf="isSidenavExpanded">Fights</p></a>
+
+            <a mat-list-item disableRipple [routerLink]="['settings']" (click)="sideNavSelect('settings')"
+            [ngClass]="{'acitve-nav-list-item': settingsSelected}"><mat-icon class="sidenav-icon">settings</mat-icon><p *ngIf="isSidenavExpanded">Settings</p></a>
+
+            <a mat-list-item disableRipple (click)="toggleSideNav()">
+                <mat-icon class="sidenav-icon" *ngIf="isSidenavExpanded">chevron_left</mat-icon>
+                <mat-icon class="sidenav-icon" *ngIf="!isSidenavExpanded">chevron_right</mat-icon>                
+            </a>
+
+
     </mat-nav-list>
+    <mat-nav-list *ngIf="relationshipSelected">
+            <a mat-list-item disableRipple [ngClass]="{'acitve-nav-list-item': isCurrentRelationship(relationship)}" 
+            (click)="sideNavClicked(relationship)" *ngFor="let relationship of relationships">{{relationship.title}}</a>
+    </mat-nav-list>
+
 </mat-sidenav>
     
 
-<mat-sidenav-content>
+<mat-sidenav-content [class.collapsed-sidenav-content]="!isSidenavExpanded">
     <div *ngIf="!userNotInRelationship()">
-        <header class="row spacing">
-            <nav class="col-md-8 col-md-offset-2">
-                <ul class="nav nav-tabs">
-                    <li routerLinkActive="active"><a [routerLink]="['messages']">Messages</a></li>
-                    <li routerLinkActive="active"><a [routerLink]="['dates']">Dates</a></li>
-                    <li routerLinkActive="active"><a [routerLink]="['chores']">Chores</a></li>
-                    <li routerLinkActive="active"><a [routerLink]="['gratitudes']">Gratitudes</a></li>
-                    <li routerLinkActive="active"><a [routerLink]="['fights']">Fights</a></li>
-                    <li routerLinkActive="active"><a [routerLink]="['settings']">Settings</a></li>
-                </ul>
-            </nav>
-        </header>
-        <p *ngIf="onMyDashHome()">Welcome to your Dashboard -- click one of the above tabs to get started.</p>
+        <p *ngIf="onMyDashHome()">Welcome to your Dashboard -- click one of the tabs to the left to get started.</p>
         <br>        
         
     

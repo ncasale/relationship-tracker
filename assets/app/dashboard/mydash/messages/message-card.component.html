@@ -9,11 +9,10 @@
             <div class="author">
                 {{ firstname }} : {{ timestamp }}
             </div>
-            <div class="buttons" >
-                <button mat-button *ngIf="isMyMessage()" (click)="openEditDialog()">Edit</button>
-            </div>
-            <div class="buttons" >
-                <button mat-button *ngIf="isMyMessage()" (click)="deleteMessage()">Delete</button>
+            <div class="spacer"></div>
+            <div class="buttons">
+                <button mat-icon-button *ngIf="isMyMessage()" (click)="openEditDialog()"><mat-icon>edit</mat-icon></button>
+                <button mat-icon-button *ngIf="isMyMessage()" (click)="deleteMessage()"><mat-icon>delete</mat-icon></button>
             </div>
         </mat-card-footer>
     </mat-card>

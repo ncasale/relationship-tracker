@@ -13,10 +13,23 @@ import { Router } from "@angular/router";
     styleUrls: ['./mydash.component.css']
 })
 export class MyDashComponent {
-    selectedRelationship: Relationship;
+    selectedRelationship: Relationship = new Relationship("");
     relationships: Relationship[] = [];
     relationshipSubscription: Subscription;
     noRelationships = false;
+
+    //Is the sidenav expanded
+    isSidenavExpanded = true;
+
+    //Flags for side nav tabs
+    relationshipSelected = false;
+    messagesSelected = false;
+    datesSelected = false;
+    choresSelected = false;
+    gratitudesSelected = false;
+    fightsSelected = false;
+    settingsSelected = false;
+    lastSelectedTab = '';
 
     constructor(
         private relationshipService: RelationshipService, 
@@ -69,6 +82,7 @@ export class MyDashComponent {
     sideNavClicked(relationship: Relationship) {
         this.selectedRelationship = relationship;
         this.myDashService.setCurrentRelationship(this.selectedRelationship);
+        this.sideNavSelect(this.lastSelectedTab);
     }
 
     
@@ -104,14 +118,31 @@ export class MyDashComponent {
         this.router.navigateByUrl('/dashboard/create');
     }
 
+    /**
+     * Returns whether or not this user is in any relationships
+     * 
+     * @returns true if user is a member of a relationship, false otherwise
+     * @memberof MyDashComponent
+     */
     userNotInRelationship() {
         return this.relationships.length == 0;
     }
 
+    /**
+     * Checks if user is on base mydash route
+     * 
+     * @returns true if on base mydash route, false otherwise
+     * @memberof MyDashComponent
+     */
     onMyDashHome() {
         return this.router.url == '/dashboard/mydash';
     }
 
+    /**
+     * Refreshes and sorts the list of relationships in which the user is a member
+     * 
+     * @memberof MyDashComponent
+     */
     refreshRelationships() {
         this.relationshipService.getRelationships()
             .subscribe(
@@ -139,5 +170,62 @@ export class MyDashComponent {
                     }
                 }
             )
+    }
+
+    //
+    sideNavSelect(tabName: string) {
+        //Reset all tabs
+        this.relationshipSelected = false;
+        this.messagesSelected = false;
+        this.choresSelected = false;
+        this.datesSelected = false;
+        this.gratitudesSelected = false;
+        this.fightsSelected = false;
+        this.settingsSelected = false;
+
+        if(tabName != 'relationship') {
+            this.lastSelectedTab = tabName;
+        }
+
+        //Select correct tab according to tab name
+        switch(tabName) {
+            case 'relationship': {
+                this.relationshipSelected = true;
+                break;
+            }
+            case 'messages': {
+                this.messagesSelected = true;
+                break;
+            }
+            case 'chores': {
+                this.choresSelected = true;
+                break;
+            }
+            case 'dates': {
+                this.datesSelected = true;
+                break;
+            }
+            case 'gratitudes': {
+                this.gratitudesSelected = true;
+                break;
+            }
+            case 'fights': {
+                this.fightsSelected = true;
+                break;
+            }
+            case 'settings': {
+                this.settingsSelected = true;
+                break;
+            }
+            default: {
+                this.messagesSelected = true;
+                break;
+            }
+
+        }
+    }
+
+    toggleSideNav() {
+        this.isSidenavExpanded = !this.isSidenavExpanded;
     }
 }
