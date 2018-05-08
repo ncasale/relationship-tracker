@@ -1,11 +1,10 @@
-<div class="col-md-8 col-md-offset-2">
-    <app-message-card [message]="message" *ngFor="let message of messages"></app-message-card>
-    <form [formGroup]="messagesForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label for="message">New Message</label>
-            <input type="text" id="message" class="form-control" formControlName="message">
-        </div>
-        <button class="btn btn-site-default" type="submit" [disabled]="!messagesForm.valid">Send</button>
+<div class="messages-container">
+    <div class="messages-scroll-area" #scrollArea>
+        <app-message-card [message]="message" *ngFor="let message of messages"></app-message-card>
+    </div>
+    <form (ngSubmit)="onSubmit()">
+            <input class="message-box" type="text" id="message" [formControl]="messageFC">
+            <button class="btn btn-site-default send-btn" type="submit" [disabled]="!messageFC.valid">Send</button>
     </form>
     <br>
 </div>

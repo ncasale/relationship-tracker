@@ -27,6 +27,7 @@ import { GratitudeService } from './dashboard/mydash/gratitudes/gratitude.servic
 import { FeedbackService } from './dashboard/feedback/feedback.service';
 import { LandingModule } from './landing/landing.module';
 import { AuthModule } from './auth/auth.module';
+import { ResizeService } from './dashboard/resize.service';
 
 @NgModule({
     declarations: [
@@ -57,7 +58,8 @@ import { AuthModule } from './auth/auth.module';
         FightService,
         MyDashService,
         GratitudeService,
-        FeedbackService
+        FeedbackService,
+        ResizeService
     ],
     bootstrap: [AppComponent]
 })

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, OnDestroy } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, OnDestroy, AfterViewChecked, ViewChild, ElementRef } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { MessagesService } from "./messages.service";
 import { Message } from "./message.model";
@@ -9,13 +9,19 @@ import { Subscription } from "rxjs/Subscription";
 
 @Component({
     selector: 'app-messages',
-    templateUrl: './messages.component.html'
+    templateUrl: './messages.component.html',
+    styleUrls: ['./messages.component.css',
+        './messages.component.queries.css'
+    ]
 })
-export class MessagesComponent implements OnInit, OnDestroy{
-    messagesForm: FormGroup;
+export class MessagesComponent implements OnInit, OnDestroy, AfterViewChecked{
+    messageFC = new FormControl(null, Validators.required);
     relationship: Relationship;
     messages: Message[] = [];
     currentRelationshipSubscription: Subscription;
+
+    //Scroll container for messages
+    @ViewChild('scrollArea') private scrollContainer: ElementRef;
     
 
     constructor(
@@ -30,11 +36,6 @@ export class MessagesComponent implements OnInit, OnDestroy{
      * @memberof MessagesComponent
      */
     ngOnInit() {
-        //Initialize form group
-        this.messagesForm = new FormGroup({
-            message: new FormControl(null, Validators.required)
-        })
-
         //When current relationship in mydash updated, update the current relationship of messages
         this.currentRelationshipSubscription = this.myDashService.getCurrentRelationship()
             .subscribe(relationship => {
@@ -43,7 +44,7 @@ export class MessagesComponent implements OnInit, OnDestroy{
                     .subscribe(
                         (response: Message[]) => {
                             this.messages = response;
-                            //this.myDashService.contentLoadedEmitter.emit(this.relationship);
+                            this.scrollToBottom();
                         }
                     )
                 
@@ -65,9 +66,15 @@ export class MessagesComponent implements OnInit, OnDestroy{
 
     }
 
+    ngAfterViewChecked() {
+        this.scrollToBottom();
+    }
+
     ngOnDestroy() {
         this.currentRelationshipSubscription.unsubscribe();
     }
+
+
     
     /**
      * Contact MessageService to send off message
@@ -76,7 +83,7 @@ export class MessagesComponent implements OnInit, OnDestroy{
      */
     onSubmit() {
         var message = new Message(
-            this.messagesForm.value.message, 
+            this.messageFC.value, 
             this.relationship.relationshipId);
         this.messagesService.saveMessage(message)
         .subscribe(
@@ -86,6 +93,12 @@ export class MessagesComponent implements OnInit, OnDestroy{
                 this.messages.push(message);
             }
         );
-        this.messagesForm.reset();
+        this.messageFC.reset();
+    }
+
+    scrollToBottom() {
+        try {
+            this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
+        } catch(err) {};
     }
 }

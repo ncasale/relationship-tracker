@@ -1,0 +1,22 @@
+.messages-container {
+    margin: 0 2%;
+}
+
+.message-box {
+    display: inline-block;
+    vertical-align: middle;
+    width: 85%;
+
+}
+
+.send-btn {
+    display: inline-block;
+    width: 10%;
+    vertical-align: middle;
+}
+
+.messages-scroll-area {
+    height: 70vh;
+    margin-bottom: 2%;
+    overflow: scroll;
+}

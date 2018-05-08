@@ -2,7 +2,7 @@
     display: inline-block;
     font-style: italic;
     font-size: 70%;
-    width: 50%;
+    width: 45%;
     padding-left: 2%;
 }
 
@@ -10,7 +10,8 @@
     display: inline-block;
     text-align: right;
     font-size: 70%;
-    width: 40%;
+    width: 45%;
+    height: 100%;
     padding: 0;
 }
 .config {
@@ -65,8 +66,6 @@ mat-card-actions {
 }
 
 mat-icon {
-    margin-right: 6px;
-    margin-bottom: 3px;
     display: inline-flex;
     vertical-align: middle;
 }
@@ -82,7 +81,7 @@ mat-card-footer {
 
 .spacer {
     display: inline-block;
-    width: 3%;
+    width: 5%;
 }
 
 .mat-icon-button {

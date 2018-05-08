@@ -1,0 +1,13 @@
+@media only screen and (max-width: 800px) {
+    .message-box {
+        display: inline-block;
+        width: 80%;
+    
+    }
+    
+    .send-btn {
+        display: inline-block;
+        width: 15%;
+    }
+
+}

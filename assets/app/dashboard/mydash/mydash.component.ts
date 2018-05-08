@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Relationship } from "../../relationships/relationship.model";
 import { RelationshipService } from "../../relationships/relationship.service";
 import { MessagesService } from "./messages/messages.service";
@@ -6,20 +6,23 @@ import { MyDashService } from "./mydash.service";
 
 import { Subscription } from "rxjs/Subscription";
 import { Router } from "@angular/router";
+import { ResizeService } from "../resize.service";
 
 @Component({
     selector: 'app-mydash',
     templateUrl: './mydash.component.html',
     styleUrls: ['./mydash.component.css']
 })
-export class MyDashComponent {
+export class MyDashComponent implements OnInit, OnDestroy{
     selectedRelationship: Relationship = new Relationship("");
     relationships: Relationship[] = [];
     relationshipSubscription: Subscription;
+    resizeSubscription: Subscription;
     noRelationships = false;
 
     //Is the sidenav expanded
     isSidenavExpanded = true;
+    collapseWidth = 900;
 
     //Flags for side nav tabs
     relationshipSelected = false;
@@ -35,6 +38,7 @@ export class MyDashComponent {
         private relationshipService: RelationshipService, 
         private messageService: MessagesService,
         private myDashService: MyDashService,
+        private resizeService: ResizeService,
         private router: Router
     ) {}
 
@@ -58,8 +62,32 @@ export class MyDashComponent {
                     this.refreshRelationships();
                 }
             )
+
+            //Make initial changes based on screen size
+            if(window.innerWidth <= this.collapseWidth) {
+                this.isSidenavExpanded = false;
+            }
+
+            //Be aware of changes in screen size -- collapse sidenav if necessary
+            this.resizeSubscription = this.resizeService.onResize$.subscribe(
+                (size => {
+                    if(size.outerWidth <= this.collapseWidth) {
+                        this.isSidenavExpanded = false;
+                    }
+                })
+            );
         }
             
+    }
+
+    ngOnDestroy() {
+        if(this.relationshipSubscription) {
+            this.relationshipSubscription.unsubscribe();
+        }
+
+        if(this.resizeSubscription) {
+            this.resizeSubscription.unsubscribe();
+        }
     }
 
     /**
