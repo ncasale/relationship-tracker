@@ -30,12 +30,17 @@ button {
 
 .header-title {
     margin-left: 4vw;
+    width: 15%;
 }
 
 .header-title-link {
     text-decoration: none;
     color: #fff;
     
+}
+
+.menu-button-div {
+    display: inline-block;
 }
 
 ::ng-deep .mat-form-field{ width:100% !important; }
@@ -64,4 +69,18 @@ mat-toolbar {
 .mat-button {
     font-family: 'Quicksand', sans-serif;
     font-size: 20px;
+}
+
+.mat-menu-item {
+    background-color: #00cec9;
+    text-align: center;
+}
+
+.mat-menu-item:hover {
+    background-color: #81ecec;
+    transition: background-color 0.2s;
+}
+
+::ng-deep .mat-menu-content {
+    padding: 0 !important;
 }

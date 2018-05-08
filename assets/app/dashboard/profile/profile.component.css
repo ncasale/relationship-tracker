@@ -3,3 +3,8 @@
     margin:auto;
     display:block;
 }
+
+h4 {
+    text-align: center;
+    width: 100%;
+}

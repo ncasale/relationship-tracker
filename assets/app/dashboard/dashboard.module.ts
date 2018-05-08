@@ -11,7 +11,7 @@ import { MyDashModule } from './mydash/mydash.module';
 import { LogoutComponent } from './logout/logout.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ChangePasswordDialogComponent } from './profile/change-password-dialog.component';
-import { MatInputModule, MatDialogModule, MatCheckboxModule, MatToolbarModule, MatButtonModule, MatSnackBarModule, MatCardModule } from '@angular/material';
+import { MatInputModule, MatDialogModule, MatCheckboxModule, MatToolbarModule, MatButtonModule, MatSnackBarModule, MatCardModule, MatIconModule, MatMenuModule } from '@angular/material';
 import { DashboardComponent } from './dashboard.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { FeedbackDialogComponent } from './feedback/feedback-dialog.component';
@@ -43,7 +43,9 @@ import { FeedbackCardComponent } from './feedback/feedback-card.component';
         MatToolbarModule,
         MatButtonModule,
         MatSnackBarModule,
-        MatCardModule      
+        MatCardModule,
+        MatIconModule,
+        MatMenuModule      
     ],
     entryComponents: [
         ChangePasswordDialogComponent,

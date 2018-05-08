@@ -21,6 +21,7 @@ export class MyDashComponent implements OnInit, OnDestroy{
     noRelationships = false;
 
     //Is the sidenav expanded
+    expandNotAllowed = false;
     isSidenavExpanded = true;
     collapseWidth = 900;
 
@@ -66,6 +67,9 @@ export class MyDashComponent implements OnInit, OnDestroy{
             //Make initial changes based on screen size
             if(window.innerWidth <= this.collapseWidth) {
                 this.isSidenavExpanded = false;
+            }
+            if(window.screen.width < this.collapseWidth) {
+                this.expandNotAllowed = true;
             }
 
             //Be aware of changes in screen size -- collapse sidenav if necessary

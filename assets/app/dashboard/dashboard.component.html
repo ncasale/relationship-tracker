@@ -1,28 +1,41 @@
 <nav >
-    <mat-toolbar style="height:38px; padding: 0px; width: 100%;">
+    <mat-toolbar style="height:40px; padding: 0px; width: 100%;">
         <a class="header-title-link" href="/landing">
             <div class="header-title">
                 <img class="header-logo" src="../../../public/img/white-image.png" alt="Shipp Logo">
                 Shipp
             </div>
         </a>
-        <span class="spacer"></span>        
-        <a [routerLink]="['/dashboard/join']" style="padding: 0px;">
-            <button mat-button >Join Relationship</button></a>
-        <span class="spacer"></span>
-        <a [routerLink]="['/dashboard/create']" style="padding: 0px;">
-        <span class="spacer"></span>
-            <button mat-button >Create Relationship</button></a>
-        <span class="spacer"></span>            
-        <a [routerLink]="['/dashboard/mydash/']" style="padding: 0px;">
-            <button mat-button >My Dash</button></a>
-        <span class="spacer"></span>            
-        <a [routerLink]="['/dashboard/profile']" style="padding: 0px;">
-            <button mat-button >Profile</button></a>
-        <span class="spacer"></span>            
-        <a [routerLink]="['/dashboard/feedback']" style="padding: 0px;">
-            <button mat-button >Feedback</button></a>
-        <span class="end-spacer"></span>
+        <div style="width: 100%; display: flex;" *ngIf="isToolbarExpanded">
+            <span class="spacer"></span>        
+            <a [routerLink]="['/dashboard/join']" style="padding: 0px;">
+                <button mat-button >Join Relationship</button></a>
+            <span class="spacer"></span>
+            <a [routerLink]="['/dashboard/create']" style="padding: 0px;">
+            <span class="spacer"></span>
+                <button mat-button >Create Relationship</button></a>
+            <span class="spacer"></span>            
+            <a [routerLink]="['/dashboard/mydash/']" style="padding: 0px;">
+                <button mat-button >My Dash</button></a>
+            <span class="spacer"></span>            
+            <a [routerLink]="['/dashboard/profile']" style="padding: 0px;">
+                <button mat-button >Profile</button></a>
+            <span class="spacer"></span>            
+            <a [routerLink]="['/dashboard/feedback']" style="padding: 0px;">
+                <button mat-button >Feedback</button></a>
+            <span class="end-spacer"></span>
+        </div>
+        <div class="spacer"></div>
+        <div class="menu-button-div" *ngIf="!isToolbarExpanded">
+            <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>
+            <mat-menu #menu="matMenu" [overlapTrigger]="false">
+                <button mat-menu-item [routerLink]="['/dashboard/join']">Join</button>
+                <button mat-menu-item [routerLink]="['/dashboard/create']">Create</button>
+                <button mat-menu-item [routerLink]="['/dashboard/mydash/']">My Dash</button>
+                <button mat-menu-item [routerLink]="['/dashboard/profile']">Profile</button>
+                <button mat-menu-item [routerLink]="['/dashboard/feedback']">Feedback</button>                
+            </mat-menu>        
+        </div>
     </mat-toolbar>
 </nav>
 <router-outlet></router-outlet>
