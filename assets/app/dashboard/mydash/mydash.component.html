@@ -25,8 +25,8 @@
             <a mat-list-item disableRipple [routerLink]="['settings']" (click)="sideNavSelect('settings')"
             [ngClass]="{'acitve-nav-list-item': settingsSelected}"><mat-icon class="sidenav-icon">settings</mat-icon><p *ngIf="isSidenavExpanded">Settings</p></a>
 
-            <a mat-list-item disableRipple (click)="toggleSideNav()">
-                <mat-icon class="sidenav-icon" *ngIf="isSidenavExpanded && !expandNotAllowed">chevron_left</mat-icon>
+            <a mat-list-item disableRipple *ngIf=!expandNotAllowed (click)="toggleSideNav()">
+                <mat-icon class="sidenav-icon" *ngIf="isSidenavExpanded">chevron_left</mat-icon>
                 <mat-icon class="sidenav-icon" *ngIf="!isSidenavExpanded">chevron_right</mat-icon>                
             </a>
 
