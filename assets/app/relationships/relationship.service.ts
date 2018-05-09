@@ -38,6 +38,7 @@ export class RelationshipService {
     addRelationship(relationship: Relationship) {
         //Create body
         const body = JSON.stringify(relationship);
+        console.log('Body: ', body);
         //Create headers
         const headers = new Headers({'Content-Type': 'application/json'});
         //Get token
@@ -51,7 +52,8 @@ export class RelationshipService {
                     result.obj._id,
                     result.obj.userIds,
                     result.obj.invitees,
-                    result.obj.createTimestamp               
+                    result.obj.createTimestamp,
+                    result.obj.isPlatonic              
                 );
                 this.relationships.push(relationship);
                 return relationship;
@@ -88,7 +90,8 @@ export class RelationshipService {
                             relationship._id,
                             relationship.users,
                             relationship.invitees,
-                            relationship.createTimestamp
+                            relationship.createTimestamp,
+                            relationship.isPlatonic
                         ))
                     }
                     this.relationships = transformedRelationships;
@@ -151,7 +154,8 @@ export class RelationshipService {
                         relationship._id,
                         relationship.users,
                         relationship.invitees,
-                        relationship.createTimestamp
+                        relationship.createTimestamp,
+                        relationship.isPlatonic
                     ))
                 }
                 return transformedInvitedRelationships;
@@ -280,7 +284,8 @@ export class RelationshipService {
                         relationship._id,
                         relationship.userIds,
                         relationship.invitees,
-                        relationship.createTimestamp
+                        relationship.createTimestamp,
+                        relationship.isPlatonic
                     ));
                 }
                 return transformedRelationships;

@@ -42,7 +42,8 @@ router.post('/add', function(req, res, next) {
         //Create a new relationship where the only userId in userIds is the current user
         var relationship = new Relationship({
             title: req.body.title,
-            users: [user]
+            users: [user],
+            isPlatonic: req.body.isPlatonic
         });
 
         //Save realtionship to database

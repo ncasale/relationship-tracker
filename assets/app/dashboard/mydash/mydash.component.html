@@ -1,9 +1,6 @@
 <mat-sidenav-container class="example-container">
 <mat-sidenav #sidenav mode="side" opened="true" class="example-sidenav">
-    <mat-nav-list *ngIf="!relationshipSelected">        
-            <!--<a mat-list-item disableRipple [ngClass]="{'acitve-nav-list-item': isCurrentRelationship(relationship)}" 
-            (click)="sideNavClicked(relationship)" *ngFor="let relationship of relationships">{{relationship.title}}</a>
-            -->
+    <mat-nav-list *ngIf="!relationshipSelected"> 
             <a mat-list-item disableRipple (click)="sideNavSelect('relationship')"
             [ngClass]="{'acitve-nav-list-item': relationshipSelected}"><mat-icon class="sidenav-icon">people</mat-icon><p *ngIf="isSidenavExpanded">{{selectedRelationship.title}}</p></a>
 
@@ -11,7 +8,7 @@
             [ngClass]="{'acitve-nav-list-item': messagesSelected}"><mat-icon class="sidenav-icon">chat</mat-icon><p *ngIf="isSidenavExpanded">Messages</p></a>
 
             <a mat-list-item disableRipple [routerLink]="['dates']" (click)="sideNavSelect('dates')"
-            [ngClass]="{'acitve-nav-list-item': datesSelected}"><mat-icon class="sidenav-icon">local_activity</mat-icon><p *ngIf="isSidenavExpanded">Dates</p></a>
+            [ngClass]="{'acitve-nav-list-item': datesSelected}"><mat-icon class="sidenav-icon">local_activity</mat-icon><p *ngIf="isSidenavExpanded">{{getDateTabName()}}</p></a>
 
             <a mat-list-item disableRipple [routerLink]="['chores']" (click)="sideNavSelect('chores')"
             [ngClass]="{'acitve-nav-list-item': choresSelected}"><mat-icon class="sidenav-icon">event</mat-icon><p *ngIf="isSidenavExpanded">Chores</p></a>

@@ -205,6 +205,14 @@ export class MyDashComponent implements OnInit, OnDestroy{
             )
     }
 
+    getDateTabName() {
+        if(this.selectedRelationship.isPlatonic) {
+            return "Events";
+        } else {
+            return "Dates";
+        }
+    }
+
     //
     sideNavSelect(tabName: string) {
         //Reset all tabs

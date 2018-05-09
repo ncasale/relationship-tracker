@@ -175,6 +175,14 @@ export class DateDialogComponent implements OnInit{
         }
     }
 
+    dateOrEvent() {
+        if(this.data.relationship.isPlatonic) {
+            return "Event";
+        } else {
+            return "Date";
+        }
+    }
+
     generatePossibleTimes() {
         //Create array of times
         var currHour = 0;

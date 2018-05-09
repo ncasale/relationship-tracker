@@ -8,7 +8,8 @@ var schema = new Schema({
     users: {type: [Schema.Types.ObjectId], ref: 'Users'},
     invitees: {type: [Schema.Types.ObjectId], ref: 'Users'},
     title: {type: String, required: true},
-    createTimestamp: {type: Date, default: Date.now()}
+    createTimestamp: {type: Date, default: Date.now()},
+    isPlatonic: {type: Boolean, default: false}
 });
 
 schema.plugin(mongooseUniqueValidator);

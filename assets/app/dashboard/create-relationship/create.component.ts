@@ -11,7 +11,8 @@ import { MyDashService } from '../mydash/mydash.service';
     styleUrls: ['./create.component.css']
 })
 export class CreateComponent implements OnInit{
-    createForm: FormGroup;
+    nameFC = new FormControl(null, Validators.required);
+    platonicFC = new FormControl(null);
 
     //Inject the relationship service & router
     constructor(
@@ -26,9 +27,6 @@ export class CreateComponent implements OnInit{
      * @memberof CreateComponent
      */
     ngOnInit() {
-        this.createForm = new FormGroup({
-            name: new FormControl(null, Validators.required)
-        })
     }
 
     /**
@@ -39,7 +37,14 @@ export class CreateComponent implements OnInit{
      */
     onSubmit(){
         //When form submitted, create a new relationship and add it to the database
-        var relationship = new Relationship(this.createForm.value.name);
+        var relationship = new Relationship(this.nameFC.value, 
+                undefined, 
+                undefined, 
+                undefined, 
+                undefined,
+                this.platonicFC.value);
+
+        console.log('On Submit REL: ', relationship);
 
         this.relationshipService.addRelationship(relationship)
             .subscribe(
@@ -50,6 +55,14 @@ export class CreateComponent implements OnInit{
                 error => console.error(error)
             )
         
-        this.createForm.reset();
+        this.nameFC.reset();
+    }
+
+    getNameErrorMessage() {
+        return this.nameFC.hasError('required') ? 'You must enter a relationship name' : '';
+    }
+
+    isCreateValid() {
+        return this.nameFC.valid;
     }
 }

@@ -1,6 +1,6 @@
 <div class="col-md-8 col-md-offset-2 date-form-container">
-    <h2 *ngIf="!areEditing()">Create Date</h2>
-    <h2 *ngIf="areEditing()">Edit Date</h2>
+    <h2 *ngIf="!areEditing()">Create {{dateOrEvent()}}</h2>
+    <h2 *ngIf="areEditing()">Edit {{dateOrEvent()}}</h2>
     <hr>
     <mat-form-field>
         <input matInput placeholder="Title" [formControl]="title" required>
@@ -28,8 +28,8 @@
     </mat-form-field>
     <br>
 
-    <button *ngIf="!areEditing()" class="btn btn-site-default" type="submit" [disabled]="!isDateValid()" (click)="onSubmitCreate()">Create Date</button>
-    <button *ngIf="areEditing()" class="btn btn-site-default" type="submit" [disabled]="!isDateValid()" (click)="onSubmitEdit()">Edit Date</button>
+    <button *ngIf="!areEditing()" class="btn btn-site-default" type="submit" [disabled]="!isDateValid()" (click)="onSubmitCreate()">Create {{dateOrEvent()}}</button>
+    <button *ngIf="areEditing()" class="btn btn-site-default" type="submit" [disabled]="!isDateValid()" (click)="onSubmitEdit()">Edit {{dateOrEvent()}}</button>
 
     <hr>
 </div>

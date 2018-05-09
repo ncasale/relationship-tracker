@@ -11,5 +11,6 @@ export class Relationship {
         public relationshipId?: string,
         public userIds?: string[], 
         public invitees?: string[],
-        public createTimestamp?: string) {}
+        public createTimestamp?: string,
+        public isPlatonic?: boolean) {}
 }
