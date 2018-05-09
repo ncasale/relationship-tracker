@@ -126,6 +126,9 @@ export class FightCardComponent implements OnInit{
      */
     openDisplayFightDialog() {
         let dialogRef = this.fightDisplayDialog.open(FightDisplayDialogComponent, {
+            position:  {
+                top: '20%',
+            },
             width: '750px',
             height: '750px',
             data: {
