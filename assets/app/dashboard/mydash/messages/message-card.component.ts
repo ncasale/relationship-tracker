@@ -23,7 +23,8 @@ export class MessageCardComponent implements OnInit{
 
     //The timestamp of the message
     timestamp: string;
-    timestampFormat: string = 'MM/dd/yyyy HH:mm a';
+    timestampFormat: string = 'MM/dd/yy';
+    sameDayTimestampFormat: string = 'HH:mm a';
 
     //Inject services
     constructor(
@@ -113,10 +114,26 @@ export class MessageCardComponent implements OnInit{
     setTimestamp() {
         //Set timestamp
         if(!this.message.editTimestamp) {
-            this.timestamp = this.datePipe.transform(this.message.createTimestamp, this.timestampFormat);
+            if(this.isDateToday(this.message.createTimestamp)) {
+                this.timestamp = this.datePipe.transform(this.message.createTimestamp, this.sameDayTimestampFormat);
+            } else {
+                this.timestamp = this.datePipe.transform(this.message.createTimestamp, this.timestampFormat);
+            }
         } else {
-            this.timestamp = this.datePipe.transform(this.message.editTimestamp, this.timestampFormat) + ' [edited]';            
+            if(this.isDateToday(this.message.editTimestamp)) {
+                this.timestamp = this.datePipe.transform(this.message.editTimestamp, this.sameDayTimestampFormat) + ' *';            
+            } else {
+                this.timestamp = this.datePipe.transform(this.message.editTimestamp, this.timestampFormat) + ' *';            
+            }
         }
+    }
+
+    isDateToday(unfDate) {
+        var currDate = new Date();
+        var date = new Date(unfDate);
+        return date.getMonth() === currDate.getMonth() && 
+            date.getDay() === currDate.getDay() && 
+            date.getFullYear() === currDate.getFullYear();
     }
 
     isMyMessage() {
