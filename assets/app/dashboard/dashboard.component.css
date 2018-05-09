@@ -63,6 +63,10 @@ button {
     color: #555 !important;
 }
 
+::ng-deep .mat-dialog-container {
+    max-height: 70vh;
+}
+
 .spacer {
     flex: 1 1 auto;
 }
