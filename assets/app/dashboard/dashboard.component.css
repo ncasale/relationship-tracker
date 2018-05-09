@@ -64,7 +64,7 @@ button {
 }
 
 ::ng-deep .mat-dialog-container {
-    max-height: 75vh;
+    max-height: 80vh;
 }
 
 .spacer {
