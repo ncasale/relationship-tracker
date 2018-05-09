@@ -17,17 +17,13 @@ router.post('/', function(req, res, next) {
         password: bcrypt.hashSync(req.body.password, 10)
     });
 
-    console.log('Creating new user');
-
     user.save(function(err, result) {
         if(err) {
-            console.log('Error creating user');
             return res.status(500).json({
                 title: 'Error while saving new user.',
                 error: err
             })
         }
-        console.log('Successfully created user');
         res.status(201).json({
             title: 'User successfully created',
             obj: result
@@ -40,8 +36,8 @@ router.post('/', function(req, res, next) {
  * Route to log user in
  */
 router.post('/login', function(req, res, next) {
-    console.log(req.body.email);
-    User.findOne({email: req.body.email}, function(err, user) {
+    var emailRegExp = '^' + req.body.email + '$';
+    User.findOne({email: {$regex: new RegExp(emailRegExp, 'i')}}, function(err, user) {
         if(err) {
             return res.status(500).json({
                 title: 'An error occurred',
