@@ -13,14 +13,12 @@ import { MyDashService } from '../mydash.service';
     styleUrls: ['./date-dialog.component.css']
 })
 export class DateDialogComponent implements OnInit{
+    possibleTimes = [];
 
     //Form controls
     title = new FormControl (null, Validators.required);
     location = new FormControl(null, Validators.required);
-    hour = new FormControl(null, [Validators.required,
-        Validators.pattern('^(2[0-3]|[01]?[0-9])$')]);
-    minute = new FormControl(null, [Validators.required,
-        Validators.pattern('^([012345]?[0-9])$')]);
+    dateTime = new FormControl(null, Validators.required);
     dateDate = new FormControl(new Date(), Validators.required);
 
     //Inject services
@@ -36,9 +34,11 @@ export class DateDialogComponent implements OnInit{
         //Prepopulate fields if editing
         this.checkEditTitle();
         this.checkEditLocation();
-        this.checkEditHour();
-        this.checkEditMinute();
+        this.checkEditTime();
         this.checkEditDate();
+
+        //Create array of times that user can select from
+        this.generatePossibleTimes();
     }
 
     /**
@@ -47,11 +47,13 @@ export class DateDialogComponent implements OnInit{
      * @memberof DateDialogComponent
      */
     onSubmitCreate() {
+        var splitTime = this.dateTime.value.split(':', 2);
+        console.log(splitTime);
         var date = new DateObj(
             this.title.value,
             this.location.value,
-            this.hour.value,
-            this.minute.value,
+            splitTime[0],
+            splitTime[1],
             this.dateDate.value,
             undefined,
             this.data.relationship.relationshipId
@@ -75,8 +77,9 @@ export class DateDialogComponent implements OnInit{
         //Alter date
         this.data.date.title = this.title.value;
         this.data.date.location = this.location.value;
-        this.data.date.hour = this.hour.value;
-        this.data.date.minute = this.minute.value;
+        var splitTime = this.dateTime.value.split(':', 2);
+        this.data.date.hour = splitTime[0];
+        this.data.date.minute = splitTime[1];
         this.data.date.date = this.dateDate.value;
         this.dateService.editDate(this.data.date)
             .subscribe((response: any) => {
@@ -112,28 +115,15 @@ export class DateDialogComponent implements OnInit{
     }
 
     /**
-     * Display error message if Hour field invalid
+     * Display error message if Time field invalid
      * 
      * @returns Error
      * @memberof DateDialogComponent
      */
-    getHourErrorMessage() {
-        return this.hour.hasError('required') ? 'You must enter an hour' :
-        this.hour.hasError('pattern') ? 'Not a valid hour' :
-            '';
+    getTimeErrorMessage() {
+        return this.dateTime.hasError('required') ? 'You must select a time' : '';
     }
 
-    /**
-     * Display error message if Minute field invalid
-     * 
-     * @returns Error
-     * @memberof DateDialogComponent
-     */
-    getMinuteErrorMessage() {
-        return this.minute.hasError('required') ? 'You must enter a minute' :
-        this.minute.hasError('pattern') ? 'Not a valid minute' :
-            '';
-    }
 
     /**
      * Display error message if Date field invalid
@@ -168,25 +158,9 @@ export class DateDialogComponent implements OnInit{
         }
     }
 
-    /**
-     * If we are editing, prepopulate dialog with hour of date
-     * 
-     * @memberof DateDialogComponent
-     */
-    checkEditHour() {
-        if(this.data.editHour) {
-            this.hour.setValue(this.data.editHour);
-        }
-    }
-
-    /**
-     * If we are editing, prepopulate dialog with minute of date
-     * 
-     * @memberof DateDialogComponent
-     */
-    checkEditMinute() {
-        if(this.data.editMinute) {
-            this.minute.setValue(this.data.editMinute);
+    checkEditTime() {
+        if(this.data.editHour && this.data.editMinute) {
+            this.dateTime.setValue(this.data.editHour + ':' + this.data.editMinute);
         }
     }
 
@@ -199,6 +173,38 @@ export class DateDialogComponent implements OnInit{
         if(this.data.areEditing) {
             this.dateDate.setValue(this.data.date.date);
         }
+    }
+
+    generatePossibleTimes() {
+        //Create array of times
+        var currHour = 0;
+        var currMin = 0;
+        var currHourStr = '';
+        var currMinStr = '';
+        while(currHour < 24) {
+            //Convert hour to string
+            if(currHour < 9) {
+                currHourStr = '0' + currHour.toString();
+            } else {
+                currHourStr = currHour.toString();
+            }
+            //Convert minute to string
+            if(currMin < 9) {
+                currMinStr = '0' + currMin.toString();
+            } else {
+                currMinStr = currMin.toString();
+            }
+            //Add time to array
+            this.possibleTimes.push(currHourStr + ':' + currMinStr);
+            //Increment time by 15 minutes
+            if(currMin === 45) {
+                currMin = 0;
+                currHour += 1;
+            } else {
+                currMin += 15;
+            }
+        }
+
     }
 
     /**
@@ -220,8 +226,7 @@ export class DateDialogComponent implements OnInit{
     isDateValid() {
         return this.title.valid &&
             this.location.valid &&
-            this.hour.valid &&
-            this.minute.valid &&
+            this.dateTime.valid &&
             this.dateDate.valid;
     }
     

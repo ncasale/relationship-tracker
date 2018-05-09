@@ -6,23 +6,22 @@
         <input matInput placeholder="Title" [formControl]="title" required>
         <mat-error *ngIf="title.invalid">{{getTitleErrorMessage()}}</mat-error>
     </mat-form-field>
-    <br>
     <mat-form-field>
         <input matInput placeholder="Location" [formControl]="location" required>
         <mat-error *ngIf="location.invalid">{{getLocationErrorMessage()}}</mat-error>
     </mat-form-field>
     <br>
     <mat-form-field>
-        <input matInput placeholder="Hour" [formControl]="hour" required>
-        <mat-error *ngIf="hour.invalid">{{getHourErrorMessage()}}</mat-error>
+        <mat-select class="time-select" placeholder="Time" [formControl]="dateTime" required>
+            <mat-option *ngFor="let time of possibleTimes" [value]="time">
+            {{time}}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="dateTime.invalid">{{getTimeErrorMessage()}}</mat-error>
     </mat-form-field>
     <br>
     <mat-form-field>
-        <input matInput placeholder="Minute" [formControl]="minute" required>
-        <mat-error *ngIf="minute.invalid">{{getMinuteErrorMessage()}}</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-        <input matInput [matDatepicker]="dateDatePicker" placeholder="Date" [formControl]="dateDate">
+        <input matInput [matDatepicker]="dateDatePicker" [formControl]="dateDate">
         <mat-datepicker-toggle matSuffix [for]="dateDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #dateDatePicker></mat-datepicker>
         <mat-error *ngIf="dateDate.invalid">{{ getDateErrorMessage() }}</mat-error>

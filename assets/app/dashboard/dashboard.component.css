@@ -55,6 +55,13 @@ button {
     color: #555 !important;
 }
 
+::ng-deep .mat-select-placeholder {
+    color: #555 !important;
+}
+
+::ng-deep .mat-select-arrow {
+    color: #555 !important;
+}
 
 .spacer {
     flex: 1 1 auto;
