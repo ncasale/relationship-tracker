@@ -36,6 +36,7 @@
   transition: background-color 0.2s, border 0.2s;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px; 
+  max-width: 15vw;
 }
 
 .mat-list-item:hover {
