@@ -10,7 +10,8 @@ import { MyDashService } from "../mydash.service";
 
 @Component({
     selector: 'app-fights',
-    templateUrl: './fights.component.html'
+    templateUrl: './fights.component.html',
+    styleUrls: ['./fights.component.css']
 })
 export class FightsComponent implements OnInit, OnDestroy{
     //The currently selected relationship

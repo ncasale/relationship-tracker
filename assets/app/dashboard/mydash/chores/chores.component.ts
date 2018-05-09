@@ -10,7 +10,8 @@ import { MyDashService } from "../mydash.service";
 
 @Component({
     selector: 'app-chores',
-    templateUrl: './chores.component.html'
+    templateUrl: './chores.component.html',
+    styleUrls: ['./chores.component.css']
 })
 export class ChoresComponent implements OnInit, OnDestroy{
     //The relationship to which these chores are attached

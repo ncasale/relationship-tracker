@@ -1,5 +1,4 @@
 <div class="col-md-8 col-md-offset-2">
     <app-fight-card [fight]="fight" *ngFor="let fight of fights"></app-fight-card>
-    <button class="btn btn-site-default" (click)="openCreateFightDialog()">Log Fight</button>
-    <hr>
+    <button mat-fab class="btn-create" (click)="openCreateFightDialog()"><mat-icon class="icon-create">add</mat-icon></button>
 </div>

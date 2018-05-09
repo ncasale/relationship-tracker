@@ -10,7 +10,8 @@ import { MyDashService } from "../mydash.service";
 
 @Component({
   selector: 'app-dates',
-  templateUrl: './dates.component.html'
+  templateUrl: './dates.component.html',
+  styleUrls: ['./dates.component.css']
 })
 export class DatesComponent implements OnInit, OnDestroy {
   relationship: Relationship;
