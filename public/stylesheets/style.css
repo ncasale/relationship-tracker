@@ -52,6 +52,12 @@ mat-card  {
     color: #fff;
 }
 
+.btn-site-default:disabled {
+  background-color: #00aca8;
+  border: 1px solid #00aca8;
+  color: #fff;
+}
+
 .btn-site-danger {
   color: #fff;
   border-radius: 150px;

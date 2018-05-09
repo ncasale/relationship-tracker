@@ -7,7 +7,8 @@ import { MyDashService } from '../mydash/mydash.service';
 
 @Component({
     selector: 'app-create',
-    templateUrl: './create.component.html'
+    templateUrl: './create.component.html',
+    styleUrls: ['./create.component.css']
 })
 export class CreateComponent implements OnInit{
     createForm: FormGroup;
