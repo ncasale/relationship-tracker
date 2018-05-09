@@ -61,7 +61,7 @@ export class DateDialogComponent implements OnInit{
         this.dateService.saveDate(date)
             .subscribe((date: DateObj) => {
                 this.dateService.dateCreatedEmitter.emit(date);
-                this.myDashService.openSnackBar('Date Created.', 'close');
+                this.myDashService.openSnackBar(this.dateOrEvent() + ' Created.', 'close');
             })
 
         //Close the dialog
@@ -84,7 +84,7 @@ export class DateDialogComponent implements OnInit{
         this.dateService.editDate(this.data.date)
             .subscribe((response: any) => {
                 this.dateService.dateEditedEmitter.emit();
-                this.myDashService.openSnackBar('Date Edited.', 'close');
+                this.myDashService.openSnackBar(this.dateOrEvent() + ' Edited.', 'close');
             })
 
         //Close the dialog
@@ -175,7 +175,7 @@ export class DateDialogComponent implements OnInit{
         }
     }
 
-    dateOrEvent() {
+    dateOrEvent() : string {
         if(this.data.relationship.isPlatonic) {
             return "Event";
         } else {

@@ -96,13 +96,17 @@ export class DateCardComponent implements OnInit{
                         .subscribe(
                             (response: any) => {
                                 this.dateService.dateDeletedEmitter.emit(this.date);
-                                this.myDashService.openSnackBar('Date Deleted.', 'close');
+                                this.myDashService.openSnackBar(this.dateOrEvent() + ' Deleted.', 'close');
                             }
                         );
                     
                 }
             }
         )
+    }
+
+    dateOrEvent() {
+        return this.relationship.isPlatonic ? 'Event' : 'Date';
     }
 
 
