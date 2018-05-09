@@ -44,7 +44,7 @@ export class RelationshipService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.post('http://52.91.114.12:80/relationship/add' + token, body, {headers:headers})
+        return this.http.post('http://localhost:3000/relationship/add' + token, body, {headers:headers})
             .map((response: Response) => {
                 const result = response.json();
                 const relationship = new Relationship(
@@ -80,7 +80,7 @@ export class RelationshipService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.post('http://52.91.114.12:80/relationship/getrelationships' + token, body, {headers: headers})
+        return this.http.post('http://localhost:3000/relationship/getrelationships' + token, body, {headers: headers})
             .map((response: Response) => {
                     const relationships = response.json().obj;
                     let transformedRelationships: Relationship[] = [];
@@ -119,7 +119,7 @@ export class RelationshipService {
         //Get token
         const token = this.getToken();
         //Construct the patch request
-        return this.http.patch('http://52.91.114.12:80/relationship/invite/' + email + '/' + relationship.relationshipId + token, body, {headers: headers})
+        return this.http.patch('http://localhost:3000/relationship/invite/' + email + '/' + relationship.relationshipId + token, body, {headers: headers})
             .map((response: Response) => {
                 response.json()
             })
@@ -143,7 +143,7 @@ export class RelationshipService {
         //Get token
         const token = this.getToken();
         //Create post request
-        return this.http.post('http://52.91.114.12:80/relationship/getinvitedrelationships' + token,
+        return this.http.post('http://localhost:3000/relationship/getinvitedrelationships' + token,
             body, {headers:headers})
             .map((response: Response) => {
                 const invitedRelationships = response.json().obj;
@@ -179,7 +179,7 @@ export class RelationshipService {
         //Get token
         const token = this.getToken();
         //Generate request
-        return this.http.patch('http://52.91.114.12:80/relationship/declineinvite/' + inviteId + token, body, {headers:headers})
+        return this.http.patch('http://localhost:3000/relationship/declineinvite/' + inviteId + token, body, {headers:headers})
             .map((response: Response) => response.json())
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
@@ -202,7 +202,7 @@ export class RelationshipService {
         //Get token
         const token = this.getToken();
         //Construct request
-        return this.http.patch('http://52.91.114.12:80/relationship/acceptinvite/' + inviteId + token, body, {headers: headers})
+        return this.http.patch('http://localhost:3000/relationship/acceptinvite/' + inviteId + token, body, {headers: headers})
             .map((response: Response) => {
                 response.json()
             })
@@ -227,7 +227,7 @@ export class RelationshipService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.post('http://52.91.114.12:80/relationship/getusers/' + relationshipId + token, body, {headers:headers})
+        return this.http.post('http://localhost:3000/relationship/getusers/' + relationshipId + token, body, {headers:headers})
             .map((response: Response) => {
                 return response.json().obj;
             })
@@ -246,7 +246,7 @@ export class RelationshipService {
         //Get Token
         const token = this.getToken();
         //Create request
-        return this.http.patch('http://52.91.114.12:80/relationship/leave/' + relationshipId + token, body, {headers:headers})
+        return this.http.patch('http://localhost:3000/relationship/leave/' + relationshipId + token, body, {headers:headers})
             .map((response: Response) => {
                 return response.json().obj;
             })
@@ -273,7 +273,7 @@ export class RelationshipService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.post('http://52.91.114.12:80/relationship/getrelationshipsbyid/' + token, body, {headers:headers})
+        return this.http.post('http://localhost:3000/relationship/getrelationshipsbyid/' + token, body, {headers:headers})
             .map((response: Response) => {
                 //Transform relationships array into frontend relationships
                 var relationships = response.json().obj;
