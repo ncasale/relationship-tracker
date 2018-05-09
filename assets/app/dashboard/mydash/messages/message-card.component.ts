@@ -86,7 +86,7 @@ export class MessageCardComponent implements OnInit{
                             (response: any) => {
                                 //Send signal to delete message from MessagesComponent
                                 this.messagesService.messageDeletedEmitter.emit(this.message);
-                                this.myDashService.openSnackBar('Message Deleted.', 'close');
+                                //this.myDashService.openSnackBar('Message Deleted.', 'close');
                             }
                         );
                 }

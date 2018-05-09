@@ -89,7 +89,7 @@ export class MessagesComponent implements OnInit, OnDestroy, AfterViewChecked{
         .subscribe(
             (message: Message) => {
                 //Update frontend messages array
-                this.myDashService.openSnackBar('Message Created.', 'close');
+                //this.myDashService.openSnackBar('Message Created.', 'close');
                 this.messages.push(message);
             }
         );

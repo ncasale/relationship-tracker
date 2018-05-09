@@ -194,6 +194,7 @@ export class MyDashComponent implements OnInit, OnDestroy{
                         })
                         this.router.navigateByUrl('/dashboard/mydash/messages');
                         this.selectedRelationship = this.relationships[0];
+                        this.messagesSelected = true;
                         this.myDashService.setCurrentRelationship(this.selectedRelationship);
                         this.noRelationships = false;
                     }
