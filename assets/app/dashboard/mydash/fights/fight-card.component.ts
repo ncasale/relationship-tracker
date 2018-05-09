@@ -112,6 +112,9 @@ export class FightCardComponent implements OnInit{
      */
     openAppendFightDialog() {
         let dialogRef = this.fightAppendDialog.open(FightAppendDialogComponent, {
+            position: {
+                top: '10vh',
+            },
             width: "750px",
             data: {
                 fight: this.fight
@@ -147,6 +150,9 @@ export class FightCardComponent implements OnInit{
     deleteFight() {
         //Open delete confirm dialog
         var dialogRef = this.deleteDialog.open(DeleteItemDialogComponent, {
+            position: {
+                top: '10vh'
+            },
             width: '500px'
         })
         dialogRef.afterClosed().subscribe(
