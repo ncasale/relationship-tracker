@@ -76,7 +76,8 @@ export class ChoreCardComponent implements OnInit{
                 chore: this.chore,
                 relationshipId: this.chore.relationshipId,
                 areEditing: true
-            }
+            },
+            autoFocus: false
         })
         
     }
