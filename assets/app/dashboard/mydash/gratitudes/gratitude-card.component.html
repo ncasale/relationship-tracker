@@ -7,8 +7,21 @@
     <mat-card-content>
         <p>{{gratitude.text}}</p>
     </mat-card-content>
-    <mat-card-actions>
-        <button mat-button (click)="editGratitude()">Edit</button>
-        <button mat-button (click)="deleteGratitude()">Delete</button>
-    </mat-card-actions>
+    <mat-card-footer>
+        <div class="author">
+            {{ firstname }} : {{ timestamp }}
+        </div>
+        <div class="spacer"></div>
+        <div class="buttons">
+            <button mat-icon-button *ngIf="isMyGratitude()" (click)="editGratitude()"><mat-icon>edit</mat-icon></button>
+            <button mat-icon-button *ngIf="isMyGratitude()" (click)="deleteGratitude()"><mat-icon>delete</mat-icon></button>
+        </div>
+    </mat-card-footer>
+    <!--
+        <mat-card-actions>
+            <button mat-button (click)="editGratitude()">Edit</button>
+            <button mat-button (click)="deleteGratitude()">Delete</button>
+        </mat-card-actions>
+
+    -->
 </mat-card>

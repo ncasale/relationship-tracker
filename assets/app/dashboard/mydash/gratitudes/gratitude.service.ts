@@ -41,9 +41,9 @@ export class GratitudeService {
                     gratitude._id,
                     gratitude.relationshipId,
                     gratitude.createTimestamp,
-                    gratitude.createUser,
+                    gratitude.createUserId,
                     gratitude.editTimestamp,
-                    gratitude.editUser
+                    gratitude.editUserId
                 );
                 return transformedGratitude;
             })
@@ -79,9 +79,9 @@ export class GratitudeService {
                         gratitude._id,
                         gratitude.relationshipId,
                         gratitude.createTimestamp,
-                        gratitude.createUser,
+                        gratitude.createUserId,
                         gratitude.editTimestamp,
-                        gratitude.editUser
+                        gratitude.editUserId
                     ));
                 }
                 return transformedGratitudes;
@@ -115,9 +115,9 @@ export class GratitudeService {
                     gratitude._id,
                     gratitude.relationshipId,
                     gratitude.createTimestamp,
-                    gratitude.createUser,
+                    gratitude.createUserId,
                     gratitude.editTimestamp,
-                    gratitude.editUser
+                    gratitude.editUserId
                 );
                 return transformedGratitude;
             })

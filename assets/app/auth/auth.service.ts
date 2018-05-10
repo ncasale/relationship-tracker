@@ -77,7 +77,7 @@ export class AuthService {
      * Return a user from the database with the passed userId
      * 
      * @param {string} userId ID of user to return 
-     * @returns JSON representation of user
+     * @returns User Object
      * @memberof AuthService
      */
     getUser(userId: string) {

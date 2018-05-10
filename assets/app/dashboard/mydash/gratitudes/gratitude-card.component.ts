@@ -1,26 +1,55 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Gratitude } from "./gratitude.model";
 import { GratitudeService } from "./gratitude.service";
 import { GratitudeDialogComponent } from "./gratitude-dialog.component";
 import { MatDialog } from "@angular/material";
 import { DeleteItemDialogComponent } from "../common/delete-item-dialog.component";
 import { MyDashService } from "../mydash.service";
+import { AuthService } from "../../../auth/auth.service";
+import { User } from "../../../auth/user.model";
+import { DatePipe } from "@angular/common";
 
 @Component({
     selector: 'app-gratitude-card',
     templateUrl: './gratitude-card.component.html',
     styleUrls: ['./gratitude-card.component.css']
 })
-export class GratitudeCardComponent {
+export class GratitudeCardComponent implements OnInit{
     @Input() gratitude: Gratitude;
+
+    //First and last name of user who created gratitude
+    firstname: string = '';
+    lastname: string = '';
+    timestamp: string = '';
+    timestampFormat: 'MM/dd/yy';
 
     //Inject services
     constructor(
         private gratitudeService: GratitudeService,
         private myDashService: MyDashService,
+        private authService: AuthService,
+        private datePipe: DatePipe,
         public editGratitudeDialog: MatDialog,
         public deleteDialog: MatDialog
     ){}
+
+    ngOnInit() {
+        //Get first and last name of user
+        console.log(this.gratitude);
+        this.authService.getUser(this.gratitude.createUser).subscribe(
+            (user: User) => {
+                this.firstname = user.firstname;
+                this.lastname = user.lastname;
+            }
+        )
+
+        //Format timestamp
+        if(!this.gratitude.editTimestamp) {
+            this.timestamp = this.datePipe.transform(this.gratitude.createTimestamp, this.timestampFormat);
+        } else {
+            this.timestamp = this.datePipe.transform(this.gratitude.editTimestamp, this.timestampFormat + ' *');
+        }
+    }
 
     /**
      * Open edit gratitude dialog
@@ -62,5 +91,15 @@ export class GratitudeCardComponent {
                 }
             }
         )
+    }
+
+    /**
+     * Checks if this gratitude belongs to the current user
+     * 
+     * @returns true if gratitude belongs to user, false otherwise
+     * @memberof GratitudeCardComponent
+     */
+    isMyGratitude() {
+        return this.gratitude.createUser == localStorage.getItem('userId');
     }
 }
