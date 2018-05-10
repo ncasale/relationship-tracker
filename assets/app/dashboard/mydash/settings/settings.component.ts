@@ -60,16 +60,18 @@ export class SettingsComponent implements OnInit, OnDestroy{
             width: "500px",
             data: {
                 relationship: this.relationship
-            }
+            },
+            autoFocus: false
         })
     }
 
     openLeaveRelationshipDialog() {
-        this.leaveDialog.open(LeaveDialogComponent, {
+        let dialogRef = this.leaveDialog.open(LeaveDialogComponent, {
             width: '750px', 
             data: {
                 relationship: this.relationship
-            }
+            },
+            autoFocus: false
         })
         
     }

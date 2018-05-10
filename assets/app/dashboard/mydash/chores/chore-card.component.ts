@@ -89,8 +89,9 @@ export class ChoreCardComponent implements OnInit{
      */
     deleteChore() {
         //Open delete item dialog
-        var dialogRef = this.deleteDialog.open(DeleteItemDialogComponent, {
-            width: '500px'
+        let dialogRef = this.deleteDialog.open(DeleteItemDialogComponent, {
+            width: '500px',
+            autoFocus: false
         })
         dialogRef.afterClosed().subscribe(
             result => {

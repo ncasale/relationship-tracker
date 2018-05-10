@@ -69,12 +69,13 @@ export class GratitudesComponent implements OnInit{
      * @memberof GratitudesComponent
      */
     openCreateGratitudeDialog() {
-        this.gratitudeDialog.open(GratitudeDialogComponent, {
+        let dialogRef = this.gratitudeDialog.open(GratitudeDialogComponent, {
             width: '500px',
             data: {
                 areEditing: false,
                 relationship: this.relationship
-            }
+            },
+            autoFocus: false
         })
     }
 }

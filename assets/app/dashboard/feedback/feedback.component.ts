@@ -54,8 +54,9 @@ export class FeedbackComponent implements OnInit{
      * @memberof FeedbackComponent
      */
     openFeedbackDialog() {
-        this.feedbackDialog.open(FeedbackDialogComponent, {
-            width: '500px'
+        let dialogRef = this.feedbackDialog.open(FeedbackDialogComponent, {
+            width: '500px',
+            autoFocus: false
         });
     }
 }

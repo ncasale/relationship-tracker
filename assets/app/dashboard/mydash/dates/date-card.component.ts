@@ -78,7 +78,8 @@ export class DateCardComponent implements OnInit{
               editHour: this.date.hour,
               editMinute: this.date.minute,
               date: this.date
-            }
+            },
+            autoFocus: false
         });
     }
 
@@ -89,8 +90,9 @@ export class DateCardComponent implements OnInit{
      */
     deleteDate() {
         //Open delete item dialog
-        var dialogRef = this.deleteDialog.open(DeleteItemDialogComponent, {
-            width: '500px'
+        let dialogRef = this.deleteDialog.open(DeleteItemDialogComponent, {
+            width: '500px',
+            autoFocus: false
         })
         dialogRef.afterClosed().subscribe(
             result => {

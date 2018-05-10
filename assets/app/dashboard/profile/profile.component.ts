@@ -41,8 +41,9 @@ export class ProfileComponent implements OnInit{
     }
 
     openChangePasswordDialog() {
-        this.changePasswordDialog.open(ChangePasswordDialogComponent, {
-            width: '750px'
+        let dialogRef = this.changePasswordDialog.open(ChangePasswordDialogComponent, {
+            width: '750px',
+            autoFocus: false
         })
     }
 

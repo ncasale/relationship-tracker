@@ -28,12 +28,13 @@ export class GratitudeCardComponent {
      * @memberof GratitudeCardComponent
      */
     editGratitude() {
-        this.editGratitudeDialog.open(GratitudeDialogComponent, {
+        let dialogRef = this.editGratitudeDialog.open(GratitudeDialogComponent, {
             width: '500px',
             data: {
                 areEditing: true,
                 gratitude: this.gratitude
-            }
+            },
+            autoFocus: false
         })
     }
 
@@ -43,8 +44,9 @@ export class GratitudeCardComponent {
      * @memberof GratitudeCardComponent
      */
     deleteGratitude() {
-        var dialogRef = this.deleteDialog.open(DeleteItemDialogComponent, {
-            width: '500px'
+        let dialogRef = this.deleteDialog.open(DeleteItemDialogComponent, {
+            width: '500px',
+            autoFocus: false
         });
 
         dialogRef.afterClosed().subscribe(

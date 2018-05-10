@@ -104,7 +104,8 @@ export class FightCardComponent implements OnInit{
                 fight: this.fight,
                 relationshipId: this.fight.relationshipId,
                 areEditing: true
-            }
+            },
+            autoFocus: false
         }) 
     }
 
@@ -121,7 +122,8 @@ export class FightCardComponent implements OnInit{
             width: "750px",
             data: {
                 fight: this.fight
-            }
+            },
+            autoFocus: false
         })
     }
 
@@ -139,7 +141,8 @@ export class FightCardComponent implements OnInit{
             height: '750px',
             data: {
                 fight: this.fight
-            }
+            },
+            autoFocus: false
         })
     }
 
@@ -152,11 +155,12 @@ export class FightCardComponent implements OnInit{
      */
     deleteFight() {
         //Open delete confirm dialog
-        var dialogRef = this.deleteDialog.open(DeleteItemDialogComponent, {
+        let dialogRef = this.deleteDialog.open(DeleteItemDialogComponent, {
             position: {
                 top: '10vh'
             },
-            width: '500px'
+            width: '500px',
+            autoFocus: false
         })
         dialogRef.afterClosed().subscribe(
             result => {
