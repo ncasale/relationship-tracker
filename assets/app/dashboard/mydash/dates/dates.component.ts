@@ -79,6 +79,9 @@ export class DatesComponent implements OnInit, OnDestroy {
    */
   openCreateDateDialog(): void {
     let dialogRef = this.addDialog.open(DateDialogComponent, {
+      position: {
+        top: '10vh'
+    },
       width: '500px',
       data: {
         relationship: this.relationship,

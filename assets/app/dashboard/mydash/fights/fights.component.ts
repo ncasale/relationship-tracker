@@ -80,6 +80,9 @@ export class FightsComponent implements OnInit, OnDestroy{
      */
     openCreateFightDialog() : void {
         let dialogRef = this.createFightDialog.open(FightDialogComponent , {
+            position: {
+                top: '10vh'
+            },
             width: '500px',
             data: {
               relationshipId: this.relationship.relationshipId,

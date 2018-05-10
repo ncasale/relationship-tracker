@@ -68,6 +68,9 @@ export class ChoreCardComponent implements OnInit{
      */
     editChore() {
         let dialogRef = this.choreDialog.open(ChoreDialogComponent, {
+            position: {
+                top: '10vh'
+            },
             width: "500px",
             data: {
                 chore: this.chore,

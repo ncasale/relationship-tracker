@@ -54,6 +54,9 @@ export class SettingsComponent implements OnInit, OnDestroy{
      */
     showInviteDialog() {
         let dialogRef = this.inviteDialog.open(InviteDialogComponent, {
+            position: {
+                top: '10vh'
+            },
             width: "500px",
             data: {
                 relationship: this.relationship

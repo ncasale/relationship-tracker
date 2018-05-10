@@ -80,6 +80,9 @@ export class ChoresComponent implements OnInit, OnDestroy{
      */
     openCreateChoreDialog() : void {
         let dialogRef = this.createChoreDialog.open(ChoreDialogComponent , {
+            position: {
+                top: '10vh'
+            },
             width: '500px',
             data: {
               relationshipId: this.relationship.relationshipId,

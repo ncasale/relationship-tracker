@@ -66,6 +66,9 @@ export class DateCardComponent implements OnInit{
     editDate() {
         //Open up our edit dialog
         let dialogRef = this.dateDialog.open(DateDialogComponent, {
+            position: {
+                top: '10vh'
+            },
             width: '500px',
             data: {
               relationship: this.relationship,

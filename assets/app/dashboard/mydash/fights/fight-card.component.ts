@@ -96,6 +96,9 @@ export class FightCardComponent implements OnInit{
      */
     openEditFightDialog() {
         let dialogRef = this.fightDialog.open(FightDialogComponent, {
+            position: {
+                top: '10vh'
+            },
             width: "500px",
             data:{
                 fight: this.fight,

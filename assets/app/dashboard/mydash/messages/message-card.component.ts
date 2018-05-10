@@ -64,6 +64,9 @@ export class MessageCardComponent implements OnInit{
      */
     openEditDialog(): void {
         let dialogRef = this.editDialog.open(MessageEditComponent, {
+            position: {
+                top: '10vh'
+            },
             width: '500px',
             data: {message: this.message}
         });        
