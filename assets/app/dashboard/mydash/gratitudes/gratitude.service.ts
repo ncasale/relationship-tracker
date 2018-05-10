@@ -32,7 +32,7 @@ export class GratitudeService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.post('http://localhost:3000/gratitude/add' + token, body, {headers:headers})
+        return this.http.post('http://52.91.114.12:80/gratitude/add' + token, body, {headers:headers})
             .map((response: Response) => {
                 var gratitude = response.json().obj;
                 var transformedGratitude = new Gratitude(
@@ -68,7 +68,7 @@ export class GratitudeService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.post('http://localhost:3000/gratitude/getgratitudes/' + relationshipId + token, body, {headers:headers})
+        return this.http.post('http://52.91.114.12:80/gratitude/getgratitudes/' + relationshipId + token, body, {headers:headers})
             .map((response: Response) => {
                 var gratitudes = response.json().obj;
                 var transformedGratitudes = [];
@@ -106,7 +106,7 @@ export class GratitudeService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.patch('http://localhost:3000/gratitude/edit' + token, body, {headers:headers})
+        return this.http.patch('http://52.91.114.12:80/gratitude/edit' + token, body, {headers:headers})
             .map((response: Response) => {
                 var gratitude = response.json().obj;
                 var transformedGratitude = new Gratitude(
@@ -140,7 +140,7 @@ export class GratitudeService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.delete('http://localhost:3000/gratitude/delete/' + gratitudeId + token, {headers:headers})
+        return this.http.delete('http://52.91.114.12:80/gratitude/delete/' + gratitudeId + token, {headers:headers})
             .map((response: Response) => {
                 return response.json().obj;
             })
