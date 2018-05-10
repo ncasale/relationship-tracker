@@ -35,7 +35,7 @@ export class FightService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.post('http://localhost:3000/fight/add' + token, body, {headers:headers})
+        return this.http.post('http://52.91.114.12:80/fight/add' + token, body, {headers:headers})
             .map((response: Response) => {
                 return response.json().obj;
             })
@@ -60,7 +60,7 @@ export class FightService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.post('http://localhost:3000/fight/getfights/' + relationshipId + token, body, {headers:headers})
+        return this.http.post('http://52.91.114.12:80/fight/getfights/' + relationshipId + token, body, {headers:headers})
             .map((response: Response) => {
                 var fights = response.json().obj;
                 var transformedFights = [];
@@ -102,7 +102,7 @@ export class FightService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.patch('http://localhost:3000/fight/edit' + token, body, {headers:headers})
+        return this.http.patch('http://52.91.114.12:80/fight/edit' + token, body, {headers:headers})
             .map((response: Response) => {
                 return response.json().obj;
             })
@@ -125,7 +125,7 @@ export class FightService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.delete('http://localhost:3000/fight/delete/' + fightId + token, {headers:headers})
+        return this.http.delete('http://52.91.114.12:80/fight/delete/' + fightId + token, {headers:headers})
             .map((response: Response) => {
                 return response.json().obj;
             })
@@ -150,7 +150,7 @@ export class FightService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.post('http://localhost:3000/fight/checkUserSubmittedInfo/' + fightId + token, body, {headers:headers})
+        return this.http.post('http://52.91.114.12:80/fight/checkUserSubmittedInfo/' + fightId + token, body, {headers:headers})
             .map((response: Response) => {
                 var fight = response.json().obj;
                 return new Fight(
