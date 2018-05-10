@@ -87,7 +87,8 @@ export class ChoresComponent implements OnInit, OnDestroy{
             data: {
               relationshipId: this.relationship.relationshipId,
               areEditing: false
-            }
+            },
+            autoFocus: false
         });        
       }  
 

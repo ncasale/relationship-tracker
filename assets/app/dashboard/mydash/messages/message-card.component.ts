@@ -68,7 +68,8 @@ export class MessageCardComponent implements OnInit{
                 top: '10vh'
             },
             width: '500px',
-            data: {message: this.message}
+            data: {message: this.message},
+            autoFocus: false
         });        
     }
 

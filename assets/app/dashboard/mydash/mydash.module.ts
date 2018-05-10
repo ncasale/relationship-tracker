@@ -74,7 +74,7 @@ import { GratitudeDialogComponent } from "./gratitudes/gratitude-dialog.componen
         MatSnackBarModule,
         MatButtonModule,
         MatCardModule,
-        MatIconModule
+        MatIconModule,
     ],
     entryComponents: [
         MessageEditComponent,

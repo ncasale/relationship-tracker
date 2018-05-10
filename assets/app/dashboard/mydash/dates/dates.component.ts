@@ -86,7 +86,8 @@ export class DatesComponent implements OnInit, OnDestroy {
       data: {
         relationship: this.relationship,
         areEditing: false
-      }
+      },
+      autoFocus: false
     });
   }
 
