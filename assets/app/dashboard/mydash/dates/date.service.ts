@@ -32,7 +32,7 @@ export class DateService {
         //Get token
         const token = this.getToken();
         //Generate our request
-        return this.http.post('http://localhost:3000/date/add/' + token, body, {headers:headers})
+        return this.http.post('http://52.91.114.12:80/date/add/' + token, body, {headers:headers})
             .map((response: Response) => {
                 //Create a date object from response
                 var date = response.json().obj;
@@ -70,7 +70,7 @@ export class DateService {
         //Get token
         const token = this.getToken();
         //Generate request
-        return this.http.post('http://localhost:3000/date/getdates/' + relationshipId + token, body, {headers:headers})
+        return this.http.post('http://52.91.114.12:80/date/getdates/' + relationshipId + token, body, {headers:headers})
             .map((response: any) => {
                 var dates = response.json().obj;
                 var transformedDates = [];
@@ -112,7 +112,7 @@ export class DateService {
         //Get token
         const token = this.getToken();
         //Create a request
-        return this.http.patch('http://localhost:3000/date/edit' + token, body, {headers:headers})
+        return this.http.patch('http://52.91.114.12:80/date/edit' + token, body, {headers:headers})
             .map((response: Response) => {
                 return response.json().obj;
             })
@@ -135,7 +135,7 @@ export class DateService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.delete('http://localhost:3000/date/delete/' + dateId + token, {headers:headers})
+        return this.http.delete('http://52.91.114.12:80/date/delete/' + dateId + token, {headers:headers})
             .map((response: Response) => {
                 return response.json().obj;
             })
