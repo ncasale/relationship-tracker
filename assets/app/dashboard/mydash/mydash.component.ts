@@ -205,6 +205,7 @@ export class MyDashComponent implements OnInit, OnDestroy{
             )
     }
 
+    
     getDateTabName() {
         if(this.selectedRelationship.isPlatonic) {
             return "Events";
@@ -213,7 +214,12 @@ export class MyDashComponent implements OnInit, OnDestroy{
         }
     }
 
-    //
+    /**
+     * Selects the appropriate sidenav tab to apply correct styling
+     * 
+     * @param {string} tabName the tab that is currently selected
+     * @memberof MyDashComponent
+     */
     sideNavSelect(tabName: string) {
         //Reset all tabs
         this.relationshipSelected = false;
@@ -266,7 +272,31 @@ export class MyDashComponent implements OnInit, OnDestroy{
         }
     }
 
+    /**
+     * Toggles whether the sidenav is expanded or not
+     * 
+     * @memberof MyDashComponent
+     */
     toggleSideNav() {
         this.isSidenavExpanded = !this.isSidenavExpanded;
+    }
+    
+    /**
+     * Returns the title of the relationship to display in the sidenav. If the title is too
+     * long, it is truncated to avoid overlapping the content area
+     * 
+     * @returns the relationship title to display in the sidenav
+     * @memberof MyDashComponent
+     */
+    getSelectedRelationshipTitle() {
+        if(this.selectedRelationship) {
+            //If title is longer than character limit, truncate
+            var characterLimit = 12;
+            if(this.selectedRelationship.title.length >= characterLimit) {
+                return this.selectedRelationship.title.substr(0, characterLimit-3) + '...';
+            } else {
+                return this.selectedRelationship.title;
+            }
+        }
     }
 }

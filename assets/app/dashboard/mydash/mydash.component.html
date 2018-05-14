@@ -2,7 +2,7 @@
 <mat-sidenav #sidenav mode="side" opened="true" class="example-sidenav">
     <mat-nav-list *ngIf="!relationshipSelected"> 
             <a mat-list-item disableRipple (click)="sideNavSelect('relationship')"
-            [ngClass]="{'acitve-nav-list-item': relationshipSelected}"><mat-icon class="sidenav-icon">people</mat-icon><p *ngIf="isSidenavExpanded">{{selectedRelationship.title}}</p></a>
+            [ngClass]="{'acitve-nav-list-item': relationshipSelected}"><mat-icon class="sidenav-icon">people</mat-icon><p *ngIf="isSidenavExpanded">{{getSelectedRelationshipTitle()}}</p></a>
 
             <a mat-list-item disableRipple [routerLink]="['messages']" (click)="sideNavSelect('messages')"
             [ngClass]="{'acitve-nav-list-item': messagesSelected}"><mat-icon class="sidenav-icon">chat</mat-icon><p *ngIf="isSidenavExpanded">Messages</p></a>

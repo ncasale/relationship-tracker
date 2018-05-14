@@ -14,7 +14,8 @@
     display: flex;
     align-items: top;
     justify-content: center;
-    background:	#fafafa
+    background:	#fafafa;
+    margin-right: 3%;
 }
 
 .collapsed-sidenav-content {
@@ -49,6 +50,7 @@
 
 .mat-list-item p {
   padding-left: 10%;
+  padding-right: 10%;
   text-align: center;
   margin-bottom: 0;
 }
