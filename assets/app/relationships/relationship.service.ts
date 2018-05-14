@@ -1,8 +1,9 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 
-import "rxjs/Rx";
-import { Observable } from "rxjs";
+import { Observable } from "rxjs/Observable";
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 import { Relationship } from './relationship.model';
 import { Router } from '@angular/router';

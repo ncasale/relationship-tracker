@@ -11,7 +11,6 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { MessagesComponent } from "./messages/messages.component";
 import { MessageCardComponent } from "./messages/message-card.component";
 import { ngMaterialDatePicker } from 'ng-material-datetimepicker'
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime'
 import { SettingsComponent } from "./settings/settings.component";
 import { MessageEditComponent } from "./messages/message-edit.component";
 import { DateCardComponent } from "./dates/date-card.component";

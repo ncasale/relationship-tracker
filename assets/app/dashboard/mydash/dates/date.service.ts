@@ -3,8 +3,9 @@ import { Http, Headers, Response } from "@angular/http";
 import { DateObj } from "./dateObj.model";
 import { ErrorService } from "../../../error/error.service";
 
-import "rxjs/Rx"
-import { Observable } from "rxjs";
+import { Observable } from "rxjs/Observable";
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class DateService {

@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var compression = require('compression');
 
 var appRoutes = require('./routes/app');
 var authRoutes = require('./routes/auth');
@@ -18,6 +19,7 @@ var gratitudeRoutes = require('./routes/gratitude');
 var feedbackRoutes = require('./routes/feedback');
 
 var app = express();
+app.use(compression());
 
 //Connect to MongoDB using Mongoose
 mongoose.connect('mongodb://root:pass@ds231749.mlab.com:31749/relationship-manager', function(err, db) {

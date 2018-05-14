@@ -1,5 +1,7 @@
 var webpack = require('webpack');
 
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 module.exports = {
     entry: {
         'app': './assets/app/main.ts'
@@ -31,5 +33,10 @@ module.exports = {
         ],
         exprContextCritical: false
 
-    }
+    }/*,
+
+ 
+    plugins: [
+        new BundleAnalyzerPlugin()
+    ]*/
 };

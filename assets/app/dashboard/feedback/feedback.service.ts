@@ -2,8 +2,10 @@ import { Injectable, EventEmitter } from "@angular/core";
 import { Http, Headers, Response } from "@angular/http";
 import { Feedback } from './feedback.model'
 import { ErrorService } from "../../error/error.service";
-import { Observable } from 'rxjs/Observable';
 import { MatSnackBar } from "@angular/material";
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Injectable() 
 export class FeedbackService {
