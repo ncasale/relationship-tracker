@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
+var utils = require('./utils');
 
 var DateModel = require('../models/date');
 var Relationship = require('../models/relationship');
@@ -50,26 +51,45 @@ router.post('/add', function(req, res, next) {
         createUserId: decoded.user._id
     });
 
-    //Save date
-    newDate.save(function(err, savedDate) {
+    //Check that user is authorized to save date to this relationship
+    newDate.populate('relationshipId', function(err) {
         if(err) {
             return res.status(500).json({
                 title: 'An error occurred',
                 error: err
             })
         }
-        if(!savedDate) {
-            return res.status(500).json({
-                title: 'An error occurred',
-                error: {message: 'Error while saving date'}
+        //Function to call if user authorized
+        function saveDate() {
+            newDate.save(function(err, savedDate) {
+                if(err) {
+                    return res.status(500).json({
+                        title: 'An error occurred',
+                        error: err
+                    })
+                }
+                if(!savedDate) {
+                    return res.status(500).json({
+                        title: 'An error occurred',
+                        error: {message: 'Error while saving date'}
+                    })
+                }
+                return res.status(200).json({
+                    title: 'Date saved',
+                    obj: savedDate
+                })
             })
         }
-        return res.status(200).json({
-            title: 'Date saved',
-            obj: savedDate
-        })
+        //Function to call if user not authorized
+        function unAuth() {
+            return res.status(401).json({
+                title: 'Unauthorized',
+                error: {message: 'Unauthorized'}
+            })
+        }
+        //Check authorization
+        utils.checkRelationship(decoded, newDate.relationshipId.users, saveDate, unAuth);
     })
-
 })
 
 /**
@@ -77,9 +97,8 @@ router.post('/add', function(req, res, next) {
  */
 router.post('/getdates/:relationshipId', function(req, res, next) {
     //Decode token
-    var decoded = jwt.decode(req.query.token);
+    let decoded = jwt.decode(req.query.token);
     //Find relationship
-    console.log('Finding relationship...');
     Relationship.findById(req.params.relationshipId, function(err, relationship) {
         if(err){
             return res.status(500).json({
@@ -93,34 +112,32 @@ router.post('/getdates/:relationshipId', function(req, res, next) {
                 error: {message: 'Relationship not found'}
             })
         }
-        
-        //Check to see if this user a member of the relationship
-        console.log('Found relationship...');
-        var userMatch = false;
-        for(var counter=0; counter < relationship.users.length; counter++) {
-            if(relationship.users[counter] == decoded.user._id) {
-                userMatch = true;
-            }
-            console.log(counter, relationship.users.length);
-            if(counter >= relationship.users.length - 1 && userMatch) {
-                //Users match -- get all dates for this relationship
-                console.log('User match...');
-                DateModel.find({relationshipId: req.params.relationshipId}, function(err, dates) {
-                    if(err) {
-                        return res.status(500).json({
-                            title: 'An error occurred', 
-                            error: err
-                        })
-                    }
-                    console.log('Returning...');
-                    //Return array of dates, even if null
-                    return res.status(200).json({
-                        title: "Dates found",
-                        obj: dates
+        //Found relationship, see if user is authorized to get dates
+        //Function to call if user is authorized
+        function getDates() {
+            DateModel.find({relationshipId: req.params.relationshipId}, function(err, dates) {
+                if(err) {
+                    return res.status(500).json({
+                        title: 'An error occurred', 
+                        error: err
                     })
+                }
+                //Return array of dates, even if null
+                return res.status(200).json({
+                    title: "Dates found",
+                    obj: dates
                 })
-            }
+            })
         }
+        //Function to call if user is unauthorized
+        function unAuth() {
+            return res.status(401).json({
+                title: 'Unauthorized',
+                error: {message: 'Unauthorized'}
+            })
+        }
+        //Check authorization
+        utils.checkRelationship(decoded, relationship.users, getDates, unAuth);
     })
 })
 
@@ -144,33 +161,48 @@ router.patch('/edit', function(req, res, next) {
                 error: {message: 'Date not found'}
             })
         }
-        if(decoded.user._id != date.createUserId) {
-            return res.status(401).json({
-                title: 'Not Authenticated',
-                error: {message: 'Not Authenticated'}
-            })
-        }
-        //Edit date
-        date.title = req.body.title;
-        date.location = req.body.location;
-        date.hour = req.body.hour;
-        date.minute = req.body.minute;
-        date.date = req.body.date;
-        date.editTimestamp = Date.now();
-        date.editUserId = decoded.user._id;
-        //Save date
-        date.save(function(err, result) {
+        //See if user is authorized to edit date
+        date.populate('relationshipId', function(err) {
             if(err) {
                 return res.status(500).json({
                     title: 'An error occurred',
                     error: err
                 })
             }
-            //Return success
-            return res.status(201).json({
-                title: 'Date edited',
-                obj: result
-            })
+            //Function to call if user authorized
+            function editDate() {
+                //Edit date
+                date.title = req.body.title;
+                date.location = req.body.location;
+                date.hour = req.body.hour;
+                date.minute = req.body.minute;
+                date.date = req.body.date;
+                date.editTimestamp = Date.now();
+                date.editUserId = decoded.user._id;
+                //Save date
+                date.save(function(err, result) {
+                    if(err) {
+                        return res.status(500).json({
+                            title: 'An error occurred',
+                            error: err
+                        })
+                    }
+                    //Return success
+                    return res.status(201).json({
+                        title: 'Date edited',
+                        obj: result
+                    })
+                })
+            }
+            //Function to call if user unauthorized
+            function unAuth() {
+                return res.status(401).json({
+                    title: 'Unauthorized',
+                    error: {message: 'Unauthorized'}
+                })
+            }
+            //Check authorization
+            utils.checkRelationship(decoded, date.relationshipId.users, editDate, unAuth);
         })
     })
 })
@@ -195,25 +227,33 @@ router.delete('/delete/:id', function(req, res, next) {
                 error: {message: "Date not found"}
             })
         }
-        if(date.createUserId != decoded.user._id) {
-            return res.status(401).json({
-                title: "Not Authenticated",
-                error: {message: "Not Authenticated"}
-            })
-        }
-        //Delete date from database
-        date.remove(function(err, result) {
-            if(err) {
-                return res.status(500).json({
-                    title: "An error occurred",
-                    error: err
+        //See if user authorized to delete date
+        date.populate('relationshipId', function(err) {
+            //Function to call if user authorized
+            function deleteDate() {
+                date.remove(function(err, result) {
+                    if(err) {
+                        return res.status(500).json({
+                            title: "An error occurred",
+                            error: err
+                        })
+                    }
+                    //Deleted successfully
+                    return res.status(200).json({
+                        title: "Date deleted.",
+                        obj: result
+                    })
                 })
             }
-            //Deleted successfully
-            return res.status(200).json({
-                title: "Date deleted.",
-                obj: result
-            })
+            //Function to call if user unauthorized
+            function unAuth() {
+                return res.status(401).json({
+                    title: 'Unauthorized',
+                    error: {message: 'Unauthorized'}
+                })
+            }
+            //Check authorization
+            utils.checkRelationship(decoded, date.relationshipId.users, deleteDate, unAuth);
         })
     })
 })
