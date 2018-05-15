@@ -5,6 +5,31 @@ var jwt = require('jsonwebtoken');
 var Feedback = require('../models/feedback');
 
 /**
+ * Ensure that token is valid
+ */
+router.use('/', function(req, res, next) {
+    //Check if valid token
+    jwt.verify(req.query.token, 'secret', function(err, result) {
+        if(err) {
+            return res.status(401).json({
+                title: 'Authentication error', 
+                error: err
+            })
+
+        //Check if token expired
+        var dateNow = new Date();
+        if(jwt.decode(req.query.token).exp < dateNow.getTime()) {
+            return res.status(401).json({
+                title: 'Authentication Error',
+                error: {message: "JWT token has expired -- please login again"}
+            })
+        }
+        }
+        next();
+    })
+})
+
+/**
  * Route to add new feedback to db
  */
 router.post('/add/', function(req, res, next) {
