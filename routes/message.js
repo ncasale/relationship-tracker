@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
+var utils = require('./utils');
 
 var Message = require('../models/message');
 var Relationship = require('../models/relationship');
@@ -43,21 +44,36 @@ router.post('/add', function(req, res, next) {
         relationshipId: req.body.relationshipId,
         userId: decoded.user._id
     })
-
-    //Save message
-    message.save(function(err, savedMessage) {
+    //Check if user authorized to add message to this relationship
+    message.populate('relationshipId', function(err) {
         if(err) {
             return res.status(500).json({
                 title: 'An error occurred',
                 error: err
             })
         }
-        //Successfully saved
-        console.log("Saved message: ", savedMessage);
-        return res.status(201).json({
-            title: 'Message saved',
-            obj: savedMessage
-        })
+        //Function to call if user authorized
+        function saveMessage() {
+            message.save(function(err, savedMessage) {
+                if(err) {
+                    return res.status(500).json({
+                        title: 'An error occurred',
+                        error: err
+                    })
+                }
+                //Successfully saved
+                console.log("Saved message: ", savedMessage);
+                return res.status(201).json({
+                    title: 'Message saved',
+                    obj: savedMessage
+                })
+            })
+        }
+        //Function to call if user not authorized
+        let resObj = {res:res};
+        let unAuthFunc = unAuth.bind(resObj);
+        //Check authorization
+        utils.checkRelationship(decoded, message.relationshipId.users, saveMessage, unAuthFunc);
     })
 })
 
@@ -115,25 +131,35 @@ router.patch('/edit/:id', function(req, res, next) {
 router.post('/getmessages/:id', function(req, res, next) {
     //Get decoded user token
     var decoded = jwt.decode(req.query.token);
-    //Get all messages with relationship id
-    Message.find({relationshipId: req.params.id}, function(err, messages) {
-        if(err) {
-            return res.status(500).json({
-                title: 'An error occurred', 
-                error: err
+    //Check if user authorized to get these messages
+    Relationship.findById(req.params.id, function(err, relationship) {
+        //Function to call if user authorized
+        function getMessages() {
+            Message.find({relationshipId: req.params.id}, function(err, messages) {
+                if(err) {
+                    return res.status(500).json({
+                        title: 'An error occurred', 
+                        error: err
+                    })
+                }
+                if(!messages) {
+                    return res.status(404).json({
+                        title: 'No messages found',
+                        error: {message: 'No messages with that relationship id found'}
+                    })
+                }
+                //Return list of messages
+                return res.status(200).json({
+                    title: 'Messages found...',
+                    obj: messages
+                })
             })
         }
-        if(!messages) {
-            return res.status(404).json({
-                title: 'No messages found',
-                error: {message: 'No messages with that relationship id found'}
-            })
-        }
-        //Return list of messages
-        return res.status(200).json({
-            title: 'Messages found...',
-            obj: messages
-        })
+        //Function to call if user unauthorized
+        let resObj = {res: res};
+        let unAuthFunc = unAuth.bind(resObj);
+        //Check authorization
+        utils.checkRelationship(decoded, relationship.users, getMessages, unAuthFunc);
     })
 })
 
@@ -178,5 +204,12 @@ router.delete('/deletemessage/:id', function(req, res, next) {
         })
     })
 })
+
+function unAuth() {
+    return this.res.status(401).json({
+        title: 'Unauthorized',
+        error: {message: 'Unauthorized'}
+    })
+}
 
 module.exports = router;
