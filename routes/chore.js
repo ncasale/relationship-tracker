@@ -4,6 +4,7 @@ var jwt = require('jsonwebtoken');
 var utils = require('./utils');
 
 var Chore = require('../models/chore');
+var Relationship = require('../models/relationship');
 
 router.use('/', function(req, res, next) {
     //Check if valid token
@@ -42,10 +43,6 @@ router.post('/add', function(req, res, next) {
         relationshipId: req.body.relationshipId,
         createUserId: decoded.user._id
     });
-
-    console.log(req.body);
-
-    console.log(chore.relationshipId);
 
     //Get contents of relationship so we can reference valid users
     chore.populate('relationshipId', function(err) {
@@ -87,9 +84,6 @@ router.post('/add', function(req, res, next) {
                 error: {message: 'Unauthorized'}
             })
         }
-        
-        
-
         //Call checkRelationship
         utils.checkRelationship(decoded, userArray, saveChore, unAuth);
 
@@ -102,19 +96,45 @@ router.post('/add', function(req, res, next) {
 router.post('/getchores/:relationshipId', function(req, res, next) {
     //Decode token
     var decoded = jwt.decode(req.query.token);
-    //Find all chores with passed relationshipId
-    Chore.find({relationshipId: req.params.relationshipId}, function(err, chores) {
+    //Find relationship and ensure user is a part of it
+    Relationship.findById(req.params.relationshipId, function(err, relationship) {
         if(err) {
             return res.status(500).json({
                 title: 'An error occurred',
                 error: err
             })
         }
-        //Found chores, return to user
-        return res.status(200).json({
-            title: 'Chores found',
-            obj: chores
-        })
+        if(!relationship) {
+            return res.status(404).json({
+                title: 'No relationship found',
+                error: {message: 'No relationship with that ID found'}
+            })
+        }
+        //Function to find all chores with passed relationshipId
+        function findChores() {
+            Chore.find({relationshipId: req.params.relationshipId}, function(err, chores) {
+                if(err) {
+                    return res.status(500).json({
+                        title: 'An error occurred',
+                        error: err
+                    })
+                }
+                //Found chores, return to user
+                return res.status(200).json({
+                    title: 'Chores found',
+                    obj: chores
+                })
+            })
+        }
+        //Function to call if user is unauthorized
+        function unAuth() {
+            return res.status(401).json({
+                title: 'Unauthorized',
+                error: {message: 'Unuathorized'}
+            })
+        }
+        //Call check relationship
+        utils.checkRelationship(decoded, relationship.users, findChores, unAuth);
     })
 })
 
@@ -138,26 +158,48 @@ router.patch('/editchore', function(req, res, next) {
                 error: {message: 'Chore not found'}
             })
         }
-        //Make edits to chore
-        chore.title = req.body.title;
-        chore.dueDate = req.body.dueDate;
-        chore.assignedUserId = req.body.assignedUserId;
-        chore.editTimestamp = Date.now(),
-        chore.editUserId = decoded.user._id
-
-        //Save chore
-        chore.save(function(err, savedChore) {
+        //Chore found, get relationship information
+        chore.populate('relationshipId', function(err) {
             if(err) {
                 return res.status(500).json({
                     title: 'An error occurred',
                     error: err
                 })
             }
-            //Successfully saved
-            return res.status(201).json({
-                title: 'Chore edited',
-                obj: savedChore
-            })
+            //Function to call if user is allowed to edit this chore
+            function editChore() {
+                console.log('Editing chore...');
+                //Make edits to chore
+                chore.title = req.body.title;
+                chore.dueDate = req.body.dueDate;
+                chore.assignedUserId = req.body.assignedUserId;
+                chore.editTimestamp = Date.now(),
+                chore.editUserId = decoded.user._id
+        
+                //Save chore
+                chore.save(function(err, savedChore) {
+                    if(err) {
+                        return res.status(500).json({
+                            title: 'An error occurred',
+                            error: err
+                        })
+                    }
+                    //Successfully saved
+                    return res.status(201).json({
+                        title: 'Chore edited',
+                        obj: savedChore
+                    })
+                })
+            }
+            //Function to call if this user is not allowed to edit chore
+            function unAuth() {
+                return res.status(401).json({
+                    title: 'Unauthorized',
+                    error: {message: 'Unauthorized'}
+                })
+            }
+            //Call authorization check
+            utils.checkRelationship(decoded, chore.relationshipId.users, editChore, unAuth);
         })
     })
 })
@@ -182,20 +224,39 @@ router.delete('/delete/:choreId', function(req, res, next) {
                 error: {message: 'Chore not found'}
             })
         }
-        
-        //Delete chore
-        chore.remove(function(err, result) {
+        //Found chore, see if user is authorized to delete
+        chore.populate('relationshipId', function(err) {
             if(err) {
                 return res.status(500).json({
                     title: 'An error occurred',
                     error: err
                 })
             }
-            return res.status(201).json({
-                title: 'Chore deleted',
-                obj: result
-            })
-        })
+            //Function to call if user authorized
+            function deleteChore() {
+                chore.remove(function(err, result) {
+                    if(err) {
+                        return res.status(500).json({
+                            title: 'An error occurred',
+                            error: err
+                        })
+                    }
+                    return res.status(201).json({
+                        title: 'Chore deleted',
+                        obj: result
+                    })
+                })
+            }
+            //Function to call if user not authorized
+            function unAuth() {
+                return res.status(401).json({
+                    title: 'Unauthorized',
+                    error: {message: 'Unauthorized'}
+                })
+            }
+            //Check authorization
+            utils.checkRelationship(decoded, chore.relationshipId.users, deleteChore, unAuth);
+        })        
     })
 })
 

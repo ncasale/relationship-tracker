@@ -8,9 +8,9 @@
  * @param {any} callback the callback to invoke on each user
  * @param {any} matchCallback the callback to invoke if a user is a member of the relationship
  */
-async function asyncForEachUser(array, callback, matchCallback, unAuthCallback) {
+async function asyncForEachUser(array, callback, matchCallback) {
     for (let index = 0; index < array.length; index++) {
-      await callback(array[index], matchCallback, unAuthCallback)
+      await callback(array[index], matchCallback)
     }
 }
 
@@ -35,7 +35,7 @@ async function checkRelationship (decoded, userArray, matchCallback, unAuthCallb
             foundUser = true;
             callback();
         }
-    }, matchCallback, unAuthCallback);
+    }, matchCallback);
     //If user not found in relationship, return 401
     if(!foundUser) {
         unAuthCallback();
