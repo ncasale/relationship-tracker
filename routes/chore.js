@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
+var utils = require('./utils');
 
 var Chore = require('../models/chore');
 
@@ -42,26 +43,57 @@ router.post('/add', function(req, res, next) {
         createUserId: decoded.user._id
     });
 
-    chore.save(function(err, result) {
+    console.log(req.body);
+
+    console.log(chore.relationshipId);
+
+    //Get contents of relationship so we can reference valid users
+    chore.populate('relationshipId', function(err) {
         if(err) {
             return res.status(500).json({
                 title: 'An error occurred',
                 error: err
             })
         }
-        if(!result) {
-            return res.status(500).json({
-                title: "Error while saving chore",
-                error: {message: "Error while saving chore"}
+        //Check to see if user a member of relationship
+        let foundUser = false;
+        const userArray = chore.relationshipId.users;
+        //Function to call if user is indeed a member of the relationship
+        function saveChore() {
+            chore.save(function(err, result) {
+                if(err) {
+                    return res.status(500).json({
+                        title: 'An error occurred',
+                        error: err
+                    })
+                }
+                if(!result) {
+                    return res.status(500).json({
+                        title: "Error while saving chore",
+                        error: {message: "Error while saving chore"}
+                    })
+                }
+                //Successfully saved
+                return res.status(201).json({
+                    title: 'Chore Saved',
+                    obj: result
+                })
             })
         }
-        //Successfully saved
-        return res.status(201).json({
-            title: 'Chore Saved',
-            obj: result
-        })
-    })
+        //Function to call if user is not authorized
+        function unAuth() {
+            return res.status(401).json({
+                title: 'Unauthorized',
+                error: {message: 'Unauthorized'}
+            })
+        }
+        
+        
 
+        //Call checkRelationship
+        utils.checkRelationship(decoded, userArray, saveChore, unAuth);
+
+    });
 })
 
 /**
