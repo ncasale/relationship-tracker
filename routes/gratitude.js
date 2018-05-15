@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
+var utils = require('./utils');
 
 var Gratitude = require('../models/gratitude');
+var Relationship = require('../models/relationship');
 
 /**
  * Route to add new gratitude to database
@@ -16,20 +18,36 @@ router.post('/add', function(req, res, next) {
             text: req.body.text,
             relationshipId: req.body.relationshipId,
             createUserId: decoded.user._id
-        });
-    //Save new gratitude
-    gratitude.save(function(err, savedGratitude) {
+    });
+    //Check that user is authorized to add gratitude to relationship
+    gratitude.populate('relationshipId', function(err) {
         if(err) {
             return res.status(500).json({
                 title: 'An error occurred',
                 error: err
             })
         }
-        //Successfully saved
-        return res.status(201).json({
-            title: 'Gratitude saved',
-            obj: savedGratitude
-        })
+        //Function to call if user authorized to add gratitude
+        function addGratitude() {
+            gratitude.save(function(err, savedGratitude) {
+                if(err) {
+                    return res.status(500).json({
+                        title: 'An error occurred',
+                        error: err
+                    })
+                }
+                //Successfully saved
+                return res.status(201).json({
+                    title: 'Gratitude saved',
+                    obj: savedGratitude
+                })
+            })
+        }
+        //Function to call if user not authorized
+        let resObj = {res: res};
+        let unAuthFunc = unAuth.bind(resObj);
+        //Check authorization
+        utils.checkRelationship(decoded, gratitude.relationshipId.users, addGratitude, unAuthFunc);
     })
 })
 
@@ -39,19 +57,41 @@ router.post('/add', function(req, res, next) {
 router.post('/getgratitudes/:relationshipId', function(req, res, next) {
     //Decode token
     var decoded = jwt.decode(req.query.token);
-    //Get all gratitudes with relationship ID
-    Gratitude.find({relationshipId: req.params.relationshipId}, function(err, gratitudes) {
+    //Check if user allowed to get gratitudes for this relationship
+    Relationship.findById(req.params.relationshipId, function(err, relationship) {
         if(err) {
             return res.status(500).json({
                 title: 'An error occurred',
                 error: err
             })
         }
-        //Return gratitudes
-        return res.status(200).json({
-            title: 'Gratitudes Found',
-            obj: gratitudes
-        })
+        if(!relationship) {
+            return res.status(404).json({
+                title: 'Relationship not found',
+                error: {message: 'Relationship with passed id not found'}
+            })
+        }
+        //Function to call if user is authorized to get gratitudes
+        function getGratitudes() {
+            Gratitude.find({relationshipId: req.params.relationshipId}, function(err, gratitudes) {
+                if(err) {
+                    return res.status(500).json({
+                        title: 'An error occurred',
+                        error: err
+                    })
+                }
+                //Return gratitudes
+                return res.status(200).json({
+                    title: 'Gratitudes Found',
+                    obj: gratitudes
+                })
+            })
+        }
+        //Function to call if user not authorized
+        let resObj = {res: res};
+        let unAuthFunc = unAuth.bind(resObj);
+        //Check authorization
+        utils.checkRelationship(decoded, relationship.users, getGratitudes, unAuthFunc);
     })
 })
 
@@ -75,25 +115,36 @@ router.patch('/edit', function(req, res, next) {
                 error: {message: 'Gratitude not found'}
             })
         }
-        //Found gratitude -- apply edits
-        gratitude.title = req.body.title;
-        gratitude.text = req.body.text;
-        gratitude.editUserId = decoded.user._id;
-        gratitude.editTimestamp = Date.now();
-
-        //Save gratitude
-        gratitude.save(function(err, savedGratitude) {
-            if(err) {
-                return res.status(500).json({
-                    title: 'Edited Gratitude',
-                    error: err
+        //Check if user is authorized to edit gratitude
+        gratitude.populate('relationshipId', function(err) {
+            //Function to call if user is authorized
+            function editGratitude() {
+                //Found gratitude -- apply edits
+                gratitude.title = req.body.title;
+                gratitude.text = req.body.text;
+                gratitude.editUserId = decoded.user._id;
+                gratitude.editTimestamp = Date.now();
+        
+                //Save gratitude
+                gratitude.save(function(err, savedGratitude) {
+                    if(err) {
+                        return res.status(500).json({
+                            title: 'Edited Gratitude',
+                            error: err
+                        })
+                    }
+                    //Successfully saved
+                    return res.status(201).json({
+                        title: 'Gratitude edited',
+                        obj: savedGratitude
+                    })
                 })
             }
-            //Successfully saved
-            return res.status(201).json({
-                title: 'Gratitude edited',
-                obj: savedGratitude
-            })
+            //Function to call if user is not authorized
+            let resObj = {res: res};
+            let unAuthFunc = unAuth.bind(resObj);
+            //Check authorization
+            utils.checkRelationship(decoded, gratitude.relationshipId.users, editGratitude, unAuthFunc);
         })
     })
 })
@@ -118,22 +169,44 @@ router.delete('/delete/:gratitudeId', function(req, res, next) {
                 error: {message: 'Gratitude not found'}
             })
         }
-        //Found gratitude -- remove
-        gratitude.remove(function(err, deletedGratitude) {
+        //Check if user authorized to remove gratitude
+        gratitude.populate('relationshipId', function(err) {
             if(err) {
                 return res.status(500).json({
                     title: 'An error occurred',
                     error: err
                 })
             }
-            //Successfully deleted gratitude
-            return res.status(200).json({
-                title: 'Gratitude deleted',
-                obj: deletedGratitude
-            })
+            //Function to call if user is authorized
+            function deleteGratitude() {
+                gratitude.remove(function(err, deletedGratitude) {
+                    if(err) {
+                        return res.status(500).json({
+                            title: 'An error occurred',
+                            error: err
+                        })
+                    }
+                    //Successfully deleted gratitude
+                    return res.status(200).json({
+                        title: 'Gratitude deleted',
+                        obj: deletedGratitude
+                    })
+                })
+            }
+            //Function to call if user not authorized
+            let resObj = {res: res};
+            let unAuthFunc = unAuth.bind(resObj);
+            //Check authorization
+            utils.checkRelationship(decoded, gratitude.relationshipId.users, deleteGratitude, unAuthFunc);
         })
     })
 })
 
+function unAuth() {
+    return this.res.status(401).json({
+        title: 'Unauthorized',
+        error: {message: 'Unauthorized'}
+    })
+}
 
 module.exports = router;
