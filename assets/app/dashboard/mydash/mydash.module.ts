@@ -28,6 +28,7 @@ import { LeaveDialogComponent } from "./settings/leave-dialog.component";
 import { GratitudesComponent } from "./gratitudes/gratitudes.component";
 import { GratitudeCardComponent } from "./gratitudes/gratitude-card.component";
 import { GratitudeDialogComponent } from "./gratitudes/gratitude-dialog.component";
+import { ChoreFilterDialogComponent } from "./chores/chore-filter-dialog.component";
 
 @NgModule({
     declarations: [
@@ -42,6 +43,7 @@ import { GratitudeDialogComponent } from "./gratitudes/gratitude-dialog.componen
         DateCardComponent,
         DateDialogComponent,
         ChoreDialogComponent,
+        ChoreFilterDialogComponent,
         ChoreCardComponent,
         FightDialogComponent,
         FightCardComponent,
@@ -79,6 +81,7 @@ import { GratitudeDialogComponent } from "./gratitudes/gratitude-dialog.componen
         MessageEditComponent,
         DateDialogComponent,
         ChoreDialogComponent,
+        ChoreFilterDialogComponent,
         FightDialogComponent,
         InviteDialogComponent,
         FightAppendDialogComponent,

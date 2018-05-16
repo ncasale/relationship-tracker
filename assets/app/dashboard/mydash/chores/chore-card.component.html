@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="chore-card">
     <mat-card-header>
         <div class="mat-card-header-text">
             <mat-card-title class="date-card-title"> {{chore.title}} </mat-card-title>
@@ -13,19 +13,3 @@
         <button mat-button (click)="deleteChore()">Delete</button>
     </mat-card-actions>
 </mat-card>
-<!--
-<article class="panel panel-default">
-    <div class="panel-body">
-        <h1>Chore: {{ chore.title }}</h1>
-        <h1>Due Date: {{ formattedDueDate }}</h1>
-        <h1>Assignee: {{ assignedUser }}</h1>
-    </div>
-    <footer class="panel-footer">
-        <div class="author"></div>
-        <div class="config" >
-            <a (click)="editDate()">Edit</a>
-            <a (click)="deleteDate()">Delete</a>
-        </div>
-    </footer>
-</article>
-<hr> -->

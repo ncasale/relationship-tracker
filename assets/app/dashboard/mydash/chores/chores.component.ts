@@ -7,6 +7,7 @@ import { ChoreService } from "./chore.service";
 import { Chore } from "./chore.model";
 import { Subscription } from "rxjs/Subscription";
 import { MyDashService } from "../mydash.service";
+import { ChoreFilterDialogComponent } from "./chore-filter-dialog.component";
 
 @Component({
     selector: 'app-chores',
@@ -20,9 +21,13 @@ export class ChoresComponent implements OnInit, OnDestroy{
     chores: Chore[] = [];
     //Subscription to current relationship subject in mydash
     currentRelationshipSubscription: Subscription;
+    //Filtering
+    unfilteredChores: Chore[] = [];
+    filtered: boolean = false;
 
     //Inject services
     constructor(private createChoreDialog: MatDialog,
+        private filterChoreDialog: MatDialog,
         private messagesService: MessagesService,
         private choreService: ChoreService,
         private myDashService: MyDashService
@@ -66,9 +71,31 @@ export class ChoresComponent implements OnInit, OnDestroy{
                 this.chores.push(chore);
             }
         )
+
+        //Update frontend when chores filtered
+        this.choreService.choresFiltered.subscribe(
+            (filteredChores: Chore[]) => {
+                this.chores = Object.assign([], filteredChores);
+                this.filtered = true;
+                console.log('Chores Filtered: ', this.chores);
+            }
+        )
+        
+        //Log old chores when filtering applied so we can revert
+        this.choreService.recordOriginalChores.subscribe(
+            (originalChores: Chore[]) => {
+                this.unfilteredChores = Object.assign([], originalChores);
+                console.log("Unfiltered Chores: ", this.unfilteredChores);
+            }
+        )
         
     } 
 
+    /**
+     * Unsubscribe from all observables
+     * 
+     * @memberof ChoresComponent
+     */
     ngOnDestroy() {
         this.currentRelationshipSubscription.unsubscribe();
     }
@@ -90,6 +117,37 @@ export class ChoresComponent implements OnInit, OnDestroy{
             },
             autoFocus: false
         });        
-      }  
+    }
+    
+    /**
+     * Open dialog where filters can be selected
+     * 
+     * @memberof ChoresComponent
+     */
+    openFilterChoreDialog() : void {
+        let dialogRef = this.filterChoreDialog.open(ChoreFilterDialogComponent, {
+            position: {
+                top: '10vh'
+            },
+            width: '500px',
+            data: {
+                relationship: this.relationship,
+                chores: this.chores,
+                unfilteredChores: this.unfilteredChores,
+                filtered: this.filtered
+            },
+            autoFocus: false
+        })
+    }
+
+    /**
+     * Clear the filter on chores
+     * 
+     * @memberof ChoresComponent
+     */
+    unfilterChores() {
+        this.filtered = false;
+        this.chores = Object.assign([], this.unfilteredChores);
+    }
 
 }

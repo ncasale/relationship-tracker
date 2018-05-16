@@ -1,0 +1,24 @@
+<div class="col-md-8 col-md-offset-2 date-form-container">
+    <h2>Filter Chores</h2>
+    <hr>
+    <mat-form-field>
+        <mat-select placeholder="Assignee" [formControl]="assignedUserId" [(ngModel)]="selectedUser">
+            <mat-option *ngFor="let assignedUser of assignedUsers" [value]="assignedUser.userId">
+            {{ assignedUser.firstname }} {{assignedUser.lastname}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput readonly [min]="getMaximumBeforeDate()" [matDatepicker]="dueDateBeforePicker" placeholder="Due Date Before..." [formControl]="dueDateBefore">
+        <mat-datepicker-toggle matSuffix [for]="dueDateBeforePicker"></mat-datepicker-toggle>
+        <mat-datepicker #dueDateBeforePicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput readonly [max]="getMinimumAfterDate()" [matDatepicker]="dueDateAfterPicker" placeholder="Due Date After..." [formControl]="dueDateAfter">
+        <mat-datepicker-toggle matSuffix [for]="dueDateAfterPicker"></mat-datepicker-toggle>
+        <mat-datepicker #dueDateAfterPicker></mat-datepicker>
+    </mat-form-field>
+    <br>
+    <button class="btn btn-site-default" type="submit" (click)="onSubmitFilter()">Apply</button>
+    <hr>
+</div>

@@ -20,6 +20,10 @@ export class ChoreService {
     choreDeleted = new EventEmitter<Chore>();
     choreCreatedEmitter = new EventEmitter<Chore>();
 
+    //Filtering
+    choresFiltered = new EventEmitter<Chore[]>();
+    recordOriginalChores = new EventEmitter<Chore[]>();
+
     /**
      * Add a passed chore to the database
      * 

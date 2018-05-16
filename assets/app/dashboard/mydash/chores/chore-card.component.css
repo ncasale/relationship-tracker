@@ -1,3 +1,9 @@
+.chore-card {
+    width: 75%;
+    margin: 0px, 5%, 40px, 5%;
+    display: block;
+}
+
 .author {
     display: inline-block;
     font-style: italic;

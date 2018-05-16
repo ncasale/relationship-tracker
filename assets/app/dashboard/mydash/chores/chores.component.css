@@ -13,3 +13,19 @@
 .icon-create {
     color: #fff;
 }
+
+.btn-filter {
+    background-color: #00cec9;
+    position: fixed;
+    top: 10%;
+    right: 5%;
+    transition: background-color 0.2s;
+}
+
+.btn-filter:hover {
+    background-color: #00aca8
+}
+
+.icon-filter {
+    color: #fff;
+}
