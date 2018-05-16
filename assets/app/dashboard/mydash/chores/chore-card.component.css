@@ -31,7 +31,11 @@ mat-card {
 }
 
 mat-card-header {
-    background-color: #89cff0;
+    background-color: #00cec9;
+}
+
+.mat-card-header-completed {
+    background-color: #b2bec3
 }
 
 mat-card-title {
@@ -67,4 +71,36 @@ mat-icon {
     width: 100%;
 }
 
+mat-card-footer {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.spacer {
+    display: inline-block;
+    width: 5%;
+}
+
+.mat-icon-button {
+    font-family: 'Quicksand', sans-serif;
+    display: inline-block;
+}
+
+.complete-btn {
+    width: 45%;
+    display: inline-block;
+    height: 100%;
+    font-size: 50%;
+    text-align: left;
+    padding-left: 28px;
+}
+
+.buttons {
+    display: inline-block;
+    text-align: right;
+    font-size: 50%;
+    width: 45%;
+    height: 100%;
+    padding: 0;
+}
 

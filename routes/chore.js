@@ -174,7 +174,8 @@ router.patch('/editchore', function(req, res, next) {
                 chore.dueDate = req.body.dueDate;
                 chore.assignedUserId = req.body.assignedUserId;
                 chore.editTimestamp = Date.now(),
-                chore.editUserId = decoded.user._id
+                chore.editUserId = decoded.user._id,
+                chore.completed = req.body.completed
         
                 //Save chore
                 chore.save(function(err, savedChore) {

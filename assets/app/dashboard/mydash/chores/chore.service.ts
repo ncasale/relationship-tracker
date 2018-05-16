@@ -23,6 +23,7 @@ export class ChoreService {
     //Filtering
     choresFiltered = new EventEmitter<Chore[]>();
     recordOriginalChores = new EventEmitter<Chore[]>();
+    showCompletedChores = new EventEmitter<boolean>();
 
     /**
      * Add a passed chore to the database
@@ -51,7 +52,8 @@ export class ChoreService {
                     chore.createUserId,
                     chore.createTimestamp,
                     chore.editUserId,
-                    chore.editTimestamp
+                    chore.editTimestamp,
+                    chore.completed
                 );
             })
             .catch((error: Response) => {
@@ -89,7 +91,8 @@ export class ChoreService {
                         chore.createUserId,
                         chore.createTimestamp,
                         chore.editUserId,
-                        chore.editTimestamp
+                        chore.editTimestamp,
+                        chore.completed
                     ))
                 }              
                 return transformedChores;

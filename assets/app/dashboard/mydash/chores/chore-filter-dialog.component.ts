@@ -17,6 +17,7 @@ export class ChoreFilterDialogComponent implements OnInit{
     assignedUserId = new FormControl(null);
     dueDateBefore = new FormControl(null);
     dueDateAfter = new FormControl(null);
+    showCompleted = new FormControl(null);
 
     //Array of possible users to assign to
     assignedUsers: User[] = [];
@@ -64,10 +65,12 @@ export class ChoreFilterDialogComponent implements OnInit{
         this.filterByAssignee();
         this.filterByDateBefore();
         this.filterByDateAfter();
+        this.filterCompleted();
         //If we applied any filters, update frontend
         if(this.data.filtered) {
             this.choreService.recordOriginalChores.emit(this.unfilteredChores);
             this.choreService.choresFiltered.emit(this.chores);
+            this.choreService.showCompletedChores.emit(this.showCompleted.value);
         }
         //Close dialog
         this.dialogRef.close();
@@ -109,13 +112,30 @@ export class ChoreFilterDialogComponent implements OnInit{
     filterByAssignee() {
         if(this.assignedUserId.value != null) {
             this.data.filtered = true;
-            this.chores = this.data.chores.filter((chore) => {
+            this.chores = this.chores.filter((chore) => {
                 return chore.assignedUserId == this.assignedUserId.value
             });
         }
     }
 
-    getMinimumAfterDate() {
+    /**
+     * Hides all completed chores
+     * 
+     * @memberof ChoreFilterDialogComponent
+     */
+    filterCompleted() {
+        if(this.showCompleted.value) {
+            this.data.filtered = true;            
+        }
+    }
+
+    /**
+     * Sets the maximum after date if a before date has been set
+     * 
+     * @returns 
+     * @memberof ChoreFilterDialogComponent
+     */
+    getMaximumAfterDate() {
         if(this.dueDateBefore.value != null) {
             return this.dueDateBefore.value;
         } else {
@@ -123,7 +143,13 @@ export class ChoreFilterDialogComponent implements OnInit{
         }
     }
 
-    getMaximumBeforeDate() {
+    /**
+     * Sets the minimum before date if an after date has been set
+     * 
+     * @returns 
+     * @memberof ChoreFilterDialogComponent
+     */
+    getMinimumBeforeDate() {
         if(this.dueDateAfter.value != null) {
             return this.dueDateAfter.value;
         } else {

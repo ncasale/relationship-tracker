@@ -108,4 +108,38 @@ export class ChoreCardComponent implements OnInit{
         )
     }
 
+    /**
+     * Mark the chore represented in this card as completed
+     * 
+     * @memberof ChoreCardComponent
+     */
+    completeChore() {
+        //Mark chore as completed
+        this.chore.completed = true;
+        //Send chore off to be edited by chore service
+        this.choreService.editChore(this.chore).subscribe(
+            (response: any) => {
+                this.choreService.choreEdited.emit();
+                this.myDashService.openSnackBar('Chore Completed.', 'close');
+            }
+        )        
+    }
+
+    /**
+     * Un-Complete a chore
+     * 
+     * @memberof ChoreCardComponent
+     */
+    reOpenChore() {
+        //Mark chore as not completed
+        this.chore.completed = false;
+        //Send chore off to be edited by chore service
+        this.choreService.editChore(this.chore).subscribe(
+            (response: any) => {
+                this.choreService.choreEdited.emit();
+                this.myDashService.openSnackBar('Chore Reopened.', 'close');
+            }
+        )  
+    }
+
 }

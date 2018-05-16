@@ -8,6 +8,7 @@ export class Chore {
         public createUserId?: string,
         public createTimestamp?: Date,
         public editUserId?: string,
-        public editTimestamp?: Date
+        public editTimestamp?: Date,
+        public completed?: Boolean
     ) {}
 }

@@ -9,15 +9,18 @@
         </mat-select>
     </mat-form-field>
     <mat-form-field>
-        <input matInput readonly [min]="getMaximumBeforeDate()" [matDatepicker]="dueDateBeforePicker" placeholder="Due Date Before..." [formControl]="dueDateBefore">
+        <input matInput readonly [min]="getMinimumBeforeDate()" [matDatepicker]="dueDateBeforePicker" placeholder="Due Date Before..." [formControl]="dueDateBefore">
         <mat-datepicker-toggle matSuffix [for]="dueDateBeforePicker"></mat-datepicker-toggle>
         <mat-datepicker #dueDateBeforePicker></mat-datepicker>
     </mat-form-field>
     <mat-form-field>
-        <input matInput readonly [max]="getMinimumAfterDate()" [matDatepicker]="dueDateAfterPicker" placeholder="Due Date After..." [formControl]="dueDateAfter">
+        <input matInput readonly [max]="getMaximumAfterDate()" [matDatepicker]="dueDateAfterPicker" placeholder="Due Date After..." [formControl]="dueDateAfter">
         <mat-datepicker-toggle matSuffix [for]="dueDateAfterPicker"></mat-datepicker-toggle>
         <mat-datepicker #dueDateAfterPicker></mat-datepicker>
     </mat-form-field>
+    <mat-checkbox class="show-checkbox" name="showCompleted" disableRipple [formControl]="showCompleted">
+        <label class="show-checkbox-label" for="showCompleted">Show completed chores?</label>
+    </mat-checkbox>
     <br>
     <button class="btn btn-site-default" type="submit" (click)="onSubmitFilter()">Apply</button>
     <hr>

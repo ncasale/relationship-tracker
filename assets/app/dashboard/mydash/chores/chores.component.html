@@ -1,7 +1,4 @@
-<div class="col-md-8 col-md-offset-2">
-    <app-chore-card [chore]="chore" *ngFor="let chore of chores"></app-chore-card>
-    <button *ngIf="!filtered" mat-fab class="btn-filter" (click)="openFilterChoreDialog()"><mat-icon class="icon-filter">filter_list</mat-icon></button>
-    <button *ngIf="filtered" mat-fab class="btn-filter" (click)="unfilterChores()"><mat-icon class="icon-filter">clear</mat-icon></button>    
-    <button mat-fab class="btn-create" (click)="openCreateChoreDialog()"><mat-icon class="icon-create">add</mat-icon></button>
-    
-</div>
+<app-chore-card [class.chore-card-hidden]="chore.completed && !showCompleted" [chore]="chore" *ngFor="let chore of chores"></app-chore-card>
+<button *ngIf="!filtered" mat-fab class="btn-filter" (click)="openFilterChoreDialog()"><mat-icon class="icon-filter">filter_list</mat-icon></button>
+<button *ngIf="filtered" mat-fab class="btn-filter" (click)="unfilterChores()"><mat-icon class="icon-filter">clear</mat-icon></button>    
+<button mat-fab class="btn-create" (click)="openCreateChoreDialog()"><mat-icon class="icon-create">add</mat-icon></button>

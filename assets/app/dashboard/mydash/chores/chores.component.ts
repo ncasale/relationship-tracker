@@ -24,6 +24,7 @@ export class ChoresComponent implements OnInit, OnDestroy{
     //Filtering
     unfilteredChores: Chore[] = [];
     filtered: boolean = false;
+    showCompleted = false;
 
     //Inject services
     constructor(private createChoreDialog: MatDialog,
@@ -88,6 +89,13 @@ export class ChoresComponent implements OnInit, OnDestroy{
                 console.log("Unfiltered Chores: ", this.unfilteredChores);
             }
         )
+
+        //Show completed chores
+        this.choreService.showCompletedChores.subscribe(
+            (response: boolean) => {
+                this.showCompleted = response;
+            }
+        )
         
     } 
 
@@ -148,6 +156,7 @@ export class ChoresComponent implements OnInit, OnDestroy{
     unfilterChores() {
         this.filtered = false;
         this.chores = Object.assign([], this.unfilteredChores);
+        this.showCompleted = false;
     }
 
 }

@@ -9,7 +9,8 @@ var schema = new Schema({
     createUserId: {type: Schema.Types.ObjectId, ref: 'Users'},
     createTimestamp: {type: Date, default: Date.now},
     editTimestamp: {type: Date},
-    editUserId: {type: Schema.Types.ObjectId, ref: 'Users'}
+    editUserId: {type: Schema.Types.ObjectId, ref: 'Users'},
+    completed: {type: Boolean, default: false}
 });
 
 module.exports = mongoose.model('Chores', schema);
