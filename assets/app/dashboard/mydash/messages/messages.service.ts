@@ -38,7 +38,7 @@ export class MessagesService {
         //Get token
         const token  = this.getToken();
         //Create request
-        return this.http.post('http://localhost:3000/message/add' + token, body, {headers:headers})
+        return this.http.post('http://52.91.114.12:80/message/add' + token, body, {headers:headers})
             .map((response: Response ) => {
                 const result = response.json().obj;
                 const message = new Message(
@@ -73,7 +73,7 @@ export class MessagesService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.patch('http://localhost:3000/message/edit/' + message.messageId + token, body, {headers:headers})
+        return this.http.patch('http://52.91.114.12:80/message/edit/' + message.messageId + token, body, {headers:headers})
             .map((response: Response) => {
                 const result = response.json();
                 const message = new Message(
@@ -107,7 +107,7 @@ export class MessagesService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.post('http://localhost:3000/message/getmessages/' + relationshipId + token, body, {headers:headers})
+        return this.http.post('http://52.91.114.12:80/message/getmessages/' + relationshipId + token, body, {headers:headers})
             .map((response: Response) => {
                 var messages = response.json().obj;
                 var transformedMessages = [];
@@ -143,7 +143,7 @@ export class MessagesService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.delete('http://localhost:3000/message/deletemessage/' + messageId + token)
+        return this.http.delete('http://52.91.114.12:80/message/deletemessage/' + messageId + token)
             .map((response: Response) => {})
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
