@@ -9,4 +9,9 @@
     <hr>
     <h2>Members</h2>
     <h4 *ngFor="let member of relationshipMembers"> {{ member.firstname }} {{ member.lastname }} ({{ member.email }})</h4>
+    <hr>
+    <h2>Pending Invites</h2>
+    <div *ngFor="let invite of pendingInvitees">
+        <h4>{{invite.firstname}} {{invite.lastname}} ({{invite.email}})</h4>
+    </div>
 </div>

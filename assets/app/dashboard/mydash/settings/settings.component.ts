@@ -21,6 +21,7 @@ export class SettingsComponent implements OnInit, OnDestroy{
     relationship: Relationship;
     currentRelationshipSubscription: Subscription;
     relationshipMembers: User[] = [];
+    pendingInvitees: User[] = [];
     
     //Inject services
     constructor(
@@ -43,6 +44,12 @@ export class SettingsComponent implements OnInit, OnDestroy{
                     this.authService.getUsers(this.relationship.userIds).subscribe(
                         (response: User[]) => {
                             this.relationshipMembers = response;
+                        }
+                    )
+                    //Get pending invitees
+                    this.authService.getUsers(this.relationship.invitees).subscribe(
+                        (response: User[]) => {
+                            this.pendingInvitees = response;
                         }
                     )
                 }
