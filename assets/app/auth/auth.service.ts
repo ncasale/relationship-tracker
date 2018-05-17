@@ -6,6 +6,9 @@ import { Router } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
 
 @Injectable()
 export class AuthService {
@@ -185,6 +188,57 @@ export class AuthService {
                 this.errorService.handleError(error.json());
                 return Observable.throw(error.json());
             })
+    }
+
+    /**
+     * Kick off search process for type-ahead user search
+     * 
+     * @param {Observable<String>} usersToSearch An observable that takes a string
+     * @returns an observable containing a list of users
+     * @memberof AuthService
+     */
+    searchUsers(usersToSearch: Observable<String>){
+        return usersToSearch.debounceTime(400)
+            .distinctUntilChanged()
+            .switchMap(term => this.getSearchUsers(term));            
+    }
+
+    /**
+     * Gets a list of users that (fuzzily) matches the passed term
+     * 
+     * @param {any} term the term to use for search
+     * @returns A list of Users that match the term
+     * @memberof AuthService
+     */
+    getSearchUsers(term) {
+        //Create body
+        const body = {term: term};
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get Token
+        const token = this.getToken();
+        //Create request
+        return this.http.post('http://localhost:3000/auth/getsearchusers' + token, body, {headers:headers})
+            .map((response: Response) => {
+                let users = response.json().obj;
+                let transformedUsers = [];
+                for(let user of users) {
+                    transformedUsers.push(new User(
+                        user.email,
+                        undefined,
+                        user.firstname,
+                        user.lastname,
+                        user._id,
+                        undefined
+                    ))
+                }
+                return transformedUsers;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
+
     }
 
     /**

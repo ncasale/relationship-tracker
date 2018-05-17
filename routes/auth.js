@@ -221,13 +221,60 @@ router.patch('/changepassword', function(req, res, next) {
     
 })
 
+router.post('/getsearchusers', function(req, res, next) {
+    //Decode token
+    var decoded = jwt.decode(req.query.token);
+    //Get search term from body
+    var searchTerm = req.body.term;
+    //If search term empty, return empty object
+    if(searchTerm.length === 0) {
+        return res.status(200).json({
+            title: 'Search Complete -- Empty',
+            obj: {}
+        })
+    }
+    //Fuzzy search email to see if any match terms
+    const regex = new RegExp(escapeRegex(searchTerm), 'gi');
+    let clause =  [                                               
+        {$project:{searchStr:{$concat:["$firstname"," ","$lastname"," ","$email"]},
+            firstname: '$firstname',
+            lastname: '$lastname',
+            email: '$email'}},
+        {$match:{searchStr:new RegExp(regex, 'i')}},
+        {'$group':{
+            _id: {},
+            id: { '$push': '$$ROOT' }
+        }}
+     ];                                                                             
+    User.aggregate(clause ,function(err, users) {
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            })
+        }
+        //Users found, return
+        if(users.length === 0) {
+            return res.status(200).json({
+                title: "Search complete - empty",
+                obj: {}
+            })
+        } else {
+            console.log(users[0].id);
+            return res.status(200).json({
+                title: 'Search Complete',
+                obj: users[0].id
+            })
+        }
+    })
+})
+
 /**
  * Route to check if a user is an admin
  */
 router.post('/checkadmin', function(req, res, next) {
     //Get decoded user
     var decoded = jwt.decode(req.query.token);
-
     //Check if user in admin table
     Admin.find({userId: decoded.user._id}, function(err, admin) {
         if(err) {
@@ -247,5 +294,9 @@ router.post('/checkadmin', function(req, res, next) {
         })
     })
 })
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 module.exports = router;

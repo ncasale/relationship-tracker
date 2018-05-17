@@ -5,7 +5,7 @@ import { mydashRouting } from "./mydash.routing";
 import { DatesComponent } from "./dates/dates.component";
 import { ChoresComponent } from "./chores/chores.component";
 import { FightsComponent } from "./fights/fights.component";
-import { MatSidenavModule, MatToolbar, MatToolbarModule, MatListModule, MatCalendar, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, MatDialogModule, MatSnackBar, MatSnackBarModule, MatButtonModule, MatCardModule, MatIconModule, MatCheckboxModule } from "@angular/material"
+import { MatSidenavModule, MatToolbar, MatToolbarModule, MatListModule, MatCalendar, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, MatDialogModule, MatSnackBar, MatSnackBarModule, MatButtonModule, MatCardModule, MatIconModule, MatCheckboxModule, MatAutocompleteModule } from "@angular/material"
 import { CommonModule, DatePipe } from "@angular/common";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { MessagesComponent } from "./messages/messages.component";
@@ -76,7 +76,8 @@ import { ChoreFilterDialogComponent } from "./chores/chore-filter-dialog.compone
         MatButtonModule,
         MatCardModule,
         MatIconModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatAutocompleteModule
     ],
     entryComponents: [
         MessageEditComponent,

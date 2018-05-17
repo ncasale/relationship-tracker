@@ -2,10 +2,15 @@
     <h2>Invite</h2>
     <form (ngSubmit)="sendInvite()">
         <mat-form-field>
-            <input matInput placeholder="Email" [formControl]="emailFC" required>
-            <mat-error *ngIf="emailFC.invalid">{{ getEmailErrorMessage() }}</mat-error>
-        </mat-form-field>
-    
-        <button class="btn btn-site-default" [disabled]="!isInviteValid()" (click)="sendInvite()">Send Invite</button>
+            <input matInput placeholder="Email" [formControl]="emailFC" 
+                (keyup)="searchTerm$.next($event.target.value)" required>
+            </mat-form-field>
+            <div *ngIf="usersSearched.length > 0"class="autocomplete-options">
+                <mat-option class="autocomplete-option" *ngFor="let user of usersSearched | slice:0:9"
+                     (click)="selectUser(user.userId, user.email)">
+                    <span> {{ user.firstname }} {{ user.lastname }} </span>
+                </mat-option>    
+            </div>
+        <button class="btn btn-site-default" [disabled]="selectedUserId == ''">Send Invite</button>
     </form>
 </div>
