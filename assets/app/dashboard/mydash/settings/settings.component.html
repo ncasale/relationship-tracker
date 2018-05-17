@@ -13,5 +13,6 @@
     <h2>Pending Invites</h2>
     <div *ngFor="let invite of pendingInvitees">
         <h4>{{invite.firstname}} {{invite.lastname}} ({{invite.email}})</h4>
+        <!--<button class="btn btn-site-danger" (click)="cancelInvite(invite)">Cancel Invite</button> -->
     </div>
 </div>
