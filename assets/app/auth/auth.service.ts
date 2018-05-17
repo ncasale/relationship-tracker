@@ -28,7 +28,7 @@ export class AuthService {
         //Create headers to signify json request
         const headers = new Headers({'Content-Type': 'application/json'});
         //Hit post route, and transform response into json, or throw an error if one occurs
-        return this.http.post('http://localhost:3000/auth', body, {headers: headers})
+        return this.http.post('http://52.91.114.12:80/auth', body, {headers: headers})
             .map((response: Response) => response.json())
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
@@ -51,7 +51,7 @@ export class AuthService {
         //Create headers for post
         const headers = new Headers({'Content-Type': 'application/json'});
         //Post to signin route
-        return this.http.post('http://localhost:3000/auth/login', body, {headers:headers})
+        return this.http.post('http://52.91.114.12:80/auth/login', body, {headers:headers})
             .map((response: Response) => response.json())
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
@@ -67,7 +67,7 @@ export class AuthService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.post('http://localhost:3000/auth/loginwithtoken' + token, body, {headers:headers})
+        return this.http.post('http://52.91.114.12:80/auth/loginwithtoken' + token, body, {headers:headers})
             .map((response: Response) => {
                 return response.json();
             })
@@ -92,7 +92,7 @@ export class AuthService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.post('http://localhost:3000/auth/getuser/' + userId + token, body, {headers:headers})
+        return this.http.post('http://52.91.114.12:80/auth/getuser/' + userId + token, body, {headers:headers})
             .map((response: Response) => {
                 var returnedUser = response.json().obj;
                 var user = new User(
@@ -119,7 +119,7 @@ export class AuthService {
         //Get Token
         const token = this.getToken();
         //Create request
-        return this.http.post('http://localhost:3000/auth/getusers/' + token, body, {headers:headers})
+        return this.http.post('http://52.91.114.12:80/auth/getusers/' + token, body, {headers:headers})
             .map((response: Response) => {
                 let users = response.json().obj;
                 let transformedUsers = [];
@@ -157,7 +157,7 @@ export class AuthService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.post('http://localhost:3000/auth/getuserinvites/' + token, body, {headers:headers})
+        return this.http.post('http://52.91.114.12:80/auth/getuserinvites/' + token, body, {headers:headers})
             .map((response: Response) => {
                 //We are returned an array of ids
                 return response.json().obj;
@@ -187,7 +187,7 @@ export class AuthService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.patch('http://localhost:3000/auth/changepassword' + token, body, {headers:headers})
+        return this.http.patch('http://52.91.114.12:80/auth/changepassword' + token, body, {headers:headers})
             .map((response: Response) => {
                 return response.json().obj;
             })
@@ -211,7 +211,7 @@ export class AuthService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.post('http://localhost:3000/auth/checkadmin' + token, body, {headers:headers})
+        return this.http.post('http://52.91.114.12:80/auth/checkadmin' + token, body, {headers:headers})
             .map((response: Response) => {
                 return response.json().isAdmin;
             })
@@ -249,7 +249,7 @@ export class AuthService {
         //Get Token
         const token = this.getToken();
         //Create request
-        return this.http.post('http://localhost:3000/auth/getsearchusers' + token, body, {headers:headers})
+        return this.http.post('http://52.91.114.12:80/auth/getsearchusers' + token, body, {headers:headers})
             .map((response: Response) => {
                 let users = response.json().obj;
                 let transformedUsers = [];
