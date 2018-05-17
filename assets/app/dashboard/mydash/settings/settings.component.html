@@ -7,4 +7,6 @@
     <hr>
     <button class="btn btn-site-default btn-leave-relationship" (click)="openLeaveRelationshipDialog()">Leave Relationship</button>    
     <hr>
+    <h2>Members</h2>
+    <h4 *ngFor="let member of relationshipMembers"> {{ member.firstname }} {{ member.lastname }} ({{ member.email }})</h4>
 </div>

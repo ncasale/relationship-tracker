@@ -9,6 +9,8 @@ import { Subscription } from "rxjs/Subscription";
 import { MyDashService } from "../mydash.service";
 import { Router } from "@angular/router";
 import { LeaveDialogComponent } from "./leave-dialog.component";
+import { User } from "../../../auth/user.model";
+import { AuthService } from "../../../auth/auth.service";
 
 @Component({
     selector: 'app-settings',
@@ -18,6 +20,7 @@ import { LeaveDialogComponent } from "./leave-dialog.component";
 export class SettingsComponent implements OnInit, OnDestroy{
     relationship: Relationship;
     currentRelationshipSubscription: Subscription;
+    relationshipMembers: User[] = [];
     
     //Inject services
     constructor(
@@ -25,6 +28,7 @@ export class SettingsComponent implements OnInit, OnDestroy{
         private messsagesService: MessagesService,
         private inviteDialog: MatDialog,
         private myDashService: MyDashService,
+        private authService: AuthService,
         private router: Router,
         public leaveDialog: MatDialog
     ) {}
@@ -35,6 +39,12 @@ export class SettingsComponent implements OnInit, OnDestroy{
             .subscribe(
                 relationship => {
                     this.relationship = relationship;
+                    //Get relationship members
+                    this.authService.getUsers(this.relationship.userIds).subscribe(
+                        (response: User[]) => {
+                            this.relationshipMembers = response;
+                        }
+                    )
                 }
             )
 

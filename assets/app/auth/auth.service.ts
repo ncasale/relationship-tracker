@@ -111,6 +111,37 @@ export class AuthService {
             })
     }
 
+    getUsers(userIds: string[]) {
+        //Create body
+        const body = {userIds: userIds};
+        //Create headers
+        const headers = new Headers({'Content-Type':'application/json'});
+        //Get Token
+        const token = this.getToken();
+        //Create request
+        return this.http.post('http://localhost:3000/auth/getusers/' + token, body, {headers:headers})
+            .map((response: Response) => {
+                let users = response.json().obj;
+                let transformedUsers = [];
+                for(let user of users) {
+                    transformedUsers.push(new User(
+                        user.email,
+                        undefined,
+                        user.firstname,
+                        user.lastname,
+                        user._id,
+                        undefined
+                    ))
+                }
+                return transformedUsers;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            })
+
+    }
+
     /**
      * Gets an array of relationship Ids representing the relationships to which this user is 
      * invited.

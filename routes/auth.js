@@ -269,6 +269,25 @@ router.post('/getsearchusers', function(req, res, next) {
     })
 })
 
+router.post('/getusers', function(req, res, next) {
+    //Decode token
+    var decoded = jwt.decode(req.query.token);
+    //Get users
+    User.find({_id: req.body.userIds}, function(err, users) {
+        if(err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            })
+        }
+        //Return users
+        return res.status(200).json({
+            title: 'Users found',
+            obj: users
+        })
+    })
+})
+
 /**
  * Route to check if a user is an admin
  */
