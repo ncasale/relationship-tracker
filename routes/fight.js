@@ -235,6 +235,12 @@ router.post('/getFight/:fightId', function(req, res, next) {
         }
         //Check if user is authorized to get this fight
         fight.populate('relationshipId', function(err) {
+            if(err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: err
+                })
+            }
             //Function to call if user is authorized
             function getFight() {
                 return res.status(200).json({

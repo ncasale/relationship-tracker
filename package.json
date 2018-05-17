@@ -25,6 +25,7 @@
     "angular-calendar": "^0.23.7",
     "angular-material-calendar": "^0.2.14",
     "bcrypt": "^1.0.3",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.15.2",
     "compression": "^1.7.2",
     "cookie-parser": "~1.4.3",
