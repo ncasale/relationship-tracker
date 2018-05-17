@@ -34,7 +34,7 @@ export class FeedbackService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.post('http://localhost:3000/feedback/add' + token, body, {headers:headers})
+        return this.http.post('http://52.91.114.12:80/feedback/add' + token, body, {headers:headers})
             .map((response: Response) => {
                 return response.json().obj;
             })
@@ -58,7 +58,7 @@ export class FeedbackService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.post('http://localhost:3000/feedback/getfeedback' + token, body, {headers:headers})
+        return this.http.post('http://52.91.114.12:80/feedback/getfeedback' + token, body, {headers:headers})
             .map((response: Response) => {
                 var feedbacks = response.json().obj;
                 var transformedFeedback = [];
@@ -96,7 +96,7 @@ export class FeedbackService {
         //Get token
         const token = this.getToken();
         //Create request
-        return this.http.patch('http://localhost:3000/feedback/modify/' + feedbackId + '/' + closing + token, body, {headers:headers})
+        return this.http.patch('http://52.91.114.12:80/feedback/modify/' + feedbackId + '/' + closing + token, body, {headers:headers})
             .map((response: Response) => {
                 //Return feedback object
                 var feedback = response.json().obj;
