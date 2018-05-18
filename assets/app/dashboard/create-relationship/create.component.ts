@@ -44,15 +44,12 @@ export class CreateComponent implements OnInit{
                 undefined,
                 this.platonicFC.value);
 
-        console.log('On Submit REL: ', relationship);
-
         this.relationshipService.addRelationship(relationship)
             .subscribe(
                 data => {
                     this.myDashService.openSnackBar('Relationship Created.', 'close');
                     this.router.navigateByUrl('/dashboard/mydash');
-                },
-                error => console.error(error)
+                }
             )
         
         this.nameFC.reset();

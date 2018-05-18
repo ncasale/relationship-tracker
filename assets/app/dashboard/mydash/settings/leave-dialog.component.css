@@ -23,4 +23,18 @@ h2 {
   
 .date-form-container > * {
     width: 100%;
-  }
+}
+
+.leave-dialog-container {
+    margin: 0 10%;
+}
+
+.btn-site-default {
+    width: 80%;
+    margin: 2% 10%;
+}
+
+.btn-site-danger {
+    width: 80%;
+    margin: 0 10%;
+}

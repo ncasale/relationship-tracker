@@ -1,9 +1,32 @@
+.fight-card {
+    width: 75%;
+    margin: 0px 0 40px 10%;
+    display: block;
+}
+
 .author {
     display: inline-block;
     font-style: italic;
-    font-size: 12px;
-    width: 80%;
+    vertical-align: middle;
+    font-size: 50%;
+    width: 45%;
+    padding-left: 2%;
 }
+
+.buttons {
+    display: inline-block;
+    text-align: right;
+    font-size: 50%;
+    width: 45%;
+    height: 100%;
+    padding: 0;
+}
+
+.spacer {
+    display: inline-block;
+    width: 5%;
+}
+
 
 .date {
     display: inline-block;
@@ -25,7 +48,8 @@ mat-card {
 }
 
 mat-card-header {
-    background-color: #FA8072;
+    background-color: #00cec9;
+    color: #fff;
 }
 
 mat-card-title {
@@ -42,6 +66,7 @@ mat-card-content {
     margin-bottom: 0px;
     padding-left: 28px;
     font-size: 24px;
+    align-items: center;
 
     background-color: #DCDCDC;
 }
@@ -64,4 +89,8 @@ mat-icon {
     width: 100%;
 }
 
-
+mat-card-footer {
+    margin-left: 0;
+    margin-right: 0;
+    border-top: 1px solid #ccc;
+}

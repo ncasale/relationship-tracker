@@ -1,3 +1,9 @@
+.message-card {
+    width: 75%;
+    margin: 0 0 40px 10%;
+    display: block;
+}
+
 .author {
     display: inline-block;
     font-style: italic;
@@ -91,10 +97,10 @@ mat-card-footer {
 }
 
 .own-message {
-    padding-left: 20%;
+    padding-left: 15%;
 }
 
 .other-message {
-    padding-right: 20%;
+    padding-right: 15%;
 }
 

@@ -10,11 +10,12 @@ var Admin = require('../models/admin');
  * Route to create new user
  */
 router.post('/', function(req, res, next) {
+    let salt = bcrypt.genSaltSync(10);
     var user = new User({
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
-        password: bcrypt.hashSync(req.body.password, 10)
+        password: bcrypt.hashSync(req.body.password, salt)
     });
 
     user.save(function(err, result) {
@@ -200,7 +201,8 @@ router.patch('/changepassword', function(req, res, next) {
         }
 
         //Passwords match -- set new password
-        user.password = bcrypt.hashSync(req.body.newPassword, 10);
+        let salt = bcrypt.genSaltSync(10);
+        user.password = bcrypt.hashSync(req.body.newPassword, salt);
 
         //Save changes to db
         user.save(function(err, savedUser) {

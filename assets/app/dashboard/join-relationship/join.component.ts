@@ -5,7 +5,8 @@ import { AuthService } from "../../auth/auth.service";
 
 @Component({
     selector: 'app-join',
-    templateUrl: './join.component.html'
+    templateUrl: './join.component.html',
+    styleUrls: ['./join.component.css']
 })
 export class JoinComponent implements OnInit{
     //List of relationships user is invited to

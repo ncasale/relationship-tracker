@@ -1,4 +1,2 @@
-<div class="col-md-8 col-md-offset-2">
-    <app-date-card [date]="date" [relationship]="relationship" *ngFor="let date of dates"></app-date-card>
-    <button mat-fab class="btn-create" (click)="openCreateDateDialog()"><mat-icon class="icon-create">add</mat-icon></button>
-</div>
+<app-date-card [date]="date" [relationship]="relationship" *ngFor="let date of dates"></app-date-card>
+<button mat-fab class="btn-create" (click)="openCreateDateDialog()"><mat-icon class="icon-create">add</mat-icon></button>

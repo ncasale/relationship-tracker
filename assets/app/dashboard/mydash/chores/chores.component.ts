@@ -78,7 +78,6 @@ export class ChoresComponent implements OnInit, OnDestroy{
             (filteredChores: Chore[]) => {
                 this.chores = Object.assign([], filteredChores);
                 this.filtered = true;
-                console.log('Chores Filtered: ', this.chores);
             }
         )
         
@@ -86,7 +85,6 @@ export class ChoresComponent implements OnInit, OnDestroy{
         this.choreService.recordOriginalChores.subscribe(
             (originalChores: Chore[]) => {
                 this.unfilteredChores = Object.assign([], originalChores);
-                console.log("Unfiltered Chores: ", this.unfilteredChores);
             }
         )
 

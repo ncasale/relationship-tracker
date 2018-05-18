@@ -1,3 +1,7 @@
+.chore-filter-dialog-container {
+    margin: 0 10%;
+}
+
 h2 {
     width: 100%;
     text-align: 'center';
@@ -19,4 +23,9 @@ h2 {
 
 ::ng-deep .mat-checkbox-fade-out-background {
     background-color: #00cec9;
+}
+
+.btn-site-default {
+    width: 80%;
+    margin: 0 10%;
 }

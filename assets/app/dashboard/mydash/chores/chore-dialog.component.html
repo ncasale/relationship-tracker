@@ -1,4 +1,4 @@
-<div class="col-md-8 col-md-offset-2 date-form-container">
+<div class="chore-dialog-container">
     <h2 *ngIf="!areEditing()">Create Chore</h2>
     <h2 *ngIf="areEditing()">Edit Chore</h2>
     <hr>
@@ -24,5 +24,4 @@
 
     <button *ngIf="!areEditing()" class="btn btn-site-default" type="submit" [disabled]="!isChoreValid()" (click)="onSubmitCreate()">Create Chore</button>
     <button *ngIf="areEditing()" class="btn btn-site-default" type="submit" [disabled]="!isChoreValid()" (click)="onSubmitEdit()">Edit Chore</button>
-    <hr>
 </div>

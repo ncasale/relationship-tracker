@@ -1,6 +1,6 @@
 .chore-card {
     width: 75%;
-    margin: 0px, 5%, 40px, 5%;
+    margin: 0px 0 40px 10%;
     display: block;
 }
 
@@ -32,6 +32,7 @@ mat-card {
 
 mat-card-header {
     background-color: #00cec9;
+    color: #fff;
 }
 
 .mat-card-header-completed {
@@ -74,6 +75,7 @@ mat-icon {
 mat-card-footer {
     margin-left: 0;
     margin-right: 0;
+    border-top: 1px solid #ccc;
 }
 
 .spacer {
@@ -104,3 +106,6 @@ mat-card-footer {
     padding: 0;
 }
 
+ng::deep .mat-card-footer {
+    border-top: 1px solid #eee;
+}

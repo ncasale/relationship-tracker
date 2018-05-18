@@ -1,5 +1,5 @@
 <div [class.own-message]="isMyMessage()" [class.other-message]="!isMyMessage()">
-    <mat-card>
+    <mat-card class="message-card">
         <mat-card-header [class.own-card-header]="isMyMessage()" [class.other-card-header]="!isMyMessage()">
             <div class="mat-card-header-text">
                 <mat-card-title > {{message.text}} </mat-card-title>

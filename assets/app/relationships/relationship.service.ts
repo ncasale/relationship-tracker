@@ -39,7 +39,6 @@ export class RelationshipService {
     addRelationship(relationship: Relationship) {
         //Create body
         const body = JSON.stringify(relationship);
-        console.log('Body: ', body);
         //Create headers
         const headers = new Headers({'Content-Type': 'application/json'});
         //Get token

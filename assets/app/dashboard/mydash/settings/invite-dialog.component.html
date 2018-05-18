@@ -1,16 +1,16 @@
-<div class="col-md-8 col-md-offset-2">
+<div class="invite-dialog-container">
     <h2>Invite</h2>
     <form (ngSubmit)="sendInvite()">
         <mat-form-field>
             <input matInput placeholder="Email" [formControl]="emailFC" 
                 (keyup)="searchTerm$.next($event.target.value)" required>
             </mat-form-field>
-            <div *ngIf="usersSearched.length > 0"class="autocomplete-options">
-                <mat-option class="autocomplete-option" *ngFor="let user of usersSearched | slice:0:9"
-                     (click)="selectUser(user.userId, user.email)">
-                    <span> {{ user.firstname }} {{ user.lastname }} </span>
-                </mat-option>    
-            </div>
+        <div *ngIf="usersSearched.length > 0"class="autocomplete-options">
+            <mat-option class="autocomplete-option" *ngFor="let user of usersSearched | slice:0:9"
+                    (click)="selectUser(user.userId, user.email)">
+                <span> {{ user.firstname }} {{ user.lastname }} </span>
+            </mat-option>    
+        </div>
         <button class="btn btn-site-default" [disabled]="selectedUserId == ''">Send Invite</button>
     </form>
 </div>

@@ -48,7 +48,6 @@ export class DateDialogComponent implements OnInit{
      */
     onSubmitCreate() {
         var splitTime = this.dateTime.value.split(':', 2);
-        console.log(splitTime);
         var date = new DateObj(
             this.title.value,
             this.location.value,

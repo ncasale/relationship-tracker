@@ -51,7 +51,6 @@ export class InviteDialogComponent implements OnInit{
      * @memberof InviteDialogComponent
      */
     sendInvite() {
-        console.log(this.relationship, this.emailFC.value);
         this.relationshipService.inviteToRelationship(this.relationship, this.emailFC.value)
         .subscribe(
             data => {

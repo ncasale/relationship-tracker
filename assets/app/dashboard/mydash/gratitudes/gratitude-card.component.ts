@@ -35,7 +35,6 @@ export class GratitudeCardComponent implements OnInit{
 
     ngOnInit() {
         //Get first and last name of user
-        console.log(this.gratitude);
         this.authService.getUser(this.gratitude.createUser).subscribe(
             (user: User) => {
                 this.firstname = user.firstname;
@@ -47,7 +46,7 @@ export class GratitudeCardComponent implements OnInit{
         if(!this.gratitude.editTimestamp) {
             this.timestamp = this.datePipe.transform(this.gratitude.createTimestamp, this.timestampFormat);
         } else {
-            this.timestamp = this.datePipe.transform(this.gratitude.editTimestamp, this.timestampFormat + ' *');
+            this.timestamp = this.datePipe.transform(this.gratitude.editTimestamp, this.timestampFormat) + ' *';
         }
     }
 

@@ -1,3 +1,7 @@
+.settings-container {
+    margin: 0 10%;
+}
+
 button{
     width: 60%;
     margin:auto;
@@ -6,6 +10,12 @@ button{
   
 h2{
     text-align:center;
+    font-family: Quicksand, sans-serif;
+}
+
+h4 {
+    text-align: center;
+    font-family: Quicksand, sans-serif;
 }
 
 .btn-leave-relationship {

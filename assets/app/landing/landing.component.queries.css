@@ -13,6 +13,9 @@
 
 /* Medium Mobile Screens */
 @media only screen and (max-width: 767px) {
+    .login-field {
+        width: 80% !important;
+    }
 
 }
 /* Small Mobile Screens (0 - 480px) */

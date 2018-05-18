@@ -1,11 +1,11 @@
-<div class="col-md-8 col-md-offset-2">
+<div class="join-container">
     <h2>Relationship Invites</h2>
     <hr>
-        <app-join-card
-            [relationship]="relationship"
-            *ngFor="let relationship of relationships">
-        </app-join-card>
-        <div *ngIf="relationships.length == 0">
-            <h2>You have no relationship invites ;(</h2>
-        </div>
+    <app-join-card
+        [relationship]="relationship"
+        *ngFor="let relationship of relationships">
+    </app-join-card>
+    <div *ngIf="relationships.length == 0">
+        <h2>You have no relationship invites ;(</h2>
     </div>
+</div>

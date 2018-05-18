@@ -1,6 +1,6 @@
-<div class="col-md-8 col-md-offset-2">
-<h2>Create a new relationship!</h2>
-<hr>
+<div class='create-container'>
+    <h2>Create a new relationship!</h2>
+    <hr>
     <form (ngSubmit)="onSubmit()">
         <mat-form-field>
             <input matInput type="text" placeholder="Relationship Name" [formControl]="nameFC">
@@ -12,5 +12,5 @@
     </form>
     <br>
     <button class="btn btn-site-default btn-create-relationship" type="submit" 
-        [disabled]="!isCreateValid()" (click)="onSubmit()">Create</button>
+    [disabled]="!isCreateValid()" (click)="onSubmit()">Create</button>
 </div>

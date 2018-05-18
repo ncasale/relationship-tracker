@@ -1,3 +1,9 @@
+.gratitude-card {
+    width: 75%;
+    margin: 0px 0 40px 10%;
+    display: block;
+}
+
 .author {
     display: inline-block;
     font-style: italic;
@@ -36,7 +42,8 @@ mat-card {
 }
 
 mat-card-header {
-    background-color: #FFFACD;
+    background-color: #00Cec9;
+    color: #fff;
 }
 
 mat-card-title {
@@ -76,6 +83,7 @@ mat-icon {
 mat-card-footer {
     margin-left: 0;
     margin-right: 0;
+    border-top: 1px solid #ccc;
 }
 
 .spacer {
@@ -87,5 +95,3 @@ mat-card-footer {
     font-family: 'Quicksand', sans-serif;
     display: inline-block;
 }
-
-

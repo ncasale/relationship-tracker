@@ -1,4 +1,2 @@
-<div class="col-md-8 col-md-offset-2">
-    <app-gratitude-card [gratitude]='gratitude' *ngFor="let gratitude of gratitudes"></app-gratitude-card>
-    <button mat-fab class="btn-create" (click)="openCreateGratitudeDialog()"><mat-icon class="icon-create">add</mat-icon></button>
-</div>
+<app-gratitude-card [gratitude]='gratitude' *ngFor="let gratitude of gratitudes"></app-gratitude-card>
+<button mat-fab class="btn-create" (click)="openCreateGratitudeDialog()"><mat-icon class="icon-create">add</mat-icon></button>
