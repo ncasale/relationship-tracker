@@ -51,11 +51,11 @@
             </div>
             <div *ngIf="!areLoggingIn" class="signup-button-layout">
                 <button class="btn btn-login" (click)="login()" [disabled]="areLoggingIn && !isLoginValid()"> {{loginText}}</button>
-                <button class="btn btn-signup" [class.pulse]='animateSignup' (mouseenter)="hoverEnter()" (mouseleave)="hoverLeave()"
+                <button class="btn btn-signup"  (mouseenter)="hoverEnter()" (mouseleave)="hoverLeave()"
                 (click)="signup()" [disabled]="areSigningUp && !isSignupValid()"> {{signupText}}</button>
             </div>
             <div *ngIf="areLoggingIn" class="signup-button-layout">
-                <button class="btn btn-login" [class.pulse]='animateSignup' (mouseenter)="hoverEnter()" (mouseleave)="hoverLeave()"
+                <button class="btn btn-login"  (mouseenter)="hoverEnter()" (mouseleave)="hoverLeave()"
                 (click)="signup()" [disabled]="areSigningUp && !isSignupValid()"> {{signupText}}</button>
                 <button class="btn" [class.btn-login]="!areLoggingIn" [class.btn-signup]="areLoggingIn" (click)="login()" [disabled]="areLoggingIn && !isLoginValid()"> {{loginText}}</button>
             </div>                
